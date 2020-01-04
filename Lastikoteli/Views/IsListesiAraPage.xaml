@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customViews="clr-namespace:Lastikoteli.Helper"
+             xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             x:Class="Lastikoteli.Views.IsListesiAraPage"
+             BackgroundColor="Black"
+             Title="İŞ EMRİ ARA">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="SAKLAMA" Order="Secondary" Priority="1" IconImageSource="icon_saklama" Command="{Binding gotoYeniSaklamaCommand}"/>
+        <ToolbarItem Text="TAKMA" Order="Secondary" Priority="2"/>
+    </ContentPage.ToolbarItems>
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <customViews:DistInfoView Grid.Row="0"/>
+        <customViews:PlakaView Grid.Row="1"/>
+        <customViews:SaklamaNoView Grid.Row="2"/>
+        <customViews:MusteriNoView Grid.Row="3"/>
+        <customViews:TarihView Grid.Row="4"/>
+        <customControl:CustomButton Grid.Row="5" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20,20,20,0" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoIsListesiCommand}"/>
+    </Grid>
+</ContentPage>

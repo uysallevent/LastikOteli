@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Lastikoteli.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:TypeArguments="x:String" x:Key="NotoSansBold">
+                <On Platform="Android" Value="NotoSans-Bold.ttf#NotoSans" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" x:Key="NotoSansRegular">
+                <On Platform="Android" Value="NotoSans-Regular.ttf#NotoSans" />
+            </OnPlatform>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="#000000"/>
+                <Setter Property="BarTextColor" Value="#FFFF"/>
+            </Style>
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

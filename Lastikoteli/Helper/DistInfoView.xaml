@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lastikoteli.Helper.DistInfoView">
+
+    <ContentView.Content>
+
+        <Label Text="{Binding distBilgi.txtDistAd}" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" HorizontalTextAlignment="Center"/>
+
+    </ContentView.Content>
+</ContentView>

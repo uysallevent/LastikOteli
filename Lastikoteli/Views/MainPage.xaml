@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customButton="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:customView="clr-namespace:Lastikoteli.Helper"
+             x:Class="Lastikoteli.Views.MainPage"
+             BackgroundColor="Black"
+             Title="LASTİK OTELİ">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <customView:DistInfoView Grid.Row="0"/>
+
+
+            <customButton:CustomButton Grid.Row="1" Text="İş Listesi (Takma/Saklama)" Margin="10" Padding="20" CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_islistesi.png" Command="{Binding gotoIsListesiPageCommand}"/>
+            <customButton:CustomButton Grid.Row="2" Text="Havuz İşlemleri" Margin="10" Padding="20"  CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_havuz.png"/>
+            <customButton:CustomButton Grid.Row="3" Text="Depo İçi İşlemler" Margin="10" Padding="20"  CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_depo.png"/>
+            <customButton:CustomButton Grid.Row="4" Text="Kayıt Güncelleme" Margin="10" Padding="20"  CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_kayitguncelleme.png"/>
+            <Label Grid.Row="5" Text="Brisa Lastik Oteli Versiyon 1.0" FontFamily="{StaticResource NotoSansRegular}" HorizontalOptions="CenterAndExpand" TextColor="White" Margin="5"/>
+
+        </Grid>
+        <customView:LoadingView/>
+    </Grid>
+
+</ContentPage>
