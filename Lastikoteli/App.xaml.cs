@@ -4,6 +4,8 @@ using Xamarin.Forms.Xaml;
 using Lastikoteli.Services;
 using Lastikoteli.Views;
 using Lastikoteli.Models;
+using Lastikoteli.Services.Concrete;
+using Lastikoteli.Models.Complex.Response;
 
 namespace Lastikoteli
 {
@@ -14,11 +16,14 @@ namespace Lastikoteli
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            //DependencyService.Register<MockDataStore>();
+            DependencyService.Register<AuthService>();
+
             MainPage = new LoginPage();
         }
 
         public static DistBilgi distBilgi { get; set; }
+        public static TerminalGirisResponse loginInfo { get; set; }
 
         protected override void OnStart()
         {

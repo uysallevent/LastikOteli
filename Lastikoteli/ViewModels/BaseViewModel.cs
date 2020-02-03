@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Lastikoteli.Models;
+using Lastikoteli.Models.MiyaPortal;
+using Lastikoteli.Services.Abstract;
+using Lastikoteli.Services.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using Xamarin.Forms;
-
-using Lastikoteli.Models;
-using Lastikoteli.Services;
 
 namespace Lastikoteli.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IAuthService<TerminalKullanici> AuthService => DependencyService.Get<IAuthService<TerminalKullanici>>();
 
         bool isBusy = false;
         public bool IsBusy
