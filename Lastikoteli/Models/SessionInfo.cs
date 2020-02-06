@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lastikoteli.Models.Complex.Response
+namespace Lastikoteli.Models
 {
-    public class TerminalGirisResponse
+    public class SessionInfo
     {
         public int lngKod { get; set; }
         public int lngPanKulKod { get; set; }

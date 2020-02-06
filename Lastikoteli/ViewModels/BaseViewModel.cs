@@ -13,7 +13,8 @@ namespace Lastikoteli.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-        public IAuthService<TerminalKullanici> AuthService => DependencyService.Get<IAuthService<TerminalKullanici>>();
+        public IAuthService AuthService => DependencyService.Get<IAuthService>();
+        public IIsemriService IsEmriService => DependencyService.Get<IIsemriService>();
 
         bool isBusy = false;
         public bool IsBusy

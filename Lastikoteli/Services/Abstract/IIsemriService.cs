@@ -2,13 +2,12 @@
 using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Models.MiyaPortal;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Lastikoteli.Services.Abstract
 {
-    public interface IAuthService
+    public interface IIsemriService
     {
-        Task<ApiResponseGeneric<SessionInfo>> Login(LoginRequest request);
+        Task<ApiResponseGeneric<PagingResponse<Randevu>>> IsEmriListesi(IsEmriListeRequest request);
     }
 }

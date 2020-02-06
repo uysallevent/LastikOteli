@@ -7,12 +7,12 @@ namespace Lastikoteli.ViewModels
     public class DistInfoViewModel : BaseViewModel
     {
         private INavigation _navigation;
-        public DistBilgi distBilgi { get; set; }
+        public SessionInfo distBilgi { get; set; }
 
         public DistInfoViewModel(INavigation navigation)
         {
             _navigation = navigation;
-            distBilgi = App.distBilgi;
+            distBilgi = App.sessionInfo;
         }
     }
 }

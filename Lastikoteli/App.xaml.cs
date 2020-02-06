@@ -15,23 +15,16 @@ namespace Lastikoteli
         public App()
         {
             InitializeComponent();
-
-            //DependencyService.Register<MockDataStore>();
             DependencyService.Register<AuthService>();
-
+            DependencyService.Register<IsEmriService>();
             MainPage = new LoginPage();
         }
 
-        public static DistBilgi distBilgi { get; set; }
-        public static TerminalGirisResponse loginInfo { get; set; }
+        public static SessionInfo sessionInfo { get; set; }
 
         protected override void OnStart()
         {
-            distBilgi = new DistBilgi
-            {
-                lngDistKod=29,
-                txtDistAd="AYKO OTOM A.Ş"
-            };
+
         }
 
         protected override void OnSleep()

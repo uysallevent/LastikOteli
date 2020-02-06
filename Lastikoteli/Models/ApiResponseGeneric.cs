@@ -10,14 +10,7 @@ namespace Lastikoteli.Models
         public int StatusCode { get; set; }
         public string RequestId { get; set; }
         public string ErrorMessage { get; set; }
-
-        private T _result;
-
-        public T Result
-        {
-            get { return _result; }
-            set { _result = value; }
-        }
+        public T Result { get; set; }
 
     }
 }

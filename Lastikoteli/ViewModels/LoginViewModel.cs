@@ -37,7 +37,7 @@ namespace Lastikoteli.ViewModels
                 var result = await AuthService.Login(loginRequest);
                 if (result.StatusCode != 500)
                 {
-                    App.loginInfo = result.Result;
+                    App.sessionInfo = result.Result;
                     await _doubleClickControl.PushModalAsync(new NavigationPage(new MainPage()));
                 }
                 else
