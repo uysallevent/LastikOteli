@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Extended;
 
 namespace Lastikoteli.Views
@@ -17,11 +19,27 @@ namespace Lastikoteli.Views
             BindingContext = isListesiViewModel = new IsListesiViewModel(this.Navigation);
         }
 
-        public void IsEmriList(InfiniteScrollCollection<Randevu> isEmriList)
+        public void IsEmriList(ObservableCollection<Randevu> isEmriList)
         {
-            LstIsList.ItemsSource = isEmriList;
+            isListesiViewModel._isListesi=isEmriList;
+            LstIsList.ItemsSource = isListesiViewModel._isListesi;
         }
 
+        private void BtnTakilacak_Clicked(object sender, EventArgs e)
+        {
+            LstIsList.ItemsSource = isListesiViewModel._isListesi.Where(x=>x.TXTSOKMETAKMA=="T").ToList();
+        }
 
+        private void BtnHepsi_Clicked(object sender, EventArgs e)
+        {
+            LstIsList.ItemsSource = isListesiViewModel._isListesi.ToList();
+
+        }
+
+        private void BtnSaklama_Clicked(object sender, EventArgs e)
+        {
+            LstIsList.ItemsSource = isListesiViewModel._isListesi.Where(x => x.TXTSOKMETAKMA == "S").ToList();
+
+        }
     }
 }

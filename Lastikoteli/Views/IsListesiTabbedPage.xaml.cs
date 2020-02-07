@@ -16,7 +16,7 @@ namespace Lastikoteli.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class IsListesiTabbedPage : TabbedPage
     {
-        public IsListesiTabbedPage(InfiniteScrollCollection<Randevu> IsEmriList)
+        public IsListesiTabbedPage(ObservableCollection<Randevu> IsEmriList)
         {
             InitializeComponent();
             this.IsListesiPage.IsEmriList(IsEmriList);

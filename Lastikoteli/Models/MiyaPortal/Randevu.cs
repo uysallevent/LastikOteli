@@ -18,6 +18,20 @@ namespace Lastikoteli.Models.MiyaPortal
         public string TXTTELEFON { get; set; }
         public string TXTEMAIL { get; set; }
         public string TXTKOLAYKOD { get; set; }
+        public string TXTSOKMETAKMA
+        {
+            get
+            {
+                if (BYTSAKLAMA == 1 && BYTSOKMETAKMA == 1)
+                    return "S/T";
+                else if (BYTSAKLAMA == 1)
+                    return "S";
+                else if (BYTSOKMETAKMA == 1)
+                    return "T";
+                else
+                    return "";
+            }
+        }
         public Int64? LNGARACKM { get; set; }
         public int BYTSOKMETAKMA { get; set; }
         public int BYTSAKLAMA { get; set; }

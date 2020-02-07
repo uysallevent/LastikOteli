@@ -38,17 +38,17 @@ namespace Lastikoteli.ViewModels
                 txtMusteriErpKod = filter.txtMusteriErpKod,
                 txtPlaka = filter.txtPlaka
             };
-            IsListesiFilter.Paging = new PagingRequest { Sayfa = 1 };
-
-            var result = await IsEmriService.IsEmriListesi(new IsEmriListeRequest
-            {
-                Paging = IsListesiFilter.Paging,
-                Filter = IsListesiFilter.Filter
-            });
+            IsListesiFilter.Paging = new PagingRequest { Sayfa = -1 };
 
             IsBusy = true;
+
             try
             {
+                var result = await IsEmriService.IsEmriListesi(new IsEmriListeRequest
+                {
+                    Paging = IsListesiFilter.Paging,
+                    Filter = IsListesiFilter.Filter
+                });
                 await _doubleClickControl.PushAsync(new IsListesiTabbedPage(result.Result.Data));
             }
             catch (Exception ex)

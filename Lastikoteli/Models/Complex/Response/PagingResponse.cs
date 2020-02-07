@@ -12,6 +12,6 @@ namespace Lastikoteli.Models.Complex.Response
         public int PerPage { get; set; }
         public int TotalCount { get; set; }
         public int TotalPage { get; set; }
-        public InfiniteScrollCollection<T> Data { get; set; }
+        public ObservableCollection<T> Data { get; set; }
     }
 }
