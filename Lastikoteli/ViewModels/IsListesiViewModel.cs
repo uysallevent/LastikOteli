@@ -1,27 +1,62 @@
-﻿using System;
+﻿using Lastikoteli.Models.Complex.Request;
+using Lastikoteli.Models.Constant;
+using Lastikoteli.Models.MiyaPortal;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Extended;
 
 namespace Lastikoteli.ViewModels
 {
     public class IsListesiViewModel : BaseViewModel
     {
         private INavigation _navigation;
+        //public ObservableCollection<Randevu> isListesi { get; set; }
+        public InfiniteScrollCollection<Randevu> isListesi { get; set; }
 
         public IsListesiViewModel(INavigation navigation)
         {
             _navigation = navigation;
 
-            var result = IsEmriService.IsEmriListesi(new Models.Complex.Request.IsEmriListeRequest
+            isListesi = new InfiniteScrollCollection<Randevu>
             {
-                Paging = new Models.Complex.Request.PagingRequest { Sayfa = 1 },
-                Filter = new Models.Complex.Request.IsEmriRequest
+                OnLoadMore = async () =>
                 {
-                    lngDistKod=App.sessionInfo.lngDistkod,
-                    trhBasTarih=new DateTime(2018,1,1,0,0,0),
-                    trhBitTarih= new DateTime(2022, 1, 1, 0, 0, 0),
-                }
+                    IsBusy = true;
+                    IsListesiFilter.Paging.Sayfa++;
+                    var list = await IsEmriService.IsEmriListesi(new IsEmriListeRequest
+                    {
+                        Paging = new PagingRequest { Sayfa = IsListesiFilter.Paging.Sayfa },
+                        Filter = new IsEmriRequest
+                        {
+                            lngDistKod = App.sessionInfo.lngDistkod,
+                            trhHedefTarih = IsListesiFilter.Filter.trhHedefTarih,
+                            txtMusteriErpKod = IsListesiFilter.Filter.txtMusteriErpKod,
+                            txtPlaka = IsListesiFilter.Filter.txtPlaka
+                        }
+                    });
 
+                    IsBusy = false;
+                    return list.Result.Data;
+                },
+                OnCanLoadMore = () =>
+                {
+                    return isListesi.Count < 50;
+                }
+            };
+        }
+
+        private async Task DownloadDataAsync()
+        {
+            
+            var items = await IsEmriService.IsEmriListesi(new IsEmriListeRequest
+            {
+                Paging = IsListesiFilter.Paging,
+                Filter = IsListesiFilter.Filter
             });
+
+            isListesi.AddRange(items.Result.Data);
         }
     }
 }

@@ -12,7 +12,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Frame Grid.Column="0" CornerRadius="15" Padding="1">
-            <xfx:XfxEntry  Placeholder="Plaka" PlaceholderColor="LightGray" TextColor="Black"/>
+            <xfx:XfxEntry x:Name="txtValue"  Placeholder="Plaka" PlaceholderColor="LightGray" TextColor="Black" TextChanged="txtValue_TextChanged"/>
         </Frame>
         <ImageButton Grid.Column="1" Source="camera_white" BackgroundColor="Transparent"/>
     </Grid>

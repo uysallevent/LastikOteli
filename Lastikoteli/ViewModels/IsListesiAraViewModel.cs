@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Lastikoteli.Helper;
+using Lastikoteli.Models.Complex.Request;
+using Lastikoteli.Models.Constant;
 using Lastikoteli.Views;
 using Xamarin.Forms;
 
@@ -10,7 +12,7 @@ namespace Lastikoteli.ViewModels
     {
         private INavigation _navigation;
         private DoubleClickControl _doubleClickControl;
-
+        public IsEmriRequest filter { get; set; }
         public Command gotoIsListesiCommand { get; set; }
         public Command gotoYeniSaklamaCommand { get; set; }
         public Command gotoYeniTakmaCommand { get; set; }
@@ -21,7 +23,7 @@ namespace Lastikoteli.ViewModels
             _doubleClickControl = new DoubleClickControl(_navigation);
             gotoIsListesiCommand = new Command(async () => await gotoIsListesiPage());
             gotoYeniSaklamaCommand = new Command(async () => await gotoYeniSaklamaPage());
-
+            filter = new IsEmriRequest();
         }
 
         private async Task gotoIsListesiPage()
@@ -29,10 +31,25 @@ namespace Lastikoteli.ViewModels
             if (IsBusy)
                 return;
 
+            IsListesiFilter.Filter = new IsEmriRequest
+            {
+                lngDistKod = App.sessionInfo.lngDistkod,
+                trhHedefTarih = filter.trhHedefTarih,
+                txtMusteriErpKod = filter.txtMusteriErpKod,
+                txtPlaka = filter.txtPlaka
+            };
+            IsListesiFilter.Paging = new PagingRequest { Sayfa = 1 };
+
+            var result = await IsEmriService.IsEmriListesi(new IsEmriListeRequest
+            {
+                Paging = IsListesiFilter.Paging,
+                Filter = IsListesiFilter.Filter
+            });
+
             IsBusy = true;
             try
             {
-                await _doubleClickControl.PushAsync(new IsListesiTabbedPage());
+                await _doubleClickControl.PushAsync(new IsListesiTabbedPage(result.Result.Data));
             }
             catch (Exception ex)
             {

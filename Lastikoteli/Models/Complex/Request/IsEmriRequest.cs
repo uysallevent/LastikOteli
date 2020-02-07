@@ -7,8 +7,20 @@ namespace Lastikoteli.Models.Complex.Request
     public class IsEmriRequest
     {
         public int lngDistKod { get; set; }
-        public DateTime trhBasTarih { get; set; }
-        public DateTime trhBitTarih { get; set; }
+        public DateTime trhBasTarih
+        {
+            get
+            {
+                return new DateTime(1950, 1, 1);
+            }
+        }
+        public DateTime trhBitTarih
+        {
+            get
+            {
+                return new DateTime(2100, 12, 31);
+            }
+        }
         public string txtMusteriErpKod { get; set; }
         public string txtMusteriUnvan { get; set; }
         public string txtAdSoyad { get; set; }

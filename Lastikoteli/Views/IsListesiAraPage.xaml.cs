@@ -10,6 +10,7 @@ namespace Lastikoteli.Views
         IsListesiAraViewModel isListesiAraViewModel;
         public IsListesiAraPage()
         {
+
             InitializeComponent();
             BindingContext = isListesiAraViewModel = new IsListesiAraViewModel(this.Navigation);
         }

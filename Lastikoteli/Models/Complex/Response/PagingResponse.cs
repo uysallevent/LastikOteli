@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using Xamarin.Forms.Extended;
 
 namespace Lastikoteli.Models.Complex.Response
 {
@@ -10,6 +12,6 @@ namespace Lastikoteli.Models.Complex.Response
         public int PerPage { get; set; }
         public int TotalCount { get; set; }
         public int TotalPage { get; set; }
-        public List<T> Data { get; set; }
+        public InfiniteScrollCollection<T> Data { get; set; }
     }
 }

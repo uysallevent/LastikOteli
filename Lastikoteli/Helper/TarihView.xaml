@@ -12,7 +12,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Frame Grid.Column="0" CornerRadius="15" Padding="1">
-            <DatePicker/>
+            <DatePicker DateSelected="DatePicker_DateSelected"/>
         </Frame>
     </Grid>
 </ContentView>

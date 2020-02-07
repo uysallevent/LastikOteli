@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Extended;
 
 namespace Lastikoteli.Views
 {
@@ -13,5 +16,12 @@ namespace Lastikoteli.Views
             InitializeComponent();
             BindingContext = isListesiViewModel = new IsListesiViewModel(this.Navigation);
         }
+
+        public void IsEmriList(InfiniteScrollCollection<Randevu> isEmriList)
+        {
+            LstIsList.ItemsSource = isEmriList;
+        }
+
+
     }
 }

@@ -5,6 +5,6 @@
     xmlns:views="clr-namespace:Lastikoteli.Views"
     x:Class="Lastikoteli.Views.IsListesiTabbedPage">
 
-    <views:IsListesiPage Title="İŞ LİSTESİ"  Icon="icon_islistesi.png"/>
+    <views:IsListesiPage x:Name="IsListesiPage" Title="İŞ LİSTESİ"  Icon="icon_islistesi.png"/>
     <views:ToplamaListesiPage Title="TOPLAMA LİSTESİ"  Icon="icon_depo.png"/>
 </TabbedPage>
