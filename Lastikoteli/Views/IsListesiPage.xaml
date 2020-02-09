@@ -18,7 +18,8 @@
                      RowHeight="70"
                      HeaderHeight="50"
                      BorderColor="#FFFFFF"
-                     HeaderBackground="#E0E6F8">
+                     HeaderBackground="#E0E6F8"
+                     SelectedItem="{Binding IsListesiSelected, Mode=TwoWay}">
             <x:Arguments>
                 <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
             </x:Arguments>

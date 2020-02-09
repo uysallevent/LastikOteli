@@ -15,6 +15,15 @@ namespace Lastikoteli.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IAuthService AuthService => DependencyService.Get<IAuthService>();
         public IIsemriService IsEmriService => DependencyService.Get<IIsemriService>();
+        protected Page CurrentPage { get; private set; }
+        protected virtual void CurrentPageOnAppearing(object sender, EventArgs eventArgs) { }
+        protected virtual void CurrentPageOnDisappearing(object sender, EventArgs eventArgs) { }
+        public void Initialize(Page page)
+        {
+            CurrentPage = page;
+            CurrentPage.Appearing += CurrentPageOnAppearing;
+            CurrentPage.Disappearing += CurrentPageOnDisappearing;
+        }
 
         bool isBusy = false;
         public bool IsBusy

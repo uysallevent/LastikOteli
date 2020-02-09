@@ -20,4 +20,9 @@
     <Folder Include="Assets\images\" />
     <Folder Include="CustomControl\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Views\YeniTakma.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

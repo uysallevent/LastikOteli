@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Lastikoteli.Helper;
 using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
@@ -14,8 +15,8 @@ namespace Lastikoteli.ViewModels
         private INavigation _navigation;
         private DoubleClickControl _doubleClickControl;
         public Command gotoMainPageCommand { get; set; }
-        public LoginRequest loginRequest { get; set; }
 
+        public LoginRequest loginRequest { get; set; }
         public LoginViewModel(INavigation navigation)
         {
             _navigation = navigation;
@@ -23,7 +24,6 @@ namespace Lastikoteli.ViewModels
             gotoMainPageCommand = new Command(async () => await GotoMainPage());
             loginRequest = new LoginRequest();
         }
-
 
         private async Task GotoMainPage()
         {

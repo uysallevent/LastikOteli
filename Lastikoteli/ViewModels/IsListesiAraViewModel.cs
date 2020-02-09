@@ -34,7 +34,7 @@ namespace Lastikoteli.ViewModels
             IsListesiFilter.Filter = new IsEmriRequest
             {
                 lngDistKod = App.sessionInfo.lngDistkod,
-                trhHedefTarih = filter.trhHedefTarih,
+                trhHedefTarih = filter.trhHedefTarih ?? DateTime.Now,
                 txtMusteriErpKod = filter.txtMusteriErpKod,
                 txtPlaka = filter.txtPlaka
             };

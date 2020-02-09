@@ -17,17 +17,18 @@ namespace Lastikoteli.Views
         {
             InitializeComponent();
             BindingContext = isListesiViewModel = new IsListesiViewModel(this.Navigation);
+            (this.BindingContext as IsListesiViewModel).Page = this;
         }
 
         public void IsEmriList(ObservableCollection<Randevu> isEmriList)
         {
-            isListesiViewModel._isListesi=isEmriList;
+            isListesiViewModel._isListesi = isEmriList;
             LstIsList.ItemsSource = isListesiViewModel._isListesi;
         }
 
         private void BtnTakilacak_Clicked(object sender, EventArgs e)
         {
-            LstIsList.ItemsSource = isListesiViewModel._isListesi.Where(x=>x.TXTSOKMETAKMA=="T").ToList();
+            LstIsList.ItemsSource = isListesiViewModel._isListesi.Where(x => x.TXTSOKMETAKMA == "T" || x.TXTSOKMETAKMA == "S/T").ToList();
         }
 
         private void BtnHepsi_Clicked(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace Lastikoteli.Views
 
         private void BtnSaklama_Clicked(object sender, EventArgs e)
         {
-            LstIsList.ItemsSource = isListesiViewModel._isListesi.Where(x => x.TXTSOKMETAKMA == "S").ToList();
+            LstIsList.ItemsSource = isListesiViewModel._isListesi.Where(x => x.TXTSOKMETAKMA == "S" || x.TXTSOKMETAKMA == "S/T").ToList();
 
         }
     }
