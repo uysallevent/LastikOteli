@@ -17,6 +17,7 @@ namespace Lastikoteli
             InitializeComponent();
             DependencyService.Register<AuthService>();
             DependencyService.Register<IsEmriService>();
+            DependencyService.Register<SaklamaService>();
             MainPage = new LoginPage();
         }
 

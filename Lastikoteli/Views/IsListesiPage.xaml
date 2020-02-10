@@ -15,11 +15,10 @@
         </Grid.RowDefinitions>
         <dg:DataGrid x:Name="LstIsList" Grid.Row="0"
                      SelectionEnabled="True"
-                     RowHeight="70"
                      HeaderHeight="50"
                      BorderColor="#FFFFFF"
                      HeaderBackground="#E0E6F8"
-                     SelectedItem="{Binding IsListesiSelected, Mode=TwoWay}">
+                     SelectedItem="{Binding IsListesiSelected}">
             <x:Arguments>
                 <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
             </x:Arguments>

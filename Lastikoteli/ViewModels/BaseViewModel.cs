@@ -1,4 +1,5 @@
-﻿using Lastikoteli.Models;
+﻿using Lastikoteli.Helper;
+using Lastikoteli.Models;
 using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.Services.Abstract;
 using Lastikoteli.Services.Concrete;
@@ -15,6 +16,10 @@ namespace Lastikoteli.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IAuthService AuthService => DependencyService.Get<IAuthService>();
         public IIsemriService IsEmriService => DependencyService.Get<IIsemriService>();
+        public ISaklamaService SaklamaService => DependencyService.Get<ISaklamaService>();
+
+        public DoubleClickControl _doubleClickControl;
+
         protected Page CurrentPage { get; private set; }
         protected virtual void CurrentPageOnAppearing(object sender, EventArgs eventArgs) { }
         protected virtual void CurrentPageOnDisappearing(object sender, EventArgs eventArgs) { }
@@ -23,6 +28,7 @@ namespace Lastikoteli.ViewModels
             CurrentPage = page;
             CurrentPage.Appearing += CurrentPageOnAppearing;
             CurrentPage.Disappearing += CurrentPageOnDisappearing;
+
         }
 
         bool isBusy = false;

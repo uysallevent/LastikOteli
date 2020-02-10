@@ -13,9 +13,10 @@ namespace Lastikoteli.ViewModels
     {
 
         private INavigation _navigation;
+        public LoginPage Page { get; set; }
+
         private DoubleClickControl _doubleClickControl;
         public Command gotoMainPageCommand { get; set; }
-
         public LoginRequest loginRequest { get; set; }
         public LoginViewModel(INavigation navigation)
         {
@@ -46,7 +47,7 @@ namespace Lastikoteli.ViewModels
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
             }
             finally
             {

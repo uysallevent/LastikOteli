@@ -13,6 +13,7 @@ namespace Lastikoteli.Views
 
             InitializeComponent();
             BindingContext = isListesiAraViewModel = new IsListesiAraViewModel(this.Navigation);
+            (BindingContext as IsListesiAraViewModel).Page = this;
         }
     }
 }

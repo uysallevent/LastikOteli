@@ -20,7 +20,7 @@ namespace Lastikoteli.Droid
 
             base.OnCreate(savedInstanceState);
             XfxControls.Init();
-            
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -32,5 +32,7 @@ namespace Lastikoteli.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+
     }
 }

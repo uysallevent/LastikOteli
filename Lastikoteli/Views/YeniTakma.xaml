@@ -5,19 +5,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:customViews="clr-namespace:Lastikoteli.Helper"
              xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              mc:Ignorable="d"
-             x:Class="Lastikoteli.Views.YeniTakma">
+             x:Class="Lastikoteli.Views.YeniTakma"
+             BackgroundColor="Black"
+             Title="Lastik Takma">
     <Grid>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <customViews:PlakaView Grid.Row="0" PlakaEntryText="{Binding filter.txtPlaka}"/>
             <customViews:SaklamaNoView Grid.Row="1" />
-            
-            <customControl:CustomButton  Grid.Row="2" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20,20,20,0" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoIsListesiCommand}"/>
+
+            <customControl:CustomButton  Grid.Row="2" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoIsListesiCommand}"/>
+
+            <dg:DataGrid x:Name="LstIsList" Grid.Row="3"
+                     SelectionEnabled="True"
+                     HeaderHeight="50"
+                     BorderColor="#FFFFFF"
+                     HeaderBackground="#E0E6F8"
+                     ItemsSource="{Binding saklamaBilgileriResponseList}"
+                     SelectedItem="{Binding selectedItemAdd,Mode=TwoWay}">
+                <x:Arguments>
+                    <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+                </x:Arguments>
+                <dg:DataGrid.HeaderFontSize>
+                    <OnIdiom  x:TypeArguments="x:Double">
+                        <OnIdiom.Tablet>15</OnIdiom.Tablet>
+                        <OnIdiom.Phone>13</OnIdiom.Phone>
+                    </OnIdiom>
+                </dg:DataGrid.HeaderFontSize>
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="Plaka" PropertyName="lngKod" Width="*"/>
+                    <dg:DataGridColumn Title="Kod" PropertyName="txtPlaka" Width="*"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
         </Grid>
         <customViews:LoadingView />
     </Grid>

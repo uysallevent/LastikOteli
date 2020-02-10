@@ -12,6 +12,7 @@ namespace Lastikoteli.Views
         {
             InitializeComponent();
             BindingContext = loginViewModel = new LoginViewModel(this.Navigation);
+            (BindingContext as LoginViewModel).Page = this;
         }
     }
 }

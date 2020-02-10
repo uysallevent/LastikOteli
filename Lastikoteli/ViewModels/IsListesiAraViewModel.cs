@@ -11,11 +11,12 @@ namespace Lastikoteli.ViewModels
     public class IsListesiAraViewModel : BaseViewModel
     {
         private INavigation _navigation;
-        private DoubleClickControl _doubleClickControl;
         public IsEmriRequest filter { get; set; }
         public Command gotoIsListesiCommand { get; set; }
         public Command gotoYeniSaklamaCommand { get; set; }
         public Command gotoYeniTakmaCommand { get; set; }
+
+        public IsListesiAraPage Page { get; set; }
 
         public IsListesiAraViewModel(INavigation navigation)
         {
@@ -49,7 +50,10 @@ namespace Lastikoteli.ViewModels
                     Paging = IsListesiFilter.Paging,
                     Filter = IsListesiFilter.Filter
                 });
-                await _doubleClickControl.PushAsync(new IsListesiTabbedPage(result.Result.Data));
+                if (result.Result.Data != null && result.Result.Data.Count > 0)
+                    await _doubleClickControl.PushAsync(new IsListesiTabbedPage(result.Result.Data));
+                else
+                    await this.Page.DisplayAlert("Uyarı", "İş emri bulunamadı", "Tamam");
             }
             catch (Exception ex)
             {

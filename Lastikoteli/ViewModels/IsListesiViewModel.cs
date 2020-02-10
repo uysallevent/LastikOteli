@@ -1,4 +1,6 @@
-﻿using Lastikoteli.Models.Complex.Request;
+﻿using Lastikoteli.Helper;
+using Lastikoteli.Models.Complex.Request;
+using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Models.Constant;
 using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.Views;
@@ -23,20 +25,25 @@ namespace Lastikoteli.ViewModels
         private Randevu _isListesiSelected;
         public Randevu IsListesiSelected
         {
-            get { return _isListesiSelected; }
+            get { return _isListesiSelected ?? new Randevu(); }
             set
             {
+                if (value != null)
+                {
                     _isListesiSelected = value;
-                    if (value != null)
-                    {
-                        OpenPopUpDialog(value);
-                        IsListesiSelected = null;
-                    }
-                    OnPropertyChanged("IsListesiSelected");
+                    SelectedModel = value;
+                    OpenPopUpDialog(value);
+                    _isListesiSelected = null;
+                }
+                else
+                    _isListesiSelected = null;
+                OnPropertyChanged("IsListesiSelected");
             }
         }
+        public Randevu SelectedModel { get; set; }
 
         private async void OpenPopUpDialog(Randevu randevu)
+
         {
             string actionSheetResult = "";
             if (randevu.TXTSOKMETAKMA == "S")
@@ -58,8 +65,7 @@ namespace Lastikoteli.ViewModels
 
                     break;
                 case "Sökme/Takma":
-
-
+                    await _doubleClickControl.PushAsync(new YeniTakma(SelectedModel.LNGSAKLAMABASLIK ?? 0));
                     break;
             }
         }
@@ -67,6 +73,7 @@ namespace Lastikoteli.ViewModels
         public IsListesiViewModel(INavigation navigation)
         {
             _navigation = navigation;
+            _doubleClickControl = new DoubleClickControl(_navigation);
         }
 
     }
