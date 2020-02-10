@@ -10,7 +10,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="Orange"/>
         <Label Grid.Row="2" Text="Lütfen Bekleyin ..." TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
     </Grid>
 </ContentView>

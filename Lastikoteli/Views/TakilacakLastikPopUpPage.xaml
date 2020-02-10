@@ -57,23 +57,23 @@
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <CheckBox IsChecked="{Binding .,Mode=TwoWay}" />
+                                        <CheckBox IsChecked="{Binding .,Mode=TwoWay}" IsEnabled="False" HorizontalOptions="CenterAndExpand"/>
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
                         </dg:DataGridColumn>
-                        <dg:DataGridColumn Title="Seç" PropertyName="TRHHEDEFTARIH" Width="0.95*" >
+                        <dg:DataGridColumn Title="Seç" PropertyName="bytSec" Width="0.95*" >
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
                                     <ContentView>
-                                        <Switch IsToggled="False"/>
+                                        <Switch IsToggled="{Binding .,Mode=TwoWay}"/>
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
                         </dg:DataGridColumn>
                     </dg:DataGrid.Columns>
                 </dg:DataGrid>
-                <customControl:CustomButton  Grid.Row="2" Text="TAK" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding LastikleriTakCommand}"/>
+                <customControl:CustomButton  Grid.Row="2" Text="TAK" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" CommandParameter="{Binding .}" Command="{Binding LastikleriTakCommand}"/>
             </Grid>
         </Frame>
         <customViews:LoadingView />

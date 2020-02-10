@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Lastikoteli.ViewModels
@@ -21,6 +22,13 @@ namespace Lastikoteli.ViewModels
             set
             {
                 _takilacakLastik = value;
+                if (value != null && _takilacakLastik.bytSec == true)
+                    _takilacakLastik.bytSec = false;
+                else
+                    _takilacakLastik.bytSec = true;
+
+                _takilacakLastik = null;
+
                 OnPropertyChanged("TakilacakLastik");
 
             }
@@ -38,14 +46,16 @@ namespace Lastikoteli.ViewModels
             }
         }
 
-        public Command LastikleriTakCommand { get; set; }
-        public TakilacakLastikPopUpViewModel(INavigation navigation)
+        public ICommand LastikleriTakCommand { get; set; }
+
+        public TakilacakLastikPopUpViewModel(INavigation navigation, ObservableCollection<TakmaResponse> takilacakListe)
         {
             _navigation = navigation;
+            TakilacakLastikListe = takilacakListe;
             LastikleriTakCommand = new Command(LastikleriTakAsync);
         }
 
-        private void LastikleriTakAsync(object obj)
+        private void LastikleriTakAsync()
         {
             var test = TakilacakLastikListe;
 

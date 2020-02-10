@@ -21,9 +21,9 @@ namespace Lastikoteli.Views
         public TakilacakLastikPopUpPage(ObservableCollection<TakmaResponse> lastikListe)
         {
             InitializeComponent();
-            BindingContext = _takilacakLastikPopUpViewModel = new TakilacakLastikPopUpViewModel(this.Navigation);
-            LstLastikBilgileri.ItemsSource = lastikListe;
-            (BindingContext as TakilacakLastikPopUpViewModel).TakilacakLastikListe = lastikListe;
+            BindingContext = _takilacakLastikPopUpViewModel = new TakilacakLastikPopUpViewModel(this.Navigation, lastikListe);
+            //LstLastikBilgileri.ItemsSource = lastikListe;
+            //(BindingContext as TakilacakLastikPopUpViewModel).TakilacakLastikListe = lastikListe;
         }
 
         private async void ImageButton_Clicked(object sender, EventArgs e)

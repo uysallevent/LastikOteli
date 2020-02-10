@@ -108,7 +108,9 @@ namespace Lastikoteli.ViewModels
                     txtPozisyon = item.txtLastikYon,
                     txtRaf = item.txtRafKolayKod,
                     txtLastik = $"{marka} {taban}/{kesit}R{cap} {mevsim} {desen}",
-                    lngOTL = item.txtLastikDurum == "ÖTL YE ALINDI" ? 1 : 0
+                    lngOTL = item.txtLastikDurum == "ÖTL YE ALINDI" ? 1 : 0,
+                    bytOTL = item.txtLastikDurum == "ÖTL YE ALINDI" ? true : false,
+                    bytSec = true
                 }); ;
             }
 
