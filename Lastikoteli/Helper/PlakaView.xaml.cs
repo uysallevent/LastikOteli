@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Xamarin.Forms;
 using Xfx;
 
@@ -27,7 +28,21 @@ namespace Lastikoteli.Helper
         private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
         {
             var xfxEntry = (XfxEntry)sender;
+
+            xfxEntry.Text = xfxEntry.Text.ToUpper();
             PlakaEntryText = xfxEntry.Text;
+
+            MessagingCenter.Send(this, "saklamaKodTemizle");
+            MessagingCenter.Subscribe<SaklamaNoView>(this, "plakaTemizle", (s) =>
+            {
+                xfxEntry.Text = "";
+                PlakaEntryText = "";
+            });
+            MessagingCenter.Subscribe<MusteriNoView>(this, "musteriNoTemizle", (s) =>
+            {
+                xfxEntry.Text = "";
+                PlakaEntryText = "";
+            });
         }
     }
 }

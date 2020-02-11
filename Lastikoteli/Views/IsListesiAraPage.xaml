@@ -8,7 +8,7 @@
              Title="İŞ EMRİ ARA">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="SAKLAMA" Order="Secondary" Priority="1" IconImageSource="icon_saklama" Command="{Binding gotoYeniSaklamaCommand}"/>
-        <ToolbarItem Text="TAKMA" Order="Secondary" Priority="2"/>
+        <ToolbarItem Text="TAKMA" Order="Secondary" Priority="2" Command="{Binding gotoYeniTakmaCommand}"/>
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid RowSpacing="0">

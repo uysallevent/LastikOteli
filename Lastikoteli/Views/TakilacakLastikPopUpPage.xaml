@@ -51,7 +51,7 @@
                     </dg:DataGrid.HeaderFontSize>
                     <dg:DataGrid.Columns>
                         <dg:DataGridColumn Title="Poz." PropertyName="txtPozisyon" Width="1*"/>
-                        <dg:DataGridColumn Title="Lastik" PropertyName="txtLastik"/>
+                        <dg:DataGridColumn Title="Lastik" PropertyName="txtLastik" Width="2*"/>
                         <dg:DataGridColumn Title="Raf" PropertyName="txtRaf" Width="0.95*" />
                         <dg:DataGridColumn Title="ÖTL" PropertyName="bytOTL" Width="0.95*">
                             <dg:DataGridColumn.CellTemplate>
@@ -62,11 +62,11 @@
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>
                         </dg:DataGridColumn>
-                        <dg:DataGridColumn Title="Seç" PropertyName="bytSec" Width="0.95*" >
+                        <dg:DataGridColumn Title="Seç" PropertyName="bytSec" Width="0.95*">
                             <dg:DataGridColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ContentView>
-                                        <Switch IsToggled="{Binding .,Mode=TwoWay}"/>
+                                    <ContentView >
+                                        <Switch IsToggled="{Binding .,Mode=TwoWay}" IsEnabled="False"/>
                                     </ContentView>
                                 </DataTemplate>
                             </dg:DataGridColumn.CellTemplate>

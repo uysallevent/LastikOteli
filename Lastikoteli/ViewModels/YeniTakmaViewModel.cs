@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
+using System.Windows.Input;
 
 namespace Lastikoteli.ViewModels
 {
@@ -16,9 +17,28 @@ namespace Lastikoteli.ViewModels
 
         private INavigation _navigation;
         public YeniTakma Page { get; set; }
+        private SaklamaBilgiRequest _saklamaBilgiRequest;
 
-        private IList<SaklamaBilgileriResponse> _saklamaBilgileriResponseList;
-        public IList<SaklamaBilgileriResponse> saklamaBilgileriResponseList
+        public SaklamaBilgiRequest SaklamaBilgiRequest
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_saklamaBilgiRequest.txtPlaka))
+                    _saklamaBilgiRequest.lngSaklamaBaslik = null;
+                else
+                    _saklamaBilgiRequest.txtPlaka = "";
+                return _saklamaBilgiRequest;
+            }
+            set
+            {
+                _saklamaBilgiRequest = value;
+                OnPropertyChanged("SaklamaBilgiRequest");
+            }
+        }
+
+
+        private ObservableCollection<SaklamaBilgileriResponse> _saklamaBilgileriResponseList;
+        public ObservableCollection<SaklamaBilgileriResponse> saklamaBilgileriResponseList
         {
             get { return _saklamaBilgileriResponseList; }
             set
@@ -27,7 +47,6 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("saklamaBilgileriResponseList");
             }
         }
-
         private SaklamaBilgileriResponse _selectedItemAdd;
         public SaklamaBilgileriResponse selectedItemAdd
         {
@@ -46,37 +65,52 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("selectedItemAdd");
             }
         }
-        public SaklamaBilgileriResponse SelectedModel { get; set; }
 
-        private Command SaklamaBilgiGetirCommand { get; set; }
-        public YeniTakmaViewModel(INavigation navigation, int lngSaklamaBaslik)
+        public SaklamaBilgileriResponse SelectedModel { get; set; }
+        public ICommand SaklamaBilgiGetirCommand { get; set; }
+        public YeniTakmaViewModel(INavigation navigation, SaklamaBilgiRequest request)
         {
             _navigation = navigation;
-            if (lngSaklamaBaslik != 0)
-                Device.BeginInvokeOnMainThread(async () => await SaklamaBilgiGetirAsync(lngSaklamaBaslik));
+            SaklamaBilgiRequest = request;
+            if (SaklamaBilgiRequest.lngSaklamaBaslik != null && SaklamaBilgiRequest.lngSaklamaBaslik != 0)
+                Device.BeginInvokeOnMainThread(async () => await SaklamaBilgiGetirAsync());
+
+            SaklamaBilgiGetirCommand = new Command(async () => await SaklamaBilgiGetirAsync());
+            MessagingCenter.Subscribe<TakilacakLastikPopUpViewModel>(this, "popAsync", (s) =>
+            {
+                Device.BeginInvokeOnMainThread(() => _navigation.PopAsync(true));
+                MessagingCenter.Send(this, "refreshList");
+            });
         }
 
-        private async Task SaklamaBilgiGetirAsync(int lngSaklamaBaslik)
+        private async Task SaklamaBilgiGetirAsync()
         {
             try
             {
-                if (IsBusy)
+                if ((SaklamaBilgiRequest.lngSaklamaBaslik == 0 || SaklamaBilgiRequest.lngSaklamaBaslik == null) && string.IsNullOrEmpty(SaklamaBilgiRequest.txtPlaka))
+                {
+                    await App.Current.MainPage.DisplayAlert("Uyarı", "Arama için plaka ya da saklama no girin", "Tamam");
                     return;
+                }
+
+
+                if (IsBusy)
+                        return;
 
                 IsBusy = true;
 
-                var result = await SaklamaService.SaklamaBilgiGetir(new SaklamaBilgiRequest
-                {
-                    lngDistKod = App.sessionInfo.lngDistkod,
-                    lngSaklamaBaslik = lngSaklamaBaslik
-                });
+                var result = await SaklamaService.SaklamadaKayitArama(SaklamaBilgiRequest);
+
                 if (result.StatusCode != 500)
                 {
-                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>();
-                    saklamaBilgileriResponseList.Add(result.Result);
+                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>(result.Result);
                 }
                 else
+                {
+                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>();
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+
+                }
 
             }
             catch (Exception ex)
@@ -110,13 +144,12 @@ namespace Lastikoteli.ViewModels
                     txtLastik = $"{marka} {taban}/{kesit}R{cap} {mevsim} {desen}",
                     lngOTL = item.txtLastikDurum == "ÖTL YE ALINDI" ? 1 : 0,
                     bytOTL = item.txtLastikDurum == "ÖTL YE ALINDI" ? true : false,
-                    bytSec = true
+                    bytSec = item.txtLastikDurum == "ÖTL YE ALINDI" ? false : true,
                 }); ;
             }
 
             return response;
         }
-
 
     }
 }

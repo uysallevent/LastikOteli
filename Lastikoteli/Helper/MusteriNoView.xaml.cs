@@ -28,6 +28,19 @@ namespace Lastikoteli.Helper
         {
             var xfxEntry = (XfxEntry)sender;
             MusteriNoEntryText = xfxEntry.Text;
+            MessagingCenter.Send(this, "musteriNoTemizle");
+
+            MessagingCenter.Subscribe<SaklamaNoView>(this, "plakaTemizle", (s) =>
+            {
+                xfxEntry.Text = "";
+                MusteriNoEntryText = "";
+            });
+
+            MessagingCenter.Subscribe<PlakaView>(this, "saklamaKodTemizle", (s) =>
+            {
+                xfxEntry.Text = "";
+                MusteriNoEntryText = "";
+            });
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Lastikoteli.ViewModels
             _doubleClickControl = new DoubleClickControl(_navigation);
             gotoIsListesiCommand = new Command(async () => await gotoIsListesiPage());
             gotoYeniSaklamaCommand = new Command(async () => await gotoYeniSaklamaPage());
+            gotoYeniTakmaCommand = new Command(async () => await gotoYeniTakmaPage());
             filter = new IsEmriRequest();
         }
 
@@ -74,6 +75,26 @@ namespace Lastikoteli.ViewModels
             try
             {
                 await _doubleClickControl.PushAsync(new YeniSaklamaTabbedPage());
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task gotoYeniTakmaPage()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+            try
+            {
+                await _doubleClickControl.PushAsync(new YeniTakma(new SaklamaBilgiRequest()));
             }
             catch (Exception ex)
             {

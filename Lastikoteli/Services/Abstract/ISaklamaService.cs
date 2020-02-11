@@ -11,5 +11,7 @@ namespace Lastikoteli.Services.Abstract
     public interface ISaklamaService
     {
         Task<ApiResponseGeneric<SaklamaBilgileriResponse>> SaklamaBilgiGetir(SaklamaBilgiRequest request);
+        Task<ApiResponseGeneric<bool>> LastikTeslimEt(LastikTeslimRequest request);
+        Task<ApiResponseGeneric<List<SaklamaBilgileriResponse>>> SaklamadaKayitArama(SaklamaBilgiRequest request);
     }
 }

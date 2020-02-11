@@ -1,4 +1,5 @@
-﻿using Lastikoteli.Models.Complex.Response;
+﻿using Lastikoteli.Models.Complex.Request;
+using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.ViewModels;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -17,16 +18,16 @@ namespace Lastikoteli.Views
     public partial class YeniTakma : ContentPage
     {
         YeniTakmaViewModel _yeniTakmaViewModel;
-        public YeniTakma(int saklamaBaslik)
+        public YeniTakma(SaklamaBilgiRequest request)
         {
             InitializeComponent();
-            BindingContext = _yeniTakmaViewModel = new YeniTakmaViewModel(this.Navigation, saklamaBaslik);
+            BindingContext = _yeniTakmaViewModel = new YeniTakmaViewModel(this.Navigation, request);
             (BindingContext as YeniTakmaViewModel).Page = this;
         }
 
         public async void OpenPopup(ObservableCollection<TakmaResponse> lastikListe)
         {
-            await PopupNavigation.PushAsync(new TakilacakLastikPopUpPage(lastikListe));
+             PopupNavigation.PushAsync(new TakilacakLastikPopUpPage(lastikListe));
         }
     }
 }

@@ -18,7 +18,10 @@
                      HeaderHeight="50"
                      BorderColor="#FFFFFF"
                      HeaderBackground="#E0E6F8"
-                     SelectedItem="{Binding IsListesiSelected}">
+                     IsRefreshing="{Binding IsBusy}"
+                     ItemsSource="{Binding IsListesi}"
+                     SelectedItem="{Binding IsListesiSelected}"
+                     PullToRefreshCommand="{Binding pullRefreshList}">
             <x:Arguments>
                 <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
             </x:Arguments>

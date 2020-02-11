@@ -20,7 +20,18 @@ namespace Lastikoteli.ViewModels
         private INavigation _navigation;
         public IsListesiPage Page { get; set; }
 
-        public ObservableCollection<Randevu> _isListesi { get; set; }
+
+        private ObservableCollection<Randevu> _isListesi;
+        public ObservableCollection<Randevu> IsListesi
+        {
+            get { return _isListesi; }
+            set
+            {
+                _isListesi = value;
+                OnPropertyChanged("IsListesi");
+            }
+        }
+
 
         private Randevu _isListesiSelected;
         public Randevu IsListesiSelected
@@ -65,7 +76,12 @@ namespace Lastikoteli.ViewModels
 
                     break;
                 case "Sökme/Takma":
-                    await _doubleClickControl.PushAsync(new YeniTakma(SelectedModel.LNGSAKLAMABASLIK ?? 0));
+                    await _doubleClickControl.PushAsync(new YeniTakma(
+                        new SaklamaBilgiRequest
+                        {
+                            lngDistKod = randevu.LNGDISTKOD,
+                            lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK
+                        }));
                     break;
             }
         }
@@ -74,6 +90,43 @@ namespace Lastikoteli.ViewModels
         {
             _navigation = navigation;
             _doubleClickControl = new DoubleClickControl(_navigation);
+            pullRefreshList = new Command(async () => await isListesiGetir());
+            MessagingCenter.Subscribe<YeniTakmaViewModel>(this, "refreshList", async (s) =>
+             {
+                 await isListesiGetir();
+             });
+        }
+
+        public ICommand pullRefreshList { get; set; }
+        private async Task isListesiGetir()
+        {
+            if (IsBusy)
+                return;
+
+            IsListesiFilter.Paging = new PagingRequest { Sayfa = -1 };
+
+            IsBusy = true;
+
+            try
+            {
+                var result = await IsEmriService.IsEmriListesi(new IsEmriListeRequest
+                {
+                    Paging = IsListesiFilter.Paging,
+                    Filter = IsListesiFilter.Filter
+                });
+                if (result.Result.Data != null && result.Result.Data.Count > 0)
+                    IsListesi = new ObservableCollection<Randevu>(result.Result.Data);
+                else
+                    await this.Page.DisplayAlert("Uyarı", "İş emri bulunamadı", "Tamam");
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
     }

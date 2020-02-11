@@ -20,10 +20,10 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <customViews:PlakaView Grid.Row="0" PlakaEntryText="{Binding filter.txtPlaka}"/>
-            <customViews:SaklamaNoView Grid.Row="1" />
+            <customViews:PlakaView Grid.Row="0" PlakaEntryText="{Binding SaklamaBilgiRequest.txtPlaka}"/>
+            <customViews:SaklamaNoView Grid.Row="1" SaklamaNoEntryText="{Binding SaklamaBilgiRequest.lngSaklamaBaslik}"/>
 
-            <customControl:CustomButton  Grid.Row="2" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoIsListesiCommand}"/>
+            <customControl:CustomButton  Grid.Row="2" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding SaklamaBilgiGetirCommand}"/>
 
             <dg:DataGrid x:Name="LstIsList" Grid.Row="3"
                      SelectionEnabled="True"

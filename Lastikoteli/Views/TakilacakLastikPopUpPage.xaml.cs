@@ -1,5 +1,6 @@
 ﻿using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.ViewModels;
+using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -18,12 +19,13 @@ namespace Lastikoteli.Views
     public partial class TakilacakLastikPopUpPage : PopupPage
     {
         TakilacakLastikPopUpViewModel _takilacakLastikPopUpViewModel;
+        private IPopupNavigation _popupNavigation;
+
         public TakilacakLastikPopUpPage(ObservableCollection<TakmaResponse> lastikListe)
         {
             InitializeComponent();
             BindingContext = _takilacakLastikPopUpViewModel = new TakilacakLastikPopUpViewModel(this.Navigation, lastikListe);
-            //LstLastikBilgileri.ItemsSource = lastikListe;
-            //(BindingContext as TakilacakLastikPopUpViewModel).TakilacakLastikListe = lastikListe;
+
         }
 
         private async void ImageButton_Clicked(object sender, EventArgs e)
