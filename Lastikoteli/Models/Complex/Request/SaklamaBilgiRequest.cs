@@ -8,6 +8,7 @@ namespace Lastikoteli.Models.Complex.Request
     {
         public int lngDistKod { get; set; }
         public int? lngSaklamaBaslik { get; set; }
+        public int? lngIsEmriKod { get; set; }
         public string txtPlaka { get; set; }
     }
 }

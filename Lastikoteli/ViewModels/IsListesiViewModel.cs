@@ -51,7 +51,19 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("IsListesiSelected");
             }
         }
-        public Randevu SelectedModel { get; set; }
+
+        private Randevu _selectedModel;
+
+        public Randevu SelectedModel
+        {
+            get { return _selectedModel; }
+            set
+            {
+                _selectedModel = value;
+                OnPropertyChanged("SelectedModel");
+            }
+        }
+
 
         private async void OpenPopUpDialog(Randevu randevu)
 
@@ -59,11 +71,17 @@ namespace Lastikoteli.ViewModels
             string actionSheetResult = "";
             if (randevu.TXTSOKMETAKMA == "S")
             {
-                actionSheetResult = await this.Page.DisplayActionSheet("Seçim Yapın", "İptal", null, "Saklama");
+
             }
             else if (randevu.TXTSOKMETAKMA == "T")
             {
-                actionSheetResult = await this.Page.DisplayActionSheet("Seçim Yapın", "İptal", null, "Sökme/Takma");
+                await _doubleClickControl.PushAsync(new YeniTakma(
+                    new SaklamaBilgiRequest
+                    {
+                        lngDistKod = randevu.LNGDISTKOD,
+                        lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK,
+                        lngIsEmriKod = randevu.LNGKOD
+                    }));
             }
             else if (randevu.TXTSOKMETAKMA == "S/T")
             {
@@ -80,7 +98,8 @@ namespace Lastikoteli.ViewModels
                         new SaklamaBilgiRequest
                         {
                             lngDistKod = randevu.LNGDISTKOD,
-                            lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK
+                            lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK,
+                            lngIsEmriKod = randevu.LNGKOD
                         }));
                     break;
             }

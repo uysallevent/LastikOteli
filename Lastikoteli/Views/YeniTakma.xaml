@@ -42,8 +42,8 @@
                     </OnIdiom>
                 </dg:DataGrid.HeaderFontSize>
                 <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="Plaka" PropertyName="lngKod" Width="*"/>
-                    <dg:DataGridColumn Title="Kod" PropertyName="txtPlaka" Width="*"/>
+                    <dg:DataGridColumn Title="Plaka" PropertyName="txtPlaka" Width="*"/>
+                    <dg:DataGridColumn Title="Kod" PropertyName="lngKod" Width="*"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
         </Grid>

@@ -19,7 +19,7 @@
                      BorderColor="#FFFFFF"
                      HeaderBackground="#E0E6F8"
                      IsRefreshing="{Binding IsBusy}"
-                     ItemsSource="{Binding IsListesi}"
+                     ItemsSource="{Binding IsListesi,Mode=TwoWay}"
                      SelectedItem="{Binding IsListesiSelected}"
                      PullToRefreshCommand="{Binding pullRefreshList}">
             <x:Arguments>

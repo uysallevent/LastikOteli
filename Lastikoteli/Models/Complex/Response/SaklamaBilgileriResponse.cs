@@ -17,7 +17,7 @@ namespace Lastikoteli.Models.Complex.Response
         public string txtCepTel { get; set; }
         public string txtEmail { get; set; }
         public string txtAciklama { get; set; }
-
+        public List<IsEmriListResponse> IsEmriListe { get; set; }
         public List<DetayListeResponse> Tblsaklamadetay { get; set; }
     }
 }

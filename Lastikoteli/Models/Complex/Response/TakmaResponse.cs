@@ -8,6 +8,7 @@ namespace Lastikoteli.Models.Complex.Response
 {
     public class TakmaResponse : INotifyPropertyChanged
     {
+        public int lngIsEmriKod { get; set; }
         public int lngSaklamaKod { get; set; }
         public string txtPozisyon { get; set; }
         public string txtLastik { get; set; }

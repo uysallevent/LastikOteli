@@ -75,7 +75,10 @@ namespace Lastikoteli.ViewModels
                         lngDistKod = App.sessionInfo.lngDistkod,
                         lngSaklamaBaslik = TakilacakLastikListe.FirstOrDefault().lngSaklamaKod,
                         txtKullaniciAdSoyad = $"El Terminal Kullanıcısı {App.sessionInfo.txtAdSoyad}",
-                        txtAciklama = $"El terminali üzerinden teslimi gerçekleştirildi"
+                        txtAciklama = $"El terminali üzerinden teslimi gerçekleştirildi",
+                        lngIsEmriKod = TakilacakLastikListe.FirstOrDefault().lngIsEmriKod,
+                        bytDurum = 2, //Takılma operasyonunun tamamlanması durumudna BytSokmeTakma 2 ye set edilir
+                        lngTip = 1    // 
                     });
 
                     if (result.StatusCode != 500 && result.Result)

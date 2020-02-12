@@ -95,10 +95,11 @@ namespace Lastikoteli.ViewModels
 
 
                 if (IsBusy)
-                        return;
+                    return;
 
                 IsBusy = true;
 
+                SaklamaBilgiRequest.lngDistKod = App.sessionInfo.lngDistkod;
                 var result = await SaklamaService.SaklamadaKayitArama(SaklamaBilgiRequest);
 
                 if (result.StatusCode != 500)
@@ -138,6 +139,7 @@ namespace Lastikoteli.ViewModels
 
                 response.Add(new TakmaResponse
                 {
+                    lngIsEmriKod = SaklamaBilgiRequest.lngIsEmriKod ?? 0,
                     lngSaklamaKod = saklamaBilgileri.lngKod,
                     txtPozisyon = item.txtLastikYon,
                     txtRaf = item.txtRafKolayKod,
