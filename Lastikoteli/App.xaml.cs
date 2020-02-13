@@ -18,8 +18,8 @@ namespace Lastikoteli
             DependencyService.Register<AuthService>();
             DependencyService.Register<IsEmriService>();
             DependencyService.Register<SaklamaService>();
-            //MainPage = new LoginPage();
-            MainPage = new YeniSaklamaTabbedPage();
+            MainPage = new LoginPage();
+            //MainPage = new YeniSaklamaTabbedPage();
         }
 
         public static SessionInfo sessionInfo { get; set; }

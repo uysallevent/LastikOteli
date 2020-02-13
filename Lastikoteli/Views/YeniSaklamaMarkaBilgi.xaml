@@ -2,8 +2,11 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
+    xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
     x:Class="Lastikoteli.Views.YeniSaklamaMarkaBilgi"
-    BackgroundColor="Black">
+    BackgroundColor="Black"
+    Title="Yeni Saklama">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -22,18 +25,93 @@
                 <RowDefinition Height="0.2*" />
 
             </Grid.RowDefinitions>
-            <ImageButton Grid.Row="0" Source="onsol" BackgroundColor="DarkOrange" CornerRadius="10" Padding="5"/>
-            <ImageButton Grid.Row="1" Source="onsag" BackgroundColor="White" CornerRadius="10" Padding="5"/>
-            <ImageButton Grid.Row="2" Source="arkasol" BackgroundColor="White" CornerRadius="10" Padding="5"/>
-            <ImageButton Grid.Row="3" Source="arkasag" BackgroundColor="White" CornerRadius="10" Padding="5"/>
+            <ImageButton x:Name="btnOnSol" Grid.Row="0" Source="onsol" BackgroundColor="DarkOrange" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
+            <ImageButton x:Name="btnOnSag" Grid.Row="1" Source="onsag" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
+            <ImageButton  x:Name="btnArkaSol" Grid.Row="2" Source="arkasol" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
+            <ImageButton x:Name="btnArkaSag" Grid.Row="3" Source="arkasag" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
             <StackLayout Grid.Row="4" VerticalOptions="Start" Padding="0,15,0,0">
                 <BoxView HeightRequest="2" BackgroundColor="Black"/>
             </StackLayout>
 
-            <ImageButton Grid.Row="5" Source="digersag1" BackgroundColor="White" CornerRadius="10" Padding="5"/>
-            <ImageButton Grid.Row="6" Source="digersol1" BackgroundColor="White" CornerRadius="10" Padding="5"/>
+            <ImageButton x:Name="btnDigerSag" Grid.Row="5" Source="digersag1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
+            <ImageButton x:Name="btnDigerSol" Grid.Row="6" Source="digersol1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
         </Grid>
 
-        <BoxView Grid.Column="1" BackgroundColor="Gray"/>
+        <Grid Grid.Column="1" BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0" CornerRadius="10" Padding="0">
+                <Grid  Padding="0,5,0,0"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="Aktif" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
+                    <Switch Grid.Column="1" IsToggled="True"  OnColor="DarkOrange" BackgroundColor="White"   />
+                    <Label Grid.Column="3" Text="ÖTL" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
+                    <Switch Grid.Column="4" IsToggled="False"  OnColor="DarkOrange" BackgroundColor="White"   />
+                </Grid>
+            </Frame>
+            <Frame Grid.Row="1" CornerRadius="10" Padding="0">
+                <Picker Title="Marka" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+            </Frame>
+            <Frame Grid.Row="2" CornerRadius="10" Padding="0">
+                <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+            </Frame>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" CornerRadius="10" Padding="0">
+                    <Picker Title="Kesit" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                </Frame>
+                <Frame Grid.Column="1" CornerRadius="10" Padding="0">
+                    <Picker Title="Çap" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                </Frame>
+            </Grid>
+
+            <Frame Grid.Row="4" CornerRadius="10" Padding="0">
+                <Picker Title="Mevsim" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+            </Frame>
+            <Frame Grid.Row="5" CornerRadius="10" Padding="0">
+                <Picker Title="Desen" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+            </Frame>
+            <xfx:XfxEntry Grid.Row="6" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" TextColor="White"/>
+            <Grid Grid.Row="7" HorizontalOptions="FillAndExpand" Padding="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <xfx:XfxEntry Grid.Column="0" Placeholder="Üretim" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                <xfx:XfxEntry Grid.Column="1" Placeholder="Fabrika" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                <xfx:XfxEntry Grid.Column="2" Placeholder="Hafta" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+            </Grid>
+            <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <xfx:XfxEntry Grid.Column="0" Placeholder="Raf" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" />
+            </Grid>
+            <xfx:XfxEntry Grid.Row="9" Placeholder="Açıklama" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+            <customControl:CustomButton Grid.Row="10" Text="KAYDET" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="0,0,0,5"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoMainPageCommand}"/>
+        </Grid>
     </Grid>
 </ContentPage>

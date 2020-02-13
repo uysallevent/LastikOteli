@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lastikoteli.Helper.Abstract;
+using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -10,6 +11,65 @@ namespace Lastikoteli.Views
         public YeniSaklamaMarkaBilgi()
         {
             InitializeComponent();
+        }
+
+        private void btn_Clicked(object sender, EventArgs e)
+        {
+            var btn = (ImageButton)sender;
+            switch (btn.StyleId)
+            {
+                case "btnOnSol":
+                    btn.BackgroundColor = Color.DarkOrange;
+                    btnOnSag.BackgroundColor = Color.White;
+                    btnArkaSol.BackgroundColor = Color.White;
+                    btnArkaSag.BackgroundColor = Color.White;
+                    btnDigerSol.BackgroundColor = Color.White;
+                    btnDigerSag.BackgroundColor = Color.White;
+                    DependencyService.Get<IToastService>().ToastMessage("Toast Message");
+                    break;
+                case "btnOnSag":
+                    btnOnSol.BackgroundColor = Color.White;
+                    btn.BackgroundColor = Color.DarkOrange;
+                    btnArkaSol.BackgroundColor = Color.White;
+                    btnArkaSag.BackgroundColor = Color.White;
+                    btnDigerSol.BackgroundColor = Color.White;
+                    btnDigerSag.BackgroundColor = Color.White;
+                    break;
+                case "btnArkaSol":
+                    btnOnSol.BackgroundColor = Color.White;
+                    btnOnSag.BackgroundColor = Color.White;
+                    btn.BackgroundColor = Color.DarkOrange;
+                    btnArkaSag.BackgroundColor = Color.White;
+                    btnDigerSol.BackgroundColor = Color.White;
+                    btnDigerSag.BackgroundColor = Color.White;
+                    break;
+                case "btnArkaSag":
+                    btnOnSol.BackgroundColor = Color.White;
+                    btnOnSag.BackgroundColor = Color.White;
+                    btnArkaSol.BackgroundColor = Color.White;
+                    btn.BackgroundColor = Color.DarkOrange;
+                    btnDigerSol.BackgroundColor = Color.White;
+                    btnDigerSag.BackgroundColor = Color.White;
+                    break;
+                case "btnDigerSol":
+                    btnOnSol.BackgroundColor = Color.White;
+                    btnOnSag.BackgroundColor = Color.White;
+                    btnArkaSol.BackgroundColor = Color.White;
+                    btnArkaSag.BackgroundColor = Color.White;
+                    btn.BackgroundColor = Color.DarkOrange;
+                    btnDigerSag.BackgroundColor = Color.White;
+                    break;
+                case "btnDigerSag":
+                    btnOnSol.BackgroundColor = Color.White;
+                    btnOnSag.BackgroundColor = Color.White;
+                    btnArkaSol.BackgroundColor = Color.White;
+                    btnArkaSag.BackgroundColor = Color.White;
+                    btnDigerSol.BackgroundColor = Color.White;
+                    btn.BackgroundColor = Color.DarkOrange;
+                    break;
+
+            }
+
         }
     }
 }

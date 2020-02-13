@@ -26,5 +26,11 @@ namespace Lastikoteli.Views
         {
             PopupNavigation.PushAsync(new MusteriAraPopUpPage());
         }
+
+        private void CustomButton_Clicked(object sender, EventArgs e)
+        {
+            var masterPage = this.Parent as TabbedPage;
+            masterPage.CurrentPage = masterPage.Children[1];
+        }
     }
 }
