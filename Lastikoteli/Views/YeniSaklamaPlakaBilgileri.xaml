@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
+             xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             x:Class="Lastikoteli.Views.YeniSaklamaPlakaBilgileri"
+             BackgroundColor="Black">
+
+    <Grid Padding="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <xfx:XfxEntry Grid.Row="0" Placeholder="Plaka" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White"/>
+        <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <xfx:XfxEntry Grid.Column="0" Placeholder="Ad Soyad" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White"/>
+            <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" Command="{Binding GotoMusteriPopUpCommand}"/>
+        </Grid>
+        <xfx:XfxEntry Grid.Row="3" Placeholder="Cep Tel" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric"/>
+        <xfx:XfxEntry Grid.Row="4" Placeholder="Eposta" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White"/>
+        <xfx:XfxEntry Grid.Row="5" Placeholder="T.C Kimlik" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric"/>
+        <xfx:XfxEntry Grid.Row="6" Placeholder="Vergi No" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric"/>
+        <customControl:CustomButton Grid.Row="7" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoMainPageCommand}"/>
+    </Grid>
+
+</ContentPage>

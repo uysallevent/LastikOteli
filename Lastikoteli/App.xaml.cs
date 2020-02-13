@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Lastikoteli.Services;
@@ -18,7 +18,8 @@ namespace Lastikoteli
             DependencyService.Register<AuthService>();
             DependencyService.Register<IsEmriService>();
             DependencyService.Register<SaklamaService>();
-            MainPage = new LoginPage();
+            //MainPage = new LoginPage();
+            MainPage = new YeniSaklamaTabbedPage();
         }
 
         public static SessionInfo sessionInfo { get; set; }

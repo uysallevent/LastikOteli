@@ -19,6 +19,7 @@ namespace Lastikoteli.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            Plugin.InputKit.Platforms.Droid.Config.Init(this, savedInstanceState);
             XfxControls.Init();
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");

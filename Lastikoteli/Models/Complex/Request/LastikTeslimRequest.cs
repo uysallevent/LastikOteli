@@ -13,7 +13,7 @@ namespace Lastikoteli.Models.Complex.Request
         /// <summary>
         /// lngIsEmriKod
         /// </summary>
-        public int lngIsEmriKod { get; set; }
+        public int? lngIsEmriKod { get; set; }
         /// <summary>
         /// 1-Takma iş emri
         /// 2-Saklama iş emri

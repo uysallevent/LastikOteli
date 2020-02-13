@@ -20,7 +20,7 @@ namespace Lastikoteli.Views
             BarTextColor = Color.Black;
             BarBackgroundColor = Color.FromHex("#FFF");
 
-            this.Children.Add(new YeniSaklama() { Title = "Plaka Bilgileri", IconImageSource = "icon_saklama.png" });
+            this.Children.Add(new YeniSaklamaPlakaBilgileri() { Title = "Plaka Bilgileri", IconImageSource = "icon_saklama.png" });
             this.Children.Add(new YeniSaklamaMarkaBilgi() { Title = "Lastik Bilgileri", IconImageSource = "icon_takma.png" });
 
             On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);

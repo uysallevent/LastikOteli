@@ -13,5 +13,6 @@ namespace Lastikoteli.Services.Abstract
         Task<ApiResponseGeneric<SaklamaBilgileriResponse>> SaklamaBilgiGetir(SaklamaBilgiRequest request);
         Task<ApiResponseGeneric<bool>> LastikTeslimEt(LastikTeslimRequest request);
         Task<ApiResponseGeneric<List<SaklamaBilgileriResponse>>> SaklamadaKayitArama(SaklamaBilgiRequest request);
+        Task<ApiResponseGeneric<PagingResponse<MusteriBilgileriResponse>>> MusteriListesi(SaklamaMusteriRequest request);
     }
 }

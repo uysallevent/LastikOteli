@@ -40,5 +40,13 @@ namespace Lastikoteli.Services.Concrete
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<bool>(responseContent));
         }
+
+        public async Task<ApiResponseGeneric<PagingResponse<MusteriBilgileriResponse>>> MusteriListesi(SaklamaMusteriRequest request)
+        {
+            var client = await GetClient();
+            var response = await client.PostAsync(APIUrl + "/api/Saklama/MusterilerListesi", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<PagingResponse<MusteriBilgileriResponse>>(responseContent));
+        }
     }
 }

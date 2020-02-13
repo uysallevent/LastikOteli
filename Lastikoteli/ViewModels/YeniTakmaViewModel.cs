@@ -47,6 +47,7 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("saklamaBilgileriResponseList");
             }
         }
+
         private SaklamaBilgileriResponse _selectedItemAdd;
         public SaklamaBilgileriResponse selectedItemAdd
         {
@@ -65,8 +66,8 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("selectedItemAdd");
             }
         }
-
         public SaklamaBilgileriResponse SelectedModel { get; set; }
+
         public ICommand SaklamaBilgiGetirCommand { get; set; }
         public YeniTakmaViewModel(INavigation navigation, SaklamaBilgiRequest request)
         {
@@ -82,7 +83,6 @@ namespace Lastikoteli.ViewModels
                 MessagingCenter.Send(this, "refreshList");
             });
         }
-
         private async Task SaklamaBilgiGetirAsync()
         {
             try
@@ -92,7 +92,6 @@ namespace Lastikoteli.ViewModels
                     await App.Current.MainPage.DisplayAlert("Uyarı", "Arama için plaka ya da saklama no girin", "Tamam");
                     return;
                 }
-
 
                 if (IsBusy)
                     return;
@@ -124,7 +123,6 @@ namespace Lastikoteli.ViewModels
             }
 
         }
-
         private ObservableCollection<TakmaResponse> TakmaModelOlustur(SaklamaBilgileriResponse saklamaBilgileri)
         {
             var response = new ObservableCollection<TakmaResponse>();

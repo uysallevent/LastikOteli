@@ -1,5 +1,39 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Lastikoteli.Views.YeniSaklamaMarkaBilgi">
-    <ContentPage.Content>
-    </ContentPage.Content>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Lastikoteli.Views.YeniSaklamaMarkaBilgi"
+    BackgroundColor="Black">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" BackgroundColor="White" Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="0.2*" />
+
+            </Grid.RowDefinitions>
+            <ImageButton Grid.Row="0" Source="onsol" BackgroundColor="DarkOrange" CornerRadius="10" Padding="5"/>
+            <ImageButton Grid.Row="1" Source="onsag" BackgroundColor="White" CornerRadius="10" Padding="5"/>
+            <ImageButton Grid.Row="2" Source="arkasol" BackgroundColor="White" CornerRadius="10" Padding="5"/>
+            <ImageButton Grid.Row="3" Source="arkasag" BackgroundColor="White" CornerRadius="10" Padding="5"/>
+            <StackLayout Grid.Row="4" VerticalOptions="Start" Padding="0,15,0,0">
+                <BoxView HeightRequest="2" BackgroundColor="Black"/>
+            </StackLayout>
+
+            <ImageButton Grid.Row="5" Source="digersag1" BackgroundColor="White" CornerRadius="10" Padding="5"/>
+            <ImageButton Grid.Row="6" Source="digersol1" BackgroundColor="White" CornerRadius="10" Padding="5"/>
+        </Grid>
+
+        <BoxView Grid.Column="1" BackgroundColor="Gray"/>
+    </Grid>
 </ContentPage>
