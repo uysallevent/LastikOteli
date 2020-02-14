@@ -22,7 +22,7 @@ namespace Lastikoteli.Droid.Helper
         public void ToastMessage(string message)
         {
             Toast toast = Toast.MakeText(Application.Context, Html.FromHtml("<font color='#d10000' ><b>" + message + "</b></font>"), ToastLength.Long);
-            toast.SetGravity(GravityFlags.Top, 0, 0);
+            toast.SetGravity(GravityFlags.Center, 0, 0);
             toast.Show();
         }
     }

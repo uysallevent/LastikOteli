@@ -71,5 +71,26 @@ namespace Lastikoteli.Views
             }
 
         }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            var sw = (Switch)sender;
+            if (sw.IsToggled)
+            {
+                stackBrisa.IsVisible = false;
+                stackBrisa.IsEnabled = false;
+
+                stackDiger.IsVisible = true;
+                stackDiger.IsEnabled = true;
+            }
+            else
+            {
+                stackBrisa.IsVisible = true;
+                stackBrisa.IsEnabled = true;
+
+                stackDiger.IsVisible = false;
+                stackDiger.IsEnabled = false;
+            }
+        }
     }
 }

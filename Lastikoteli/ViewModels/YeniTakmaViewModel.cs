@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
 using System.Windows.Input;
+using Lastikoteli.Helper.Abstract;
 
 namespace Lastikoteli.ViewModels
 {
@@ -89,7 +90,7 @@ namespace Lastikoteli.ViewModels
             {
                 if ((SaklamaBilgiRequest.lngSaklamaBaslik == 0 || SaklamaBilgiRequest.lngSaklamaBaslik == null) && string.IsNullOrEmpty(SaklamaBilgiRequest.txtPlaka))
                 {
-                    await App.Current.MainPage.DisplayAlert("Uyarı", "Arama için plaka ya da saklama no girin", "Tamam");
+                    DependencyService.Get<IToastService>().ToastMessage("Arama için plaka ya da saklama no girin");
                     return;
                 }
 

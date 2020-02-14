@@ -1,4 +1,5 @@
-﻿using Lastikoteli.Views;
+﻿using Lastikoteli.Models.Complex.Response;
+using Lastikoteli.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,12 +19,17 @@ namespace Lastikoteli.ViewModels
         public YeniSaklamaViewModel(INavigation navigation)
         {
             _navigation = navigation;
-            GotoMusteriPopUpCommand = new Command(async () => GotoMusteriPopUpAsync());
+            GotoMusteriPopUpCommand = new Command(async () =>await GotoMusteriPopUpAsync());
+
+            MessagingCenter.Subscribe<MusteriAraPopUpViewModel, MusteriBilgileriResponse>(this, "yeniSaklamaSecilenMusteri", (s, e) =>
+            {
+
+            });
         }
 
         private async Task GotoMusteriPopUpAsync()
         {
-            PagePlakaBilgi.OpenPopup();
+             PagePlakaBilgi.OpenPopup();
         }
     }
 }

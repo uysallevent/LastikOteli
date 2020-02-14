@@ -21,6 +21,7 @@ namespace Lastikoteli.Views
         {
             InitializeComponent();
             BindingContext = musteriAraPopUpViewModel = new MusteriAraPopUpViewModel();
+            (BindingContext as MusteriAraPopUpViewModel).Page =this;
         }
 
         private async void ImageButton_Clicked(object sender, EventArgs e)

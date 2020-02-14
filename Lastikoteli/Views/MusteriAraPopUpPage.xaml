@@ -38,21 +38,20 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <ImageButton Grid.Row="0" HorizontalOptions="End" Source="btnpopupclose" BackgroundColor="White" CornerRadius="20" Clicked="ImageButton_Clicked"/>
-                <xfx:XfxEntry Grid.Row="1" Placeholder="Arama ..." PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" ErrorDisplay="None"/>
+                <xfx:XfxEntry Grid.Row="1" Placeholder="Arama ..." Text="{Binding txtAranan,Mode=TwoWay}" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" ErrorDisplay="None"/>
                 <InputKit:RadioButtonGroupView Grid.Row="2" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
                     <InputKit:RadioButton Text="Ünvan" TextFontSize="15"  TextColor="White" CircleColor="White" Color="White" IsChecked="{Binding bytunvan,Mode=TwoWay}"/>
                     <InputKit:RadioButton Text="Erp Kod" TextFontSize="15"  TextColor="White" CircleColor="White" Color="White" IsChecked="{Binding bytErpKod,Mode=TwoWay}"/>
-                    <InputKit:RadioButton Text="Lng Kod" TextFontSize="15"  TextColor="White" CircleColor="White" Color="White" IsChecked="{Binding bytLngKod,Mode=TwoWay}"/>
                 </InputKit:RadioButtonGroupView>
-                <customControl:CustomButton Grid.Row="3" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoMainPageCommand}"/>
+                <customControl:CustomButton Grid.Row="3" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding musteriAraCommand}"/>
                 <dg:DataGrid x:Name="LstMusteriBilgileri"  Grid.Row="4"
                      SelectionEnabled="True"
                      RowHeight="70"
                      HeaderHeight="50"
                      BorderColor="#FFFFFF"
                      HeaderBackground="#E0E6F8"
-                     SelectedItem="{Binding TakilacakLastik, Mode=TwoWay}"
-                     ItemsSource="{Binding TakilacakLastikListe, Mode=TwoWay}">
+                     SelectedItem="{Binding secilenMusteri}"
+                     ItemsSource="{Binding musteriBilgiList, Mode=TwoWay}">
                     <x:Arguments>
                         <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
                     </x:Arguments>
@@ -63,9 +62,8 @@
                         </OnIdiom>
                     </dg:DataGrid.HeaderFontSize>
                     <dg:DataGrid.Columns>
-                        <dg:DataGridColumn Title="Ünvan" PropertyName="txtPozisyon" Width="2*"/>
-                        <dg:DataGridColumn Title="Erp Kod" PropertyName="txtLastik" Width="1*"/>
-                        <dg:DataGridColumn Title="Lng Kod" PropertyName="txtRaf" Width="1*" />
+                        <dg:DataGridColumn Title="Ünvan" PropertyName="TXTUNVAN" Width="2*" HorizontalContentAlignment="StartAndExpand"/>
+                        <dg:DataGridColumn Title="Erp Kod" PropertyName="TXTERPKOD" Width="1*"/>
                     </dg:DataGrid.Columns>
                 </dg:DataGrid>
 
