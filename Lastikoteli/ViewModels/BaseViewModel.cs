@@ -17,6 +17,7 @@ namespace Lastikoteli.ViewModels
         public IAuthService AuthService => DependencyService.Get<IAuthService>();
         public IIsemriService IsEmriService => DependencyService.Get<IIsemriService>();
         public ISaklamaService SaklamaService => DependencyService.Get<ISaklamaService>();
+        public IParametreService ParametreService => DependencyService.Get<IParametreService>();
 
         public DoubleClickControl _doubleClickControl;
 
