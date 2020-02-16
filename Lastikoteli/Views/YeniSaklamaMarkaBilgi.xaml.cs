@@ -1,4 +1,5 @@
 ﻿using Lastikoteli.Helper.Abstract;
+using Lastikoteli.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -8,9 +9,12 @@ namespace Lastikoteli.Views
 {
     public partial class YeniSaklamaMarkaBilgi : ContentPage
     {
+        YeniSaklamaViewModel yeniSaklamaViewModel;
         public YeniSaklamaMarkaBilgi()
         {
             InitializeComponent();
+            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel(this.Navigation);
+            (BindingContext as YeniSaklamaViewModel).Page = this;
         }
 
         private void btn_Clicked(object sender, EventArgs e)
@@ -75,6 +79,7 @@ namespace Lastikoteli.Views
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
             var sw = (Switch)sender;
+            sw.SetBinding(Switch.IsToggledProperty, "bytUrunTip");
             if (sw.IsToggled)
             {
                 stackBrisa.IsVisible = false;

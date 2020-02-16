@@ -6,7 +6,8 @@
     xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
     x:Class="Lastikoteli.Views.YeniSaklamaMarkaBilgi"
     BackgroundColor="Black"
-    Title="Yeni Saklama">
+    Title="Yeni Saklama"
+    x:Name="PageYeniSaklamaMarkaBilgi">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Kaydet" Priority="1"/>
@@ -82,10 +83,10 @@
                 <!--Brisa-->
                 <StackLayout x:Name="stackBrisa" Grid.Row="2" BackgroundColor="Transparent" Orientation="Vertical">
                     <Frame CornerRadius="10" Padding="0">
-                        <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                        <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding markaListe}" ItemDisplayBinding="{Binding txtMarka}" SelectedIndex="{Binding selectedIndex}" />
                     </Frame>
                     <Frame CornerRadius="10" Padding="0">
-                        <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                        <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding markaListe}" ItemDisplayBinding="{Binding txtTaban}"  />
                     </Frame>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">

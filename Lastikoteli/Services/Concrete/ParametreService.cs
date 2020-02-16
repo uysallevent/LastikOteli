@@ -7,18 +7,19 @@ using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Services.Abstract;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace Lastikoteli.Services.Concrete
 {
     public class ParametreService : ServiceManager, IParametreService
     {
 
-        public async Task<ApiResponseGeneric<List<MarkaBilgiResponse>>> MarkaBilgiGetir(MarkaBilgiRequest request)
+        public async Task<ApiResponseGeneric<ObservableCollection<MarkaBilgiResponse>>> MarkaBilgiGetir(MarkaBilgiRequest request)
         {
             var Client = await GetClient();
             var response = await Client.GetAsync(APIUrl + "/api/Parametre/MarkaBilgileriGetir" + MarkaBilgiRequestModelOlustur(request));
             var responseContent = await response.Content.ReadAsStringAsync();
-            return await Task.FromResult(ApiResultCheck.ResultCheck<List<MarkaBilgiResponse>>(responseContent));
+            return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<MarkaBilgiResponse>>(responseContent));
         }
 
         private string MarkaBilgiRequestModelOlustur(MarkaBilgiRequest request)
