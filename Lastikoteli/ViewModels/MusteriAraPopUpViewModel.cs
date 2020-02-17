@@ -1,6 +1,7 @@
 ﻿using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Views;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -72,6 +73,7 @@ namespace Lastikoteli.ViewModels
             {
                 _secilenMusteri = value;
                 MessagingCenter.Send(this, "yeniSaklamaSecilenMusteri", _secilenMusteri);
+                PopupNavigation.PopAsync(true);
                 OnPropertyChanged("secilenMusteri");
             }
         }

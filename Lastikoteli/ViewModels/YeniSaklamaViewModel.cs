@@ -32,6 +32,19 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+        private SaklamaBaslikRequest _saklamaBaslikRequest;
+
+        public SaklamaBaslikRequest saklamaBaslikRequest
+        {
+            get { return _saklamaBaslikRequest; }
+            set
+            {
+                _saklamaBaslikRequest = value;
+                OnPropertyChanged("saklamaBaslikRequest");
+            }
+        }
+
+
         private int _selectedIndex;
         public int selectedMarkaIndex
         {
@@ -141,6 +154,7 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+
         private bool _bytUrunTip;
         public bool bytUrunTip
         {
@@ -154,6 +168,7 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("bytUrunTip");
             }
         }
+
 
         private ObservableCollection<MarkaBilgiResponse> _markaListe;
         public ObservableCollection<MarkaBilgiResponse> markaListe
@@ -170,6 +185,7 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("markaListe");
             }
         }
+
 
         private LastikBilgiResponse _lastikBilgileri;
         public LastikBilgiResponse lastikBilgileri
@@ -188,20 +204,34 @@ namespace Lastikoteli.ViewModels
 
         public YeniSaklamaMarkaBilgi Page { get; set; }
 
+
         private INavigation _navigation;
+
+
         public ICommand GotoMusteriPopUpCommand { get; set; }
         public ICommand MarkaBilgiGetirCommand { get; set; }
         public ICommand DisDerinligiKontrolCommand { get; set; }
+
+
         public YeniSaklamaViewModel(INavigation navigation)
         {
             _navigation = navigation;
+            saklamaBaslikRequest = new SaklamaBaslikRequest()
+            {
+                detayListe = new ObservableCollection<SaklamaDetayRequest>()
+            };
             markaBilgiReuqest = new MarkaBilgiRequest();
             lastikBilgileri = new LastikBilgiResponse();
             GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
             MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
-            DisDerinligiKontrolCommand = new Command(async()=>await DisDerinligiAsync());
+            DisDerinligiKontrolCommand = new Command(async () => await DisDerinligiAsync());
             MarkaBilgiGetirCommand.Execute(true);
             MessagingCenter.Subscribe<MusteriAraPopUpViewModel, MusteriBilgileriResponse>(this, "yeniSaklamaSecilenMusteri", (s, e) =>
+            {
+
+            });
+
+            MessagingCenter.Subscribe<DepoSecimPopUpViewModel, DepoDizilimResponse>(this, "selectedRaf", (s, e) =>
             {
 
             });

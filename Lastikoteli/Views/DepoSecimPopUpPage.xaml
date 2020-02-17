@@ -5,9 +5,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:customViews="clr-namespace:Lastikoteli.Helper"
+             xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
-             x:Class="Lastikoteli.Views.DepoSecimPopUpPage">
+             x:Class="Lastikoteli.Views.DepoSecimPopUpPage"
+                 BackgroundColor="Transparent">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
             PositionIn="Center"
@@ -21,27 +24,41 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
 
-    <Grid>
-        <dg:DataGrid x:Name="LstMusteriBilgileri"  Grid.Row="4"
+    <Grid >
+        <Frame CornerRadius="10" BackgroundColor="Black" BorderColor="White">
+            <Grid BackgroundColor="Black" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ImageButton Grid.Row="0" HorizontalOptions="End" Source="btnpopupclose" BackgroundColor="White" CornerRadius="20" Clicked="ImageButton_Clicked"/>
+                <dg:DataGrid x:Name="LstMusteriBilgileri"  Grid.Row="1"
                      SelectionEnabled="True"
                      RowHeight="70"
                      HeaderHeight="50"
                      BorderColor="#FFFFFF"
                      HeaderBackground="#E0E6F8"
-                     SelectedItem="{Binding secilenMusteri}"
-                     ItemsSource="{Binding musteriBilgiList, Mode=TwoWay}">
-            <x:Arguments>
-                <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
-            </x:Arguments>
-            <dg:DataGrid.HeaderFontSize>
-                <OnIdiom  x:TypeArguments="x:Double">
-                    <OnIdiom.Tablet>15</OnIdiom.Tablet>
-                    <OnIdiom.Phone>13</OnIdiom.Phone>
-                </OnIdiom>
-            </dg:DataGrid.HeaderFontSize>
-            <dg:DataGrid.Columns>
-                <dg:DataGridColumn Title="Ad" PropertyName="TXTUNVAN" Width="2*" HorizontalContentAlignment="StartAndExpand"/>
-            </dg:DataGrid.Columns>
-        </dg:DataGrid>
+                     SelectedItem="{Binding selectedDepo}"
+                     ItemsSource="{Binding depoBilgiList, Mode=TwoWay}">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <dg:DataGrid.HeaderFontSize>
+                        <OnIdiom  x:TypeArguments="x:Double">
+                            <OnIdiom.Tablet>15</OnIdiom.Tablet>
+                            <OnIdiom.Phone>13</OnIdiom.Phone>
+                        </OnIdiom>
+                    </dg:DataGrid.HeaderFontSize>
+                    <dg:DataGrid.Columns>
+                        <dg:DataGridColumn Title="Ad" PropertyName="txtAd" Width="2*" HorizontalContentAlignment="CenterAndExpand"/>
+                        <dg:DataGridColumn Title="Kod" PropertyName="txtKod" Width="2*" HorizontalContentAlignment="CenterAndExpand"/>
+                    </dg:DataGrid.Columns>
+                </dg:DataGrid>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Right"  Command="{Binding BackGestureCommand}"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+        <customViews:LoadingView />
     </Grid>
 </pages:PopupPage>

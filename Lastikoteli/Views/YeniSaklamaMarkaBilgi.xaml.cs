@@ -1,5 +1,6 @@
 ﻿using Lastikoteli.Helper.Abstract;
 using Lastikoteli.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 
@@ -96,6 +97,11 @@ namespace Lastikoteli.Views
                 stackDiger.IsVisible = false;
                 stackDiger.IsEnabled = false;
             }
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            PopupNavigation.PushAsync(new DepoSecimPopUpPage());
         }
     }
 }

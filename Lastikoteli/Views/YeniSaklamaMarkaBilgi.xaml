@@ -149,7 +149,7 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <xfx:XfxEntry Grid.Column="0" Placeholder="Raf" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
-                    <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" />
+                    <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                 </Grid>
                 <xfx:XfxEntry Grid.Row="6" Placeholder="Açıklama" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
             </Grid>

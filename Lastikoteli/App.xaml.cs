@@ -19,6 +19,7 @@ namespace Lastikoteli
             DependencyService.Register<IsEmriService>();
             DependencyService.Register<SaklamaService>();
             DependencyService.Register<ParametreService>();
+            DependencyService.Register<DepoService>();
             MainPage = new LoginPage();
             //MainPage = new YeniSaklamaTabbedPage();
         }
