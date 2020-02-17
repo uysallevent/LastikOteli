@@ -83,24 +83,24 @@
                 <!--Brisa-->
                 <StackLayout x:Name="stackBrisa" Grid.Row="2" BackgroundColor="Transparent" Orientation="Vertical">
                     <Frame CornerRadius="10" Padding="0">
-                        <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding markaListe}" ItemDisplayBinding="{Binding txtMarka}" SelectedIndex="{Binding selectedIndex}" />
+                        <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.markaListe}" ItemDisplayBinding="{Binding txtMarka}" SelectedIndex="{Binding selectedMarkaIndex}"/>
                     </Frame>
                     <Frame CornerRadius="10" Padding="0">
-                        <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding markaListe}" ItemDisplayBinding="{Binding txtTaban}"  />
+                        <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.tabanListe}" ItemDisplayBinding="{Binding txtTaban}"  SelectedIndex="{Binding selectedTabanIndex}"/>
                     </Frame>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <Picker Title="Kesit" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                            <Picker Title="Kesit" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.kesitListe}" ItemDisplayBinding="{Binding txtKesit}" SelectedIndex="{Binding selectedKesitIndex}"/>
                         </Frame>
                         <Frame  CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <Picker Title="Çap" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                            <Picker Title="Çap" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.capListe}" ItemDisplayBinding="{Binding txtCap}" SelectedIndex="{Binding selectedCapIndex}"/>
                         </Frame>
                     </StackLayout>
                     <Frame Grid.Row="3" CornerRadius="10" Padding="0">
-                        <Picker Title="Mevsim" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                        <Picker Title="Mevsim" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.mevsimListe}" ItemDisplayBinding="{Binding txtMevsim}" SelectedIndex="{Binding selectedMevsimIndex}"/>
                     </Frame>
                     <Frame Grid.Row="4" CornerRadius="10" Padding="0">
-                        <Picker Title="Desen" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                        <Picker Title="Desen" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.desenListe}" ItemDisplayBinding="{Binding txtDesen}" SelectedIndex="{Binding selectedDesenIndex}"/>
                     </Frame>
                 </StackLayout>
 

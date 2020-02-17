@@ -33,7 +33,7 @@ namespace Lastikoteli.ViewModels
         }
 
         private int _selectedIndex;
-        public int selectedIndex
+        public int selectedMarkaIndex
         {
             get
             {
@@ -44,10 +44,99 @@ namespace Lastikoteli.ViewModels
                 _selectedIndex = value;
                 if (_selectedIndex != null && _selectedIndex != -1)
                 {
-                    markaBilgiReuqest.txtMarka = markaListe[_selectedIndex].txtMarka;
+                    markaBilgiReuqest.txtMarka = lastikBilgileri.markaListe[_selectedIndex].txtMarka;
                     MarkaBilgiGetirCommand.Execute(true);
                 }
-                OnPropertyChanged("selectedIndex");
+                OnPropertyChanged("selectedMarkaIndex");
+
+            }
+        }
+        public int selectedTabanIndex
+        {
+            get
+            {
+                return _selectedIndex;
+            }
+            set
+            {
+                _selectedIndex = value;
+                if (_selectedIndex != null && _selectedIndex != -1)
+                {
+                    markaBilgiReuqest.txtTaban = lastikBilgileri.tabanListe[_selectedIndex].txtTaban;
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+                OnPropertyChanged("selectedTabanIndex");
+
+            }
+        }
+        public int selectedKesitIndex
+        {
+            get
+            {
+                return _selectedIndex;
+            }
+            set
+            {
+                _selectedIndex = value;
+                if (_selectedIndex != null && _selectedIndex != -1)
+                {
+                    markaBilgiReuqest.txtKesit = lastikBilgileri.kesitListe[_selectedIndex].txtKesit;
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+                OnPropertyChanged("selectedKesitIndex");
+
+            }
+        }
+        public int selectedCapIndex
+        {
+            get
+            {
+                return _selectedIndex;
+            }
+            set
+            {
+                _selectedIndex = value;
+                if (_selectedIndex != null && _selectedIndex != -1)
+                {
+                    markaBilgiReuqest.txtCap = lastikBilgileri.capListe[_selectedIndex].txtCap;
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+                OnPropertyChanged("selectedCapIndex");
+            }
+        }
+        public int selectedMevsimIndex
+        {
+            get
+            {
+                return _selectedIndex;
+            }
+            set
+            {
+                _selectedIndex = value;
+                if (_selectedIndex != null && _selectedIndex != -1)
+                {
+                    markaBilgiReuqest.txtMevsim = lastikBilgileri.mevsimListe[_selectedIndex].txtMevsim;
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+                OnPropertyChanged("selectedMevsimIndex");
+
+            }
+        }
+        public int selectedDesenIndex
+        {
+            get
+            {
+                return _selectedIndex;
+            }
+            set
+            {
+                _selectedIndex = value;
+                if (_selectedIndex != null && _selectedIndex != -1)
+                {
+                    markaBilgiReuqest.txtDesen = lastikBilgileri.desenListe[_selectedIndex].txtDesen;
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+                OnPropertyChanged("selectedDesenIndex");
 
             }
         }
@@ -102,18 +191,44 @@ namespace Lastikoteli.ViewModels
         private INavigation _navigation;
         public ICommand GotoMusteriPopUpCommand { get; set; }
         public ICommand MarkaBilgiGetirCommand { get; set; }
+        public ICommand DisDerinligiKontrolCommand { get; set; }
         public YeniSaklamaViewModel(INavigation navigation)
         {
             _navigation = navigation;
             markaBilgiReuqest = new MarkaBilgiRequest();
-            lastikBilgileri = new ObservableCollection<LastikBilgiResponse>();
+            lastikBilgileri = new LastikBilgiResponse();
             GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
             MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
+            DisDerinligiKontrolCommand = new Command(async()=>await DisDerinligiAsync());
             MarkaBilgiGetirCommand.Execute(true);
             MessagingCenter.Subscribe<MusteriAraPopUpViewModel, MusteriBilgileriResponse>(this, "yeniSaklamaSecilenMusteri", (s, e) =>
             {
 
             });
+        }
+
+        private async Task DisDerinligiAsync()
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+
+                var result = await SaklamaService.YasalDisDerinligiGetir();
+                if (result.StatusCode != 500)
+                {
+
+                }
+                else
+                    await this.Page.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+
+            }
+            catch (Exception)
+            {
+                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
         }
 
         private async Task MarkaBilgiGetirAsync()
@@ -129,21 +244,18 @@ namespace Lastikoteli.ViewModels
                 var result = await ParametreService.MarkaBilgiGetir(markaBilgiReuqest);
                 if (result.StatusCode != 500)
                 {
-                    //markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                    if (lastikBilgileri.markaListe.Count == 0)
-                        lastikBilgileri.markaListe = result.Result;
-                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count == 0)
-                        lastikBilgileri.tabanListe = result.Result;
-                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count > 0 && lastikBilgileri.kesitListe.Count == 0)
-                        lastikBilgileri.kesitListe = result.Result;
-                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count > 0 && lastikBilgileri.kesitListe.Count > 0 && lastikBilgileri.capListe.Count == 0)
-                        lastikBilgileri.capListe = result.Result;
-                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count == 0 && lastikBilgileri.kesitListe.Count > 0 && lastikBilgileri.capListe.Count > 0 && lastikBilgileri.mevsimListe.Count == 0)
-                        lastikBilgileri.mevsimListe = result.Result;
-                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count == 0 && lastikBilgileri.kesitListe.Count > 0 && lastikBilgileri.capListe.Count > 0 && lastikBilgileri.mevsimListe.Count > 0 && lastikBilgileri.desenListe.Count == 0)
-                        lastikBilgileri.desenListe = result.Result;
-
-                    //markaListe = result.Result;
+                    if (lastikBilgileri.markaListe == null || lastikBilgileri.markaListe.Count == 0)
+                        lastikBilgileri.markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
+                    else if (lastikBilgileri.markaListe.Count > 0 && (lastikBilgileri.tabanListe == null || lastikBilgileri.tabanListe.Count == 0))
+                        lastikBilgileri.tabanListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
+                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count > 0 && (lastikBilgileri.kesitListe == null || lastikBilgileri.kesitListe.Count == 0))
+                        lastikBilgileri.kesitListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
+                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count > 0 && lastikBilgileri.kesitListe.Count > 0 && (lastikBilgileri.capListe == null || lastikBilgileri.capListe.Count == 0))
+                        lastikBilgileri.capListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
+                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count > 0 && lastikBilgileri.kesitListe.Count > 0 && lastikBilgileri.capListe.Count > 0 && (lastikBilgileri.mevsimListe == null || lastikBilgileri.mevsimListe.Count == 0))
+                        lastikBilgileri.mevsimListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
+                    else if (lastikBilgileri.markaListe.Count > 0 && lastikBilgileri.tabanListe.Count > 0 && lastikBilgileri.kesitListe.Count > 0 && lastikBilgileri.capListe.Count > 0 && lastikBilgileri.mevsimListe.Count > 0 && (lastikBilgileri.desenListe == null || lastikBilgileri.desenListe.Count == 0))
+                        lastikBilgileri.desenListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                 }
                 else
                 {

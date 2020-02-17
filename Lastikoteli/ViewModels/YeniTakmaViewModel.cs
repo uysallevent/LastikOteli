@@ -1,15 +1,13 @@
-﻿using Lastikoteli.Models.Complex.Request;
+﻿using Lastikoteli.Helper.Abstract;
+using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using Lastikoteli.Helper.Abstract;
+using Xamarin.Forms;
 
 namespace Lastikoteli.ViewModels
 {

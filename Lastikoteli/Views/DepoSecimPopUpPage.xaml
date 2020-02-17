@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             mc:Ignorable="d"
+             x:Class="Lastikoteli.Views.DepoSecimPopUpPage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <Grid>
+        <dg:DataGrid x:Name="LstMusteriBilgileri"  Grid.Row="4"
+                     SelectionEnabled="True"
+                     RowHeight="70"
+                     HeaderHeight="50"
+                     BorderColor="#FFFFFF"
+                     HeaderBackground="#E0E6F8"
+                     SelectedItem="{Binding secilenMusteri}"
+                     ItemsSource="{Binding musteriBilgiList, Mode=TwoWay}">
+            <x:Arguments>
+                <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+            </x:Arguments>
+            <dg:DataGrid.HeaderFontSize>
+                <OnIdiom  x:TypeArguments="x:Double">
+                    <OnIdiom.Tablet>15</OnIdiom.Tablet>
+                    <OnIdiom.Phone>13</OnIdiom.Phone>
+                </OnIdiom>
+            </dg:DataGrid.HeaderFontSize>
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="Ad" PropertyName="TXTUNVAN" Width="2*" HorizontalContentAlignment="StartAndExpand"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </Grid>
+</pages:PopupPage>
