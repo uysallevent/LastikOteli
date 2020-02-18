@@ -14,8 +14,12 @@ namespace Lastikoteli.ViewModels
 {
     public class YeniSaklamaViewModel : BaseViewModel
     {
+        private INavigation _navigation;
+
+
         public YeniSaklamaPlakaBilgileri PagePlakaBilgi { get; set; }
         public YeniSaklamaMarkaBilgi PageMarkaBilgi { get; set; }
+
 
         private MarkaBilgiRequest _markaBilgiRequest;
         public MarkaBilgiRequest markaBilgiReuqest
@@ -32,8 +36,8 @@ namespace Lastikoteli.ViewModels
             }
         }
 
-        private SaklamaBaslikRequest _saklamaBaslikRequest;
 
+        private SaklamaBaslikRequest _saklamaBaslikRequest;
         public SaklamaBaslikRequest saklamaBaslikRequest
         {
             get { return _saklamaBaslikRequest; }
@@ -42,6 +46,88 @@ namespace Lastikoteli.ViewModels
                 _saklamaBaslikRequest = value;
                 OnPropertyChanged("saklamaBaslikRequest");
             }
+        }
+
+
+        private ObservableCollection<SaklamaDetayRequest> _detayListe;
+        public ObservableCollection<SaklamaDetayRequest> detayListe
+        {
+            get
+            {
+                return _detayListe;
+            }
+            set
+            {
+                _detayListe = value;
+                OnPropertyChanged("detayListe");
+            }
+        }
+
+
+        private SaklamaDetayRequest _detay;
+        public SaklamaDetayRequest detay
+        {
+            get
+            {
+                if (lngLastikYon == 0)
+                {
+                    if (detayListe.Count == 0)
+                        detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1 });
+
+                    detayListe[lngLastikYon].BYTDURUM = _detay.BYTDURUM;
+                    detayListe[lngLastikYon].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
+                    detayListe[lngLastikYon].ISOTL = _detay.ISOTL;
+                    detayListe[lngLastikYon].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
+                    detayListe[lngLastikYon].LNGLASTIKDURUM = 1;
+                    detayListe[lngLastikYon].LNGLASTIKTIP = 2;//ÖnSol
+                    detayListe[lngLastikYon].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                    detayListe[lngLastikYon].LNGURUNTIP = detay.LNGURUNTIP;
+                    detayListe[lngLastikYon].TXTACIKLAMA = detay.TXTACIKLAMA;
+                    detayListe[lngLastikYon].TXTDOTFABRIKA = detay.TXTDOTFABRIKA;
+                    detayListe[lngLastikYon].TXTDOTHAFTA = detay.TXTDOTHAFTA;
+                    detayListe[lngLastikYon].TXTDOTURETIM = detay.TXTDOTURETIM;
+                    detayListe[lngLastikYon].TXTURUNKOD = detay.TXTURUNKOD;
+                }
+                else if (lngLastikYon == 1)
+                {
+                    if (detayListe.Count == 1)
+                        detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1 });
+
+                    detayListe[lngLastikYon].BYTDURUM = _detay.BYTDURUM;
+                    detayListe[lngLastikYon].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
+                    detayListe[lngLastikYon].ISOTL = _detay.ISOTL;
+                    detayListe[lngLastikYon].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
+                    detayListe[lngLastikYon].LNGLASTIKDURUM = 1;
+                    detayListe[lngLastikYon].LNGLASTIKTIP = 1;//ÖnSağ
+                    detayListe[lngLastikYon].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                    detayListe[lngLastikYon].LNGURUNTIP = detay.LNGURUNTIP;
+                    detayListe[lngLastikYon].TXTACIKLAMA = detay.TXTACIKLAMA;
+                    detayListe[lngLastikYon].TXTDOTFABRIKA = detay.TXTDOTFABRIKA;
+                    detayListe[lngLastikYon].TXTDOTHAFTA = detay.TXTDOTHAFTA;
+                    detayListe[lngLastikYon].TXTDOTURETIM = detay.TXTDOTURETIM;
+                    detayListe[lngLastikYon].TXTURUNKOD = detay.TXTURUNKOD;
+                }
+                return _detay;
+            }
+            set
+            {
+                SetProperty<SaklamaDetayRequest>(ref _detay, value);
+            }
+        }
+
+
+        private KullaniciUrunRequest _kullaniciUrunBilgileri;
+        public KullaniciUrunRequest kullaniciUrunBilgileri
+        {
+            get
+            {
+                return _kullaniciUrunBilgileri;
+            }
+            set
+            {
+                SetProperty<KullaniciUrunRequest>(ref _kullaniciUrunBilgileri, value);
+            }
+
         }
 
 
@@ -145,10 +231,7 @@ namespace Lastikoteli.ViewModels
             {
                 _selectedIndex = value;
                 if (_selectedIndex != null && _selectedIndex != -1)
-                {
-                    markaBilgiReuqest.txtDesen = lastikBilgileri.desenListe[_selectedIndex].txtDesen;
-                    MarkaBilgiGetirCommand.Execute(true);
-                }
+                    detay.TXTURUNKOD = lastikBilgileri.desenListe[_selectedIndex].txtUrunKod;
                 OnPropertyChanged("selectedDesenIndex");
 
             }
@@ -166,6 +249,21 @@ namespace Lastikoteli.ViewModels
             {
                 _bytUrunTip = value;
                 OnPropertyChanged("bytUrunTip");
+            }
+        }
+
+
+        private int _lngLastikYon;
+        public int lngLastikYon
+        {
+            get
+            {
+                return _lngLastikYon;
+            }
+            set
+            {
+                _lngLastikYon = value;
+                OnPropertyChanged("lngLastikYon");
             }
         }
 
@@ -205,26 +303,18 @@ namespace Lastikoteli.ViewModels
         public YeniSaklamaMarkaBilgi Page { get; set; }
 
 
-        private INavigation _navigation;
-
 
         public ICommand GotoMusteriPopUpCommand { get; set; }
         public ICommand MarkaBilgiGetirCommand { get; set; }
         public ICommand DisDerinligiKontrolCommand { get; set; }
+        public ICommand secilenLastikCommand { get; set; }
+        public ICommand saklamayaAlCommand { get; set; }
 
 
         public YeniSaklamaViewModel(INavigation navigation)
         {
             _navigation = navigation;
-            saklamaBaslikRequest = new SaklamaBaslikRequest()
-            {
-                detayListe = new ObservableCollection<SaklamaDetayRequest>()
-            };
-            markaBilgiReuqest = new MarkaBilgiRequest();
-            lastikBilgileri = new LastikBilgiResponse();
-            GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
-            MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
-            DisDerinligiKontrolCommand = new Command(async () => await DisDerinligiAsync());
+            Initializer();
             MarkaBilgiGetirCommand.Execute(true);
             MessagingCenter.Subscribe<MusteriAraPopUpViewModel, MusteriBilgileriResponse>(this, "yeniSaklamaSecilenMusteri", (s, e) =>
             {
@@ -235,6 +325,35 @@ namespace Lastikoteli.ViewModels
             {
 
             });
+        }
+
+        public void Initializer()
+        {
+            saklamaBaslikRequest = new SaklamaBaslikRequest()
+            {
+                detayListe = new ObservableCollection<SaklamaDetayRequest>()
+            };
+            detayListe = new ObservableCollection<SaklamaDetayRequest>();
+            detay = new SaklamaDetayRequest();
+            kullaniciUrunBilgileri = new KullaniciUrunRequest();
+            markaBilgiReuqest = new MarkaBilgiRequest();
+            lastikBilgileri = new LastikBilgiResponse();
+            GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
+            MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
+            DisDerinligiKontrolCommand = new Command(async () => await DisDerinligiAsync());
+            secilenLastikCommand = new Command((x) => secilenLastik(x));
+            //saklamayaAlCommand = new Command(async () => await saklamayaAlAsync());
+            lngLastikYon = 0;
+        }
+
+        private async Task saklamayaAlAsync()
+        {
+
+        }
+
+        private void secilenLastik(object x)
+        {
+            lngLastikYon = Convert.ToInt32(x);
         }
 
         private async Task DisDerinligiAsync()

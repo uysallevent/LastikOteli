@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Lastikoteli.Models.Complex.Request
 {
-    public class SaklamaBaslikRequest : INotifyPropertyChanged
+    public class SaklamaBaslikRequest
     {
         public int? LNGKOD { get; set; }
         public int LNGDISTKOD { get; set; }
@@ -30,31 +30,7 @@ namespace Lastikoteli.Models.Complex.Request
         /// Olmama durumunda null gelir
         /// </summary>
         public int? LNGADET { get; set; }
+        public ObservableCollection<SaklamaDetayRequest> detayListe { get; set; }
 
-        private ObservableCollection<SaklamaDetayRequest> _detayListe;
-        public ObservableCollection<SaklamaDetayRequest> detayListe
-        {
-            get
-            {
-                return _detayListe;
-            }
-            set
-            {
-                _detayListe = value;
-                OnPropertyChanged("detayListe");
-            }
-        }
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }

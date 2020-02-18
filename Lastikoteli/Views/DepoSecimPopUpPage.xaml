@@ -24,7 +24,7 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
 
-    <Grid >
+    <Grid HorizontalOptions="Fill">
         <Frame CornerRadius="10" BackgroundColor="Black" BorderColor="White">
             <Grid BackgroundColor="Black" RowSpacing="10">
                 <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
                      BorderColor="#FFFFFF"
                      HeaderBackground="#E0E6F8"
                      SelectedItem="{Binding selectedDepo}"
-                     ItemsSource="{Binding depoBilgiList, Mode=TwoWay}">
+                     ItemsSource="{Binding depoBilgiList, Mode=TwoWay}" HorizontalOptions="FillAndExpand">
                     <x:Arguments>
                         <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
                     </x:Arguments>
@@ -50,8 +50,7 @@
                         </OnIdiom>
                     </dg:DataGrid.HeaderFontSize>
                     <dg:DataGrid.Columns>
-                        <dg:DataGridColumn Title="Ad" PropertyName="txtAd" Width="2*" HorizontalContentAlignment="CenterAndExpand"/>
-                        <dg:DataGridColumn Title="Kod" PropertyName="txtKod" Width="2*" HorizontalContentAlignment="CenterAndExpand"/>
+                        <dg:DataGridColumn Title="Raf Bilgisi" PropertyName="txtAd" Width="2*" HorizontalContentAlignment="CenterAndExpand"/>
                     </dg:DataGrid.Columns>
                 </dg:DataGrid>
             </Grid>

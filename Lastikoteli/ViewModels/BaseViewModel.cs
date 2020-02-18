@@ -31,7 +31,6 @@ namespace Lastikoteli.ViewModels
             CurrentPage = page;
             CurrentPage.Appearing += CurrentPageOnAppearing;
             CurrentPage.Disappearing += CurrentPageOnDisappearing;
-
         }
 
         bool isBusy = false;

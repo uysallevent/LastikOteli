@@ -28,18 +28,16 @@
                 <RowDefinition Height="0.1*" />
                 <RowDefinition Height="0.15*" />
                 <RowDefinition Height="0.15*" />
-
             </Grid.RowDefinitions>
-            <ImageButton x:Name="btnOnSol" Grid.Row="0" Source="onsol" BackgroundColor="DarkOrange" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
-            <ImageButton x:Name="btnOnSag" Grid.Row="1" Source="onsag" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
-            <ImageButton  x:Name="btnArkaSol" Grid.Row="2" Source="arkasol" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
-            <ImageButton x:Name="btnArkaSag" Grid.Row="3" Source="arkasag" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
+            <ImageButton x:Name="btnOnSol" Grid.Row="0" Source="onsol" BackgroundColor="DarkOrange" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="0"/>
+            <ImageButton x:Name="btnOnSag" Grid.Row="1" Source="onsag" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="1"/>
+            <ImageButton  x:Name="btnArkaSol" Grid.Row="2" Source="arkasol" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="2"/>
+            <ImageButton x:Name="btnArkaSag" Grid.Row="3" Source="arkasag" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="3"/>
             <StackLayout Grid.Row="4" VerticalOptions="Start" Padding="0,15,0,0">
                 <BoxView HeightRequest="2" BackgroundColor="Black"/>
             </StackLayout>
-
-            <ImageButton x:Name="btnDigerSag" Grid.Row="5" Source="digersag1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
-            <ImageButton x:Name="btnDigerSol" Grid.Row="6" Source="digersol1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked"/>
+            <ImageButton x:Name="btnDigerSag" Grid.Row="5" Source="digersag1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="4"/>
+            <ImageButton x:Name="btnDigerSol" Grid.Row="6" Source="digersol1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="5"/>
         </Grid>
         <ScrollView Grid.Column="1" >
             <Grid BackgroundColor="Black">
@@ -62,9 +60,9 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Text="Aktif" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                        <Switch Grid.Column="1" IsToggled="True" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   />
+                        <Switch Grid.Column="1" IsToggled="{Binding detay.BYTDURUM,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"/>
                         <Label Grid.Column="3" Text="ÖTL" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                        <Switch Grid.Column="4" IsToggled="False" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   />
+                        <Switch Grid.Column="4" IsToggled="{Binding detay.ISOTL}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   />
                     </Grid>
                 </Frame>
                 <Frame Grid.Row="1" CornerRadius="10" Padding="0">
@@ -109,49 +107,49 @@
                 <!--Diğer-->
                 <StackLayout x:Name="stackDiger" Grid.Row="2" BackgroundColor="Transparent" Orientation="Vertical" IsVisible="False" IsEnabled="False">
                     <Frame CornerRadius="10" Padding="0" Margin="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Marka" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Marka" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTMARKA}"/>
                     </Frame>
                     <Frame CornerRadius="10" Padding="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Taban" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Taban" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTTABAN}"/>
                     </Frame>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <xfx:XfxEntry Grid.Row="10" Placeholder="Kesit" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None"/>
+                            <xfx:XfxEntry Grid.Row="10" Placeholder="Kesit" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTKESIT}"/>
                         </Frame>
                         <Frame  CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <xfx:XfxEntry Grid.Row="10" Placeholder="Çap" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None"/>
+                            <xfx:XfxEntry Grid.Row="10" Placeholder="Çap" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{ Binding kullaniciUrunBilgileri.TXTCAP}"/>
                         </Frame>
                     </StackLayout>
                     <Frame Grid.Row="3" CornerRadius="10" Padding="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Mevsim" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Mevsim" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTMEVSIM}"/>
                     </Frame>
                     <Frame Grid.Row="4" CornerRadius="10" Padding="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Desen" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Desen" PlaceholderColor="DarkGray"        TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTDESEN}"/>
                     </Frame>
                 </StackLayout>
                 <!--Diğer-->
 
 
-                <xfx:XfxEntry Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" TextColor="White"/>
+                <xfx:XfxEntry Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" TextColor="White" Text="{Binding detay.DBLDISDERINLIGI,Mode=TwoWay}"/>
                 <Grid Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <xfx:XfxEntry Grid.Column="0" Placeholder="Üretim" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
-                    <xfx:XfxEntry Grid.Column="1" Placeholder="Fabrika" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
-                    <xfx:XfxEntry Grid.Column="2" Placeholder="Hafta" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                    <xfx:XfxEntry Grid.Column="0" Placeholder="Üretim" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding detay.TXTDOTURETIM}"/>
+                    <xfx:XfxEntry Grid.Column="1" Placeholder="Fabrika" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding detay.TXTDOTFABRIKA}"/>
+                    <xfx:XfxEntry Grid.Column="2" Placeholder="Hafta" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding detay.TXTDOTHAFTA}"/>
                 </Grid>
                 <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <xfx:XfxEntry Grid.Column="0" Placeholder="Raf" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                    <xfx:XfxEntry Grid.Column="0" Placeholder="Raf" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding detay.LNGDEPOSIRAKOD}"/>
                     <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
                 </Grid>
-                <xfx:XfxEntry Grid.Row="6" Placeholder="Açıklama" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}"/>
+                <xfx:XfxEntry Grid.Row="6" Placeholder="Açıklama" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding detay.TXTACIKLAMA}"/>
             </Grid>
         </ScrollView>
 

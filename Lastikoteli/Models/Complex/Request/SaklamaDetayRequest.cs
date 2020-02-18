@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Lastikoteli.Models.Complex.Request
 {
-    public class SaklamaDetayRequest : INotifyPropertyChanged
+    public class SaklamaDetayRequest
     {
         public int? LNGKOD { get; set; }
         public int? LNGSAKLAMABASLIKKOD { get; set; }
@@ -26,34 +26,10 @@ namespace Lastikoteli.Models.Complex.Request
         public string TXTACIKLAMA { get; set; }
         public int BYTHAVUZDA { get; set; }
         public int? LNGLASTIKDURUM { get; set; }
+        public int ISOTL { get; set; }
         public int BYTDURUM { get; set; }
         public int LNGSONISLEMYAPANKULLANICI { get; set; }
+        public KullaniciUrunRequest kullaniciUrunBilgileri { get; set; }
 
-        private KullaniciUrunRequest _kullaniciUrunBilgileri;
-        public KullaniciUrunRequest kullaniciUrunBilgileri
-        {
-            get
-            {
-                return _kullaniciUrunBilgileri;
-            }
-            set
-            {
-                _kullaniciUrunBilgileri = value;
-                OnPropertyChanged("kullaniciUrunBilgileri");
-            }
-
-        }
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }

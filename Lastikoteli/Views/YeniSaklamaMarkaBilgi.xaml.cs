@@ -30,7 +30,6 @@ namespace Lastikoteli.Views
                     btnArkaSag.BackgroundColor = Color.White;
                     btnDigerSol.BackgroundColor = Color.White;
                     btnDigerSag.BackgroundColor = Color.White;
-                    DependencyService.Get<IToastService>().ToastMessage("Toast Message");
                     break;
                 case "btnOnSag":
                     btnOnSol.BackgroundColor = Color.White;
