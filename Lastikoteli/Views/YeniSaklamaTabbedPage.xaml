@@ -2,7 +2,9 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             x:Class="Lastikoteli.Views.YeniSaklamaTabbedPage"
+            xmlns:views="clr-namespace:Lastikoteli.Views"
             Title="Yeni Saklama">
+    <views:YeniSaklamaPlakaBilgileri Title="Plaka Bilgileri" IconImageSource="icon_saklama.png"/>
+    <views:YeniSaklamaMarkaBilgi Title="Lastik Bilgileri" IconImageSource="icon_takma.png"/>
 
-    
 </TabbedPage>

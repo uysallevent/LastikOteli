@@ -19,14 +19,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <xfx:XfxEntry Grid.Row="0" Placeholder="Plaka" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding saklamaBaslikRequest.TXTPLAKA}"/>
-        <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding saklamaBaslikRequest.LNGARACKM}"/>
+        <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding saklamaBaslikRequest.LNGARACKM,Mode=TwoWay}"/>
         <xfx:XfxEntry Grid.Row="2" Placeholder="Araç Kullanıcısı" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding saklamaBaslikRequest.TXTSOFORADSOYAD}"/>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <xfx:XfxEntry Grid.Column="0" Placeholder="Ad Soyad" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding saklamaBaslikRequest.TXTMUSTERIUNVAN}"/>
+            <xfx:XfxEntry Grid.Column="0" Placeholder="Ad Soyad" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding saklamaBaslikRequest.TXTMUSTERIUNVAN,Mode=TwoWay}"/>
             <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" Command="{Binding GotoMusteriPopUpCommand}"/>
         </Grid>
         <xfx:XfxEntry Grid.Row="4" Placeholder="Cep Tel" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding saklamaBaslikRequest.TXTCEPTEL}"/>

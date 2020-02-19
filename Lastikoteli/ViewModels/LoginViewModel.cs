@@ -17,7 +17,17 @@ namespace Lastikoteli.ViewModels
 
         private DoubleClickControl _doubleClickControl;
         public Command gotoMainPageCommand { get; set; }
-        public LoginRequest loginRequest { get; set; }
+
+        private LoginRequest _loginRequest;
+        public LoginRequest loginRequest
+        {
+            get { return _loginRequest; }
+            set
+            {
+                _loginRequest = value;
+                SetProperty<LoginRequest>(ref _loginRequest, value);
+            }
+        }
         public LoginViewModel(INavigation navigation)
         {
             _navigation = navigation;

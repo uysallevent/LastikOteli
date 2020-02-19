@@ -19,7 +19,6 @@ namespace Lastikoteli.Views
         {
             InitializeComponent();
             BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel(this.Navigation);
-            (BindingContext as YeniSaklamaViewModel).PagePlakaBilgi = this;
         }
 
         public async void OpenPopup()

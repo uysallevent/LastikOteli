@@ -10,7 +10,7 @@
     x:Name="PageYeniSaklamaMarkaBilgi">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Kaydet" Priority="1"/>
+        <ToolbarItem Text="Kaydet" Priority="1" Command="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.saklamayaAlCommand}"/>
     </ContentPage.ToolbarItems>
 
     <Grid>
@@ -62,7 +62,7 @@
                         <Label Grid.Column="0" Text="Aktif" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
                         <Switch Grid.Column="1" IsToggled="{Binding detay.BYTDURUM,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"/>
                         <Label Grid.Column="3" Text="ÖTL" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                        <Switch Grid.Column="4" IsToggled="{Binding detay.ISOTL}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   />
+                        <Switch Grid.Column="4" IsToggled="{Binding detay.ISOTL,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   />
                     </Grid>
                 </Frame>
                 <Frame Grid.Row="1" CornerRadius="10" Padding="0">
@@ -73,7 +73,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Text="Brisa" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                        <Switch Grid.Column="1" IsToggled="False"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent"  Toggled="Switch_Toggled" />
+                        <Switch Grid.Column="1" IsToggled="{Binding detay.LNGURUNTIP,Mode=TwoWay}"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent"  Toggled="Switch_Toggled" />
                         <Label Grid.Column="2" Text="Diğer" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
                     </Grid>
                 </Frame>
@@ -81,24 +81,42 @@
                 <!--Brisa-->
                 <StackLayout x:Name="stackBrisa" Grid.Row="2" BackgroundColor="Transparent" Orientation="Vertical">
                     <Frame CornerRadius="10" Padding="0">
-                        <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.markaListe}" ItemDisplayBinding="{Binding txtMarka}" SelectedIndex="{Binding selectedMarkaIndex}"/>
+                        <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
+                                ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.lastikBilgileri.markaListe}"
+                                ItemDisplayBinding="{Binding txtMarka}" 
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.selectedMarkaIndex}"/>
                     </Frame>
                     <Frame CornerRadius="10" Padding="0">
-                        <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.tabanListe}" ItemDisplayBinding="{Binding txtTaban}"  SelectedIndex="{Binding selectedTabanIndex}"/>
+                        <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
+                                ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.lastikBilgileri.tabanListe}" 
+                                ItemDisplayBinding="{Binding txtTaban}"  
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.selectedTabanIndex}"/>
                     </Frame>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <Picker Title="Kesit" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.kesitListe}" ItemDisplayBinding="{Binding txtKesit}" SelectedIndex="{Binding selectedKesitIndex}"/>
+                            <Picker Title="Kesit" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
+                                    ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.lastikBilgileri.kesitListe}" 
+                                    ItemDisplayBinding="{Binding txtKesit}" 
+                                    SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.selectedKesitIndex}"/>
                         </Frame>
                         <Frame  CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <Picker Title="Çap" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.capListe}" ItemDisplayBinding="{Binding txtCap}" SelectedIndex="{Binding selectedCapIndex}"/>
+                            <Picker Title="Çap" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
+                                    ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.lastikBilgileri.capListe}" 
+                                    ItemDisplayBinding="{Binding txtCap}" 
+                                    SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.selectedCapIndex}"/>
                         </Frame>
                     </StackLayout>
                     <Frame Grid.Row="3" CornerRadius="10" Padding="0">
-                        <Picker Title="Mevsim" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.mevsimListe}" ItemDisplayBinding="{Binding txtMevsim}" SelectedIndex="{Binding selectedMevsimIndex}"/>
+                        <Picker Title="Mevsim" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"
+                                ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.lastikBilgileri.mevsimListe}"
+                                ItemDisplayBinding="{Binding txtMevsim}"
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.selectedMevsimIndex}"/>
                     </Frame>
                     <Frame Grid.Row="4" CornerRadius="10" Padding="0">
-                        <Picker Title="Desen" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" ItemsSource="{Binding lastikBilgileri.desenListe}" ItemDisplayBinding="{Binding txtDesen}" SelectedIndex="{Binding selectedDesenIndex}"/>
+                        <Picker Title="Desen" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"
+                                ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.lastikBilgileri.desenListe}" 
+                                ItemDisplayBinding="{Binding txtDesen}" 
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.selectedDesenIndex}"/>
                     </Frame>
                 </StackLayout>
 

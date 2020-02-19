@@ -10,12 +10,11 @@ namespace Lastikoteli.Views
 {
     public partial class YeniSaklamaMarkaBilgi : ContentPage
     {
-        YeniSaklamaViewModel yeniSaklamaViewModel;
+        YeniSaklamaViewModel  yeniSaklamaView;
         public YeniSaklamaMarkaBilgi()
         {
             InitializeComponent();
-            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel(this.Navigation);
-            (BindingContext as YeniSaklamaViewModel).Page = this;
+            BindingContext = yeniSaklamaView = new YeniSaklamaViewModel(this.Navigation);
         }
 
         private void btn_Clicked(object sender, EventArgs e)
