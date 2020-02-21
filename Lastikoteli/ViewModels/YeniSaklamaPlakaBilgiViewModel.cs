@@ -54,12 +54,8 @@ namespace Lastikoteli.ViewModels
 
         public void Initializer()
         {
-            saklamaBaslikRequest = new SaklamaBaslikRequest()
-            {
-                detayListe = new ObservableCollection<SaklamaDetayRequest>()
-            };
+            saklamaBaslikRequest = new SaklamaBaslikRequest();
             GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
-
         }
     }
 }

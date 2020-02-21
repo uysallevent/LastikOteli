@@ -10,7 +10,7 @@
     x:Name="PageYeniSaklamaMarkaBilgi">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Kaydet" Priority="1" Command="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.saklamayaAlCommand}"/>
+        <ToolbarItem Text="Kaydet" Priority="1" Command="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.saklamayaAlCommand}"/>
     </ContentPage.ToolbarItems>
 
     <Grid>
@@ -148,7 +148,9 @@
                 <!--Diğer-->
 
 
-                <xfx:XfxEntry Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" TextColor="White" Text="{Binding detay.DBLDISDERINLIGI,Mode=TwoWay}"/>
+                <xfx:XfxEntry Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" TextColor="White" 
+                              Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.yeniSaklamaMarkaBilgileriViewModel.detay.DBLDISDERINLIGI,Mode=TwoWay}"
+                              />
                 <Grid Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

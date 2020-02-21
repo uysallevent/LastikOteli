@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:customViews="clr-namespace:Lastikoteli.Helper"
+             mc:Ignorable="d"
+             x:Class="Lastikoteli.Views.SearchPrinterPopupPage"
+             BackgroundColor="Transparent" Padding="10">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Grid>
+        <Frame CornerRadius="10" BackgroundColor="Black" BorderColor="White">
+            <Grid BackgroundColor="Black">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ImageButton Grid.Row="0" HorizontalOptions="End" Source="btnpopupclose" BackgroundColor="White" CornerRadius="20" Clicked="ImageButton_Clicked"/>
+                <Label Grid.Row="1" Text="{Binding statusText}" HorizontalTextAlignment="Center" TextColor="White" FontSize="12"/>
+                <ListView 
+                    Grid.Row="2"
+                    IsRefreshing="{Binding IsBusy}"
+                    SelectedItem="{Binding discoveredPrinter}"
+                    ItemsSource="{Binding printerList,Mode=TwoWay}"
+                    BackgroundColor="White">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding Address}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <customControl:CustomButton  Grid.Row="3" Text="Kapat" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" CommandParameter="{Binding .}" Command="{Binding LastikleriTakCommand}"/>
+            </Grid>
+        </Frame>
+        <customViews:LoadingView />
+    </Grid>
+
+</pages:PopupPage>

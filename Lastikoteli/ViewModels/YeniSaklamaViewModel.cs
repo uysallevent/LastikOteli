@@ -17,7 +17,6 @@ namespace Lastikoteli.ViewModels
         private INavigation _navigation;
         public YeniSaklamaTabbedPage Page { get; set; }
         public YeniSaklamaPlakaBilgiViewModel yeniSaklamaPlakaBilgiViewModel { get; set; }
-
         public YeniSaklamaMarkaBilgileriViewModel yeniSaklamaMarkaBilgileriViewModel { get; set; }
 
 

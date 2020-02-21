@@ -6,6 +6,8 @@ using Lastikoteli.Views;
 using Lastikoteli.Models;
 using Lastikoteli.Services.Concrete;
 using Lastikoteli.Models.Complex.Response;
+using Lastikoteli.Helper.Abstract;
+using Lastikoteli.Helper;
 
 namespace Lastikoteli
 {
@@ -20,6 +22,7 @@ namespace Lastikoteli
             DependencyService.Register<SaklamaService>();
             DependencyService.Register<ParametreService>();
             DependencyService.Register<DepoService>();
+            DependencyService.Register<EtiketYazdir>();
             MainPage = new LoginPage();
             //MainPage = new YeniSaklamaTabbedPage();
         }

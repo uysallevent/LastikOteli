@@ -5,6 +5,7 @@
              xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
              x:Class="Lastikoteli.Views.YeniSaklamaPlakaBilgileri"
              BackgroundColor="Black"
+             x:Name="PageYeniSaklamaPlakaBilgi"
              Title="Yeni Saklama">
 
     <Grid Padding="5">
@@ -18,7 +19,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <xfx:XfxEntry Grid.Row="0" Placeholder="Plaka" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding saklamaBaslikRequest.TXTPLAKA}"/>
+        <xfx:XfxEntry Grid.Row="0" Placeholder="Plaka" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.yeniSaklamaPlakaBilgiViewModel.saklamaBaslikRequest.TXTPLAKA,Mode=TwoWay}"/>
         <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding saklamaBaslikRequest.LNGARACKM,Mode=TwoWay}"/>
         <xfx:XfxEntry Grid.Row="2" Placeholder="Araç Kullanıcısı" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding saklamaBaslikRequest.TXTSOFORADSOYAD}"/>
         <Grid Grid.Row="3">

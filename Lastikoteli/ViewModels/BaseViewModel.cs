@@ -1,4 +1,5 @@
 ﻿using Lastikoteli.Helper;
+using Lastikoteli.Helper.Abstract;
 using Lastikoteli.Models;
 using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.Services.Abstract;
@@ -19,6 +20,7 @@ namespace Lastikoteli.ViewModels
         public ISaklamaService SaklamaService => DependencyService.Get<ISaklamaService>();
         public IParametreService ParametreService => DependencyService.Get<IParametreService>();
         public IDepoService DepoService => DependencyService.Get<IDepoService>();
+        public IEtiketYazdir EtiketYazdir => DependencyService.Get<IEtiketYazdir>();
 
 
         public DoubleClickControl _doubleClickControl;

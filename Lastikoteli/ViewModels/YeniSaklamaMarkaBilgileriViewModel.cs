@@ -251,7 +251,6 @@ namespace Lastikoteli.ViewModels
             }
             set
             {
-                _detay = value;
                 SetProperty<SaklamaDetayRequest>(ref _detay, value);
             }
         }
