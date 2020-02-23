@@ -11,5 +11,6 @@ namespace Lastikoteli.Services.Abstract
     public interface IParametreService
     {
         Task<ApiResponseGeneric<ObservableCollection<MarkaBilgiResponse>>> MarkaBilgiGetir(MarkaBilgiRequest request);
+        Task<ApiResponseGeneric<ObservableCollection<KeyValuePair<string, string>>>> DesenBilgileriGetir(DesenRequest request);
     }
 }

@@ -19,6 +19,7 @@ namespace Lastikoteli.Models.Complex.Request
         public string TXTURUNKOD { get; set; }
         public int? LNGLASTIKTIP { get; set; }
         public int? LNGDEPOSIRAKOD { get; set; }
+        public string TXTRAFKOLAYKOD { get; set; }
         public string TXTDOTURETIM { get; set; }
         public string TXTDOTFABRIKA { get; set; }
         public string TXTDOTHAFTA { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Lastikoteli.Helper;
 using Lastikoteli.Helper.Abstract;
+using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Enums;
 using Lastikoteli.Views;
 using LinkOS.Plugin;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Lastikoteli.ViewModels
@@ -27,6 +29,19 @@ namespace Lastikoteli.ViewModels
         }
 
 
+        private PrintRequest _lastikDesenListesi;
+        public PrintRequest lastikDesenListesi
+        {
+            get { return _lastikDesenListesi; }
+            set
+            {
+                _lastikDesenListesi = value;
+                OnPropertyChanged("lastikDesenListesi");
+            }
+        }
+
+
+
         public void UpdateStatusText(string message)
         {
             statusText = message;
@@ -34,7 +49,6 @@ namespace Lastikoteli.ViewModels
         }
 
         private IDiscoveredPrinter _discoveredPrinter;
-
         public IDiscoveredPrinter discoveredPrinter
         {
             get { return _discoveredPrinter; }
@@ -69,26 +83,12 @@ namespace Lastikoteli.ViewModels
                     return;
                 }
 
-                EtiketYazdir.SendZplReceipt(connection);
+                etiketYazdir.SendZplReceipt(connection, lastikDesenListesi);
 
-                etiketYazdir.SendZplReceipt(connection);
-
-                if (true)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-
-                    });
-                    Page.DisplayAlert("Uyarı", "Yazdırma işlemi başarılı", "Tamam");
-                }
+                Page.DisplayAlert("Uyarı", "Yazdırma işlemi başarılı", "Tamam");
             }
             catch (Exception ex)
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-
-                });
-
                 Page.DisplayAlert("Uyarı", "Yazdırma işlemi sırasında bir hata oluştu", "Tamam");
             }
             finally
@@ -111,6 +111,7 @@ namespace Lastikoteli.ViewModels
         }
         public void StartDiscovery(ConnectionType connectionType)
         {
+            IsBusy = true;
             UpdateStatusText($"Yazıcılar aranıyor. Bağlantı tipi {connectionType.ToString()}");
             try
             {
@@ -132,28 +133,32 @@ namespace Lastikoteli.ViewModels
             catch (Exception e)
             {
                 string errorMessage = $"Yazıcı arama hatası. Bağlantı tipi {nameof(connectionType)} {e.Message}";
-                //ShowErrorAlert(errorMessage);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-
-        public SearchPrinterPopUpViewModel()
-        {
-            etiketYazdir = new EtiketYazdir();
-            printerList = new ObservableCollection<IDiscoveredPrinter>();
-            StartPrinterDiscovery();
-        }
-
         public void StartPrinterDiscovery()
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (printerList != null && printerList.Count > 0)
-                {
-                    printerList.Clear();
-                }
+                printerList = new ObservableCollection<IDiscoveredPrinter>();
                 StartDiscovery(ConnectionType.Network);
             });
         }
+
+        public ICommand FindPrinterCommand { get; set; }
+        public SearchPrinterPopUpViewModel()
+        {
+            etiketYazdir = new EtiketYazdir();
+            StartPrinterDiscovery();
+            MessagingCenter.Subscribe<YeniSaklamaViewModel, PrintRequest>(this, "yazilacakEtiket", (s, e) =>
+             {
+                 lastikDesenListesi = e;
+             });
+        }
+
 
         public class DiscoveryHandlerImplementation : IDiscoveryHandler
         {
@@ -184,20 +189,24 @@ namespace Lastikoteli.ViewModels
 
             public void DiscoveryFinished()
             {
-                if (connectionType == ConnectionType.USB)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    selectPrinterPageViewModel.StartDiscovery(ConnectionType.Bluetooth);
-                }
-                else if (connectionType == ConnectionType.Bluetooth)
-                {
-                    selectPrinterPageViewModel.StartDiscovery(ConnectionType.Network);
-                }
-                else
-                {
-                    if (selectPrinterPageViewModel.printerList == null || selectPrinterPageViewModel.printerList.Count == 0)
-                        selectPrinterPageViewModel.Page.DisplayAlert("Uyarı", "Yazıcı bulunamadı", "Tamam");
-                }
-                selectPrinterPageViewModel.UpdateStatusText("Yazıcı araması bitti");
+                    if (connectionType == ConnectionType.USB)
+                    {
+                        selectPrinterPageViewModel.StartDiscovery(ConnectionType.Bluetooth);
+                    }
+                    else if (connectionType == ConnectionType.Bluetooth)
+                    {
+                        selectPrinterPageViewModel.StartDiscovery(ConnectionType.Network);
+                    }
+                    else
+                    {
+                        if (selectPrinterPageViewModel.printerList == null || selectPrinterPageViewModel.printerList.Count == 0)
+                            selectPrinterPageViewModel.Page.DisplayAlert("Uyarı", "Yazıcı bulunamadı", "Tamam");
+                    }
+                    selectPrinterPageViewModel.UpdateStatusText("Yazıcı araması bitti");
+                });
+
             }
 
             public void FoundPrinter(IDiscoveredPrinter discoveredPrinter)

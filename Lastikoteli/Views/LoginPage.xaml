@@ -21,8 +21,8 @@
             <Frame Grid.Row="1" Margin="30" CornerRadius="20" Opacity="0.7"/>
             <Frame Grid.Row="1" Margin="30"  CornerRadius="20" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand">
                 <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="Transparent">
-                    <xfx:XfxEntry Placeholder="Kullanıcı Adı" BackgroundColor="Transparent" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding loginRequest.kullaniciAd}"/>
-                    <xfx:XfxEntry Placeholder="Şifre" BackgroundColor="Transparent" IsPassword="True" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding loginRequest.sifre}"/>
+                    <xfx:XfxEntry x:Name="entryUserName" Placeholder="Kullanıcı Adı" BackgroundColor="Transparent" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding loginRequest.kullaniciAd}"/>
+                    <xfx:XfxEntry x:Name="entryPassword" Placeholder="Şifre" BackgroundColor="Transparent" IsPassword="True" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding loginRequest.sifre}"/>
                     <xlabs:CheckBox Checked="False" HorizontalOptions="CenterAndExpand" DefaultText="Beni Hatırla" FontName="{StaticResource NotoSansRegular}"/>
                     <customControl:CustomButton Grid.Row="4" Text="GİRİŞ" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20,20,20,0" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoMainPageCommand}"/>
                 </StackLayout>

@@ -4,7 +4,7 @@
             x:Class="Lastikoteli.Views.YeniSaklamaTabbedPage"
             xmlns:views="clr-namespace:Lastikoteli.Views"
             Title="Yeni Saklama">
-    <views:YeniSaklamaPlakaBilgileri Title="Plaka Bilgileri" IconImageSource="icon_saklama.png"/>
-    <views:YeniSaklamaMarkaBilgi Title="Lastik Bilgileri" IconImageSource="icon_takma.png"/>
+    <views:YeniSaklamaPlakaBilgileri Title="Plaka Bilgileri" IconImageSource="icon_saklama.png" BindingContext="{Binding yeniSaklamaMarkaBilgileriViewModel}"/>
+    <views:YeniSaklamaMarkaBilgi Title="Lastik Bilgileri" IconImageSource="icon_takma.png" BindingContext="{Binding yeniSaklamaMarkaBilgileriViewModel}"/>
 
 </TabbedPage>

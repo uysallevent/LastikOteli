@@ -1,5 +1,6 @@
 ﻿using Lastikoteli.ViewModels;
 using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,9 @@ namespace Lastikoteli.Views
             (BindingContext as SearchPrinterPopUpViewModel).Page = this;
         }
 
-        private void ImageButton_Clicked(object sender, EventArgs e)
+        private async void ImageButton_Clicked(object sender, EventArgs e)
         {
-
+            await PopupNavigation.PopAsync(true);
         }
     }
 }

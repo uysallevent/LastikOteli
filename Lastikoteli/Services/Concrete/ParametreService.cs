@@ -22,6 +22,14 @@ namespace Lastikoteli.Services.Concrete
             return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<MarkaBilgiResponse>>(responseContent));
         }
 
+        public async Task<ApiResponseGeneric<ObservableCollection<KeyValuePair<string, string>>>> DesenBilgileriGetir(DesenRequest request)
+        {
+            var Client = await GetClient();
+            var response = await Client.GetAsync(APIUrl + $"/api/Parametre/EtiketBilgiGetir?lngDistKod={request.lngDistKod}&lngSaklamaBaslik={request.lngSaklamaBaslik}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<KeyValuePair<string, string>>>(responseContent));
+        }
+
         private string MarkaBilgiRequestModelOlustur(MarkaBilgiRequest request)
         {
             string response = "?";
