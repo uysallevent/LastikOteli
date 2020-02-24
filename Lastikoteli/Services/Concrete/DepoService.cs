@@ -21,6 +21,14 @@ namespace Lastikoteli.Services.Concrete
             return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<DepoDizilimResponse>>(responseContent));
         }
 
+        public async Task<ApiResponseGeneric<ObservableCollection<int>>> KolayKodKontrol(RafKolayKodKontrolRequest request)
+        {
+            var Client = await GetClient();
+            var response = await Client.GetAsync(APIUrl + $"/api/Raf/KolayKodKontrol?lngDistKod={request.lngDistKod}&txtRafKolayKod={request.txtRafKolayKod}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<int>>(responseContent));
+        }
+
         private string DepoBilgiQuery(DepoDizilimRequest request)
         {
             string response = "";

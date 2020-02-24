@@ -20,7 +20,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <xfx:XfxEntry Grid.Row="0" Placeholder="Plaka" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTPLAKA,Mode=TwoWay}"/>
-        <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.LNGARACKM,Mode=TwoWay}"/>
+        <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.LNGARACKM}"/>
         <xfx:XfxEntry Grid.Row="2" Placeholder="Araç Kullanıcısı" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTSOFORADSOYAD,Mode=TwoWay}"/>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>

@@ -30,7 +30,7 @@ namespace Lastikoteli.Models.Complex.Request
         /// Olmama durumunda null gelir
         /// </summary>
         public int? LNGADET { get; set; }
-        public ObservableCollection<SaklamaDetayRequest> detayListe { get; set; }
+        public List<SaklamaDetayRequest> Tblsaklamadetay { get; set; }
 
     }
 }

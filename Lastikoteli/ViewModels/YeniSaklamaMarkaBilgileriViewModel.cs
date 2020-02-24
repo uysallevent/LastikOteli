@@ -3,18 +3,18 @@ using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Views;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xfx;
 
 namespace Lastikoteli.ViewModels
 {
     public class YeniSaklamaMarkaBilgileriViewModel : BaseViewModel
     {
         private INavigation _navigation;
-        public YeniSaklamaMarkaBilgi Page { get; set; }
-
 
         private int _selectedIndex;
         public int selectedMarkaIndex
@@ -171,6 +171,7 @@ namespace Lastikoteli.ViewModels
         }
 
 
+        //Saklama ekleme ekranında lastik butonlarına tıklama ile lastik detay bilgilerinin ön sola eşitlenmesini engellemek için kullanılan property
         private bool _tumunuEsitle;
         public bool tumunuEsitle
         {
@@ -184,7 +185,6 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("tumunuEsitle");
             }
         }
-
 
 
         private MarkaBilgiRequest _markaBilgiRequest;
@@ -245,21 +245,21 @@ namespace Lastikoteli.ViewModels
                 {
                     if ((lngLastikYon == 0 && tumunuEsitle) || lngLastikYon == i)
                     {
-                        detayListe[i].BYTDURUM = _detay.BYTDURUM;
                         detayListe[i].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
-                        detayListe[i].ISOTL = (lngLastikYon == 0) ? 0 : _detay.ISOTL;
                         detayListe[i].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
                         detayListe[i].LNGLASTIKDURUM = 1;
                         detayListe[i].LNGLASTIKTIP = (i == 0) ? 2 : (i == 1) ? 1 : (i == 2) ? 3 : (i == 3) ? 4 : (i == 4) ? 5 : 6;
                         detayListe[i].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
                         detayListe[i].LNGURUNTIP = _detay.LNGURUNTIP;
-                        detayListe[i].TXTACIKLAMA = _detay.TXTACIKLAMA;
+                        detayListe[i].TXTRAFKOLAYKOD = _detay.TXTRAFKOLAYKOD;
                         detayListe[i].TXTDOTFABRIKA = _detay.TXTDOTFABRIKA;
                         detayListe[i].TXTDOTHAFTA = _detay.TXTDOTHAFTA;
                         detayListe[i].TXTDOTURETIM = _detay.TXTDOTURETIM;
-
-                        if (_detay.bytUrunTip)
+                        if (!_detay.bytUrunTip)
+                            detayListe[i].TXTURUNKOD = _detay.TXTURUNKOD;
+                        else
                         {
+                            detayListe[i].TXTURUNKOD = null;
                             detayListe[i].kullaniciUrunBilgileri.TXTMARKA = _detay.kullaniciUrunBilgileri.TXTMARKA;
                             detayListe[i].kullaniciUrunBilgileri.TXTTABAN = _detay.kullaniciUrunBilgileri.TXTTABAN;
                             detayListe[i].kullaniciUrunBilgileri.TXTKESIT = _detay.kullaniciUrunBilgileri.TXTKESIT;
@@ -270,9 +270,13 @@ namespace Lastikoteli.ViewModels
                             detayListe[i].kullaniciUrunBilgileri.LNGLASTIKTIP = (i == 0) ? 2 : (i == 1) ? 1 : (i == 2) ? 3 : (i == 3) ? 4 : (i == 4) ? 5 : 6;
                             detayListe[i].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
                         }
-                        else
-                            detayListe[i].TXTURUNKOD = _detay.TXTURUNKOD;
+                    }
 
+                    if (lngLastikYon == i)
+                    {
+                        detayListe[i].ISOTL = _detay.ISOTL;
+                        detayListe[i].BYTDURUM = _detay.BYTDURUM;
+                        detayListe[i].TXTACIKLAMA = _detay.TXTACIKLAMA;
                     }
                 }
                 return _detay;
@@ -281,21 +285,6 @@ namespace Lastikoteli.ViewModels
             {
                 SetProperty<SaklamaDetayRequest>(ref _detay, value);
             }
-        }
-
-
-        private KullaniciUrunRequest _kullaniciUrunBilgileri;
-        public KullaniciUrunRequest kullaniciUrunBilgileri
-        {
-            get
-            {
-                return _kullaniciUrunBilgileri;
-            }
-            set
-            {
-                SetProperty<KullaniciUrunRequest>(ref _kullaniciUrunBilgileri, value);
-            }
-
         }
 
 
@@ -333,12 +322,19 @@ namespace Lastikoteli.ViewModels
         public ICommand secilenLastikCommand { get; set; }
         public ICommand saklamayaAlCommand { get; set; }
         public ICommand GotoMusteriPopUpCommand { get; set; }
+        public ICommand RafKolayKodKontrolCommand { get; set; }
 
 
         public YeniSaklamaMarkaBilgileriViewModel(INavigation navigation)
         {
             _navigation = navigation;
             Initializer();
+            MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
+            DisDerinligiKontrolCommand = new Command(async () => await DisDerinligiAsync());
+            secilenLastikCommand = new Command((x) => secilenLastik(x));
+            saklamayaAlCommand = new Command(async () => await saklamayaAlAsync());
+            GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
+            RafKolayKodKontrolCommand = new Command(async (x) => await RafKolayKodKontrolAsync(x));
             MarkaBilgiGetirCommand.Execute(true);
             MessagingCenter.Subscribe<DepoSecimPopUpViewModel, DepoDizilimResponse>(this, "selectedRaf", (s, e) =>
             {
@@ -350,16 +346,72 @@ namespace Lastikoteli.ViewModels
             {
                 saklamaBaslikRequest.TXTMUSTERIUNVAN = e.TXTUNVAN;
                 saklamaBaslikRequest.LNGMUSTERIKOD = e.LNGKOD;
+                saklamaBaslikRequest.TXTMUSTERIERPKOD = e.TXTERPKOD;
                 OnPropertyChanged("saklamaBaslikRequest");
             });
 
         }
 
+        private async Task RafKolayKodKontrolAsync(object x)
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+                var result =await DepoService.KolayKodKontrol(new RafKolayKodKontrolRequest
+                {
+                    lngDistKod = App.sessionInfo.lngDistkod,
+                    txtRafKolayKod = x.ToString()
+                });
+
+                if(result.StatusCode!=500)
+                {
+
+                }
+                else
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+
+
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+        }
+
         private async Task saklamayaAlAsync()
         {
-            var baslik = saklamaBaslikRequest;
-            var detay = detayListe;
-            var kUrun = kullaniciUrunBilgileri;
+            try
+            {
+                detayListe.ToList().ForEach(x =>
+                {
+                    if (x.LNGURUNTIP == 1)
+                        x.kullaniciUrunBilgileri = null;
+                });
+                saklamaBaslikRequest.Tblsaklamadetay = detayListe.Where(x => x.BYTDURUM == 1).ToList();
+
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+                var result = await SaklamaService.YeniSaklamaEkle(saklamaBaslikRequest);
+
+                if (result.StatusCode != 500 && result.Result > 0)
+                    await App.Current.MainPage.DisplayAlert("Uyarı", $"Lastikler {result.Result} saklama kodu ile kaydedilmiştir", "Tamam");
+                else
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+                Initializer();
+            }
         }
 
         private void secilenLastik(object x)
@@ -386,12 +438,12 @@ namespace Lastikoteli.ViewModels
 
                 }
                 else
-                    await this.Page.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
 
             }
             catch (Exception)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
             }
         }
 
@@ -410,7 +462,10 @@ namespace Lastikoteli.ViewModels
                 if (result.StatusCode != 500)
                 {
                     if (!string.IsNullOrEmpty(markaBilgiReuqest.txtDesen))
-                        detay.TXTURUNKOD = result.Result[0].txtUrunKod;
+                    {
+                        _detay.TXTURUNKOD = result.Result[0].txtUrunKod;
+                        OnPropertyChanged("detay");
+                    }
                     else if (!string.IsNullOrEmpty(markaBilgiReuqest.txtMevsim))
                     {
                         lastikBilgileri.desenListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
@@ -452,13 +507,13 @@ namespace Lastikoteli.ViewModels
                 else
                 {
                     markaListe = new ObservableCollection<MarkaBilgiResponse>();
-                    await this.Page.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
                 }
 
             }
             catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
             }
             finally
             {
@@ -470,23 +525,18 @@ namespace Lastikoteli.ViewModels
         public void Initializer()
         {
             tumunuEsitle = true;
-            saklamaBaslikRequest = new SaklamaBaslikRequest() { BYTDURUM = 1 };
-            detay = new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0 };
+            saklamaBaslikRequest = new SaklamaBaslikRequest() { BYTDURUM = 1, LNGDISTKOD = App.sessionInfo.lngDistkod, LNGFILOKOD = 0, LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod };
+            detay = new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() };
             detayListe = new ObservableCollection<SaklamaDetayRequest>();
-            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0 });
-            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0 });
-            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0 });
-            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0 });
-            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 0, BYTHAVUZDA = 1, LNGURUNTIP = 0 });
-            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 0, BYTHAVUZDA = 1, LNGURUNTIP = 0 });
-            kullaniciUrunBilgileri = new KullaniciUrunRequest();
+            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
+            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
+            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
+            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
+            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 0, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
+            detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 0, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
             markaBilgiReuqest = new MarkaBilgiRequest();
             lastikBilgileri = new LastikBilgiResponse();
-            MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
-            DisDerinligiKontrolCommand = new Command(async () => await DisDerinligiAsync());
-            secilenLastikCommand = new Command((x) => secilenLastik(x));
-            saklamayaAlCommand = new Command(async () => await saklamayaAlAsync());
-            GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
+
             lngLastikYon = 0;
         }
 

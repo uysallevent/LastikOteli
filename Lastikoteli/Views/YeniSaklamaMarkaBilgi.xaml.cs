@@ -10,7 +10,7 @@ namespace Lastikoteli.Views
 {
     public partial class YeniSaklamaMarkaBilgi : ContentPage
     {
-        YeniSaklamaViewModel  yeniSaklamaView;
+        YeniSaklamaViewModel yeniSaklamaView;
         public YeniSaklamaMarkaBilgi()
         {
             InitializeComponent();
@@ -78,7 +78,7 @@ namespace Lastikoteli.Views
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
             var sw = (Switch)sender;
-            sw.SetBinding(Switch.IsToggledProperty, "bytUrunTip");
+            sw.SetBinding(Switch.IsToggledProperty, "detay.bytUrunTip");
             if (sw.IsToggled)
             {
                 stackBrisa.IsVisible = false;
