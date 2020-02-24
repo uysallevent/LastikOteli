@@ -23,6 +23,7 @@
     <Folder Include="Assets\" />
     <Folder Include="Assets\images\" />
     <Folder Include="CustomControl\" />
+    <Folder Include="Convertors\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Views\DepoSecimPopUpPage.xaml">
@@ -43,5 +44,8 @@
     <EmbeddedResource Update="Views\YeniTakma.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Behaviors\DecimalPointerControlBehavior.cs" />
   </ItemGroup>
 </Project>

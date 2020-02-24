@@ -12,6 +12,6 @@ namespace Lastikoteli.Services.Abstract
     public interface IDepoService
     {
         Task<ApiResponseGeneric<ObservableCollection<DepoDizilimResponse>>> DepoBilgiGetir(DepoDizilimRequest request);
-        Task<ApiResponseGeneric<ObservableCollection<int>>> KolayKodKontrol(RafKolayKodKontrolRequest request);
+        Task<ApiResponseGeneric<int>> KolayKodKontrol(RafKolayKodKontrolRequest request);
     }
 }

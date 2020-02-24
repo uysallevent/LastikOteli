@@ -3,38 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
              xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:behaviors="clr-namespace:Lastikoteli.Behaviors"
+             xmlns:loadingView="clr-namespace:Lastikoteli.Helper"
              x:Class="Lastikoteli.Views.YeniSaklamaPlakaBilgileri"
              BackgroundColor="Black"
              x:Name="PageYeniSaklamaPlakaBilgi"
              Title="Yeni Saklama">
-
-    <Grid Padding="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <xfx:XfxEntry Grid.Row="0" Placeholder="Plaka" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTPLAKA,Mode=TwoWay}"/>
-        <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.LNGARACKM}"/>
-        <xfx:XfxEntry Grid.Row="2" Placeholder="Araç Kullanıcısı" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTSOFORADSOYAD,Mode=TwoWay}"/>
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <xfx:XfxEntry Grid.Column="0" Placeholder="Ad Soyad" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTMUSTERIUNVAN,Mode=TwoWay}"/>
-            <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" Command="{Binding GotoMusteriPopUpCommand}"/>
+    <Grid>
+        <Grid Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <xfx:XfxEntry x:Name="xfxEntryPlaka" Grid.Row="0" Placeholder="Plaka" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTPLAKA,Mode=TwoWay}">
+                <xfx:XfxEntry.Behaviors>
+                    <behaviors:EventToCommandBehavior 
+                                    EventName="Unfocused"
+                                    Command="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi},Path=BindingContext.PlakaKontrolCommand}" 
+                                    CommandParameter="{Binding Source={x:Reference xfxEntryPlaka},Path=Text}"/>
+                </xfx:XfxEntry.Behaviors>
+            </xfx:XfxEntry>
+            <xfx:XfxEntry Grid.Row="1" Placeholder="Km" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.LNGARACKM}"/>
+            <xfx:XfxEntry Grid.Row="2" Placeholder="Araç Kullanıcısı" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTSOFORADSOYAD,Mode=TwoWay}"/>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <xfx:XfxEntry Grid.Column="0" Placeholder="Ad Soyad" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTMUSTERIUNVAN,Mode=TwoWay}"/>
+                <ImageButton Grid.Column="1" Source="magnifyingglass_white.png" BackgroundColor="Transparent" Command="{Binding GotoMusteriPopUpCommand}"/>
+            </Grid>
+            <xfx:XfxEntry Grid.Row="4" Placeholder="Cep Tel" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTCEPTEL,Mode=TwoWay}"/>
+            <xfx:XfxEntry Grid.Row="5" Placeholder="Eposta" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTEMAIL,Mode=TwoWay}"/>
+            <xfx:XfxEntry Grid.Row="6" Placeholder="T.C Kimlik" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTTCKIMLIKNO,Mode=TwoWay}"/>
+            <xfx:XfxEntry Grid.Row="7" Placeholder="Vergi No" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTVN,Mode=TwoWay}"/>
+            <customControl:CustomButton Grid.Row="8" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked"/>
         </Grid>
-        <xfx:XfxEntry Grid.Row="4" Placeholder="Cep Tel" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTCEPTEL,Mode=TwoWay}"/>
-        <xfx:XfxEntry Grid.Row="5" Placeholder="Eposta" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTEMAIL,Mode=TwoWay}"/>
-        <xfx:XfxEntry Grid.Row="6" Placeholder="T.C Kimlik" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTTCKIMLIKNO,Mode=TwoWay}"/>
-        <xfx:XfxEntry Grid.Row="7" Placeholder="Vergi No" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTVN,Mode=TwoWay}"/>
-        <customControl:CustomButton Grid.Row="8" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked"/>
+        <loadingView:LoadingView />
     </Grid>
-
 </ContentPage>

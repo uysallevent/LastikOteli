@@ -323,7 +323,7 @@ namespace Lastikoteli.ViewModels
         public ICommand saklamayaAlCommand { get; set; }
         public ICommand GotoMusteriPopUpCommand { get; set; }
         public ICommand RafKolayKodKontrolCommand { get; set; }
-
+        public ICommand PlakaKontrolCommand { get; set; }
 
         public YeniSaklamaMarkaBilgileriViewModel(INavigation navigation)
         {
@@ -335,6 +335,7 @@ namespace Lastikoteli.ViewModels
             saklamayaAlCommand = new Command(async () => await saklamayaAlAsync());
             GotoMusteriPopUpCommand = new Command(async () => await GotoMusteriPopUpAsync());
             RafKolayKodKontrolCommand = new Command(async (x) => await RafKolayKodKontrolAsync(x));
+            PlakaKontrolCommand = new Command(async (x) => await PlakaKontrolAsync(x));
             MarkaBilgiGetirCommand.Execute(true);
             MessagingCenter.Subscribe<DepoSecimPopUpViewModel, DepoDizilimResponse>(this, "selectedRaf", (s, e) =>
             {
@@ -352,6 +353,41 @@ namespace Lastikoteli.ViewModels
 
         }
 
+        private async Task PlakaKontrolAsync(object x)
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+                IsBusy = true;
+                var result = await SaklamaService.PlakaSorgula(x.ToString());
+                if (result.StatusCode != 500)
+                {
+                    _saklamaBaslikRequest.LNGMUSTERIKOD = result.Result.lngMusteriKod;
+                    _saklamaBaslikRequest.TXTMUSTERIUNVAN = result.Result.txtUnvan;
+                    _saklamaBaslikRequest.TXTTCKIMLIKNO = result.Result.txtTcKimlikNo;
+                    _saklamaBaslikRequest.TXTVN = result.Result.txtVN;
+                    _saklamaBaslikRequest.TXTSOFORADSOYAD = result.Result.txtKullaniciAdiSoyadi;
+                    _saklamaBaslikRequest.TXTCEPTEL = result.Result.txtCepTelNo;
+                    _saklamaBaslikRequest.TXTEMAIL = result.Result.txtEmail;
+                    _saklamaBaslikRequest.TXTPLAKA = result.Result.txtPlaka;
+                    OnPropertyChanged("saklamaBaslikRequest");
+                }
+                else
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         private async Task RafKolayKodKontrolAsync(object x)
         {
             try
@@ -360,24 +396,33 @@ namespace Lastikoteli.ViewModels
                     return;
 
                 IsBusy = true;
-                var result =await DepoService.KolayKodKontrol(new RafKolayKodKontrolRequest
+                var result = await DepoService.KolayKodKontrol(new RafKolayKodKontrolRequest
                 {
                     lngDistKod = App.sessionInfo.lngDistkod,
                     txtRafKolayKod = x.ToString()
                 });
 
-                if(result.StatusCode!=500)
+                if (result.StatusCode != 500)
                 {
-
+                    _detay.LNGDEPOSIRAKOD = result.Result;
+                    OnPropertyChanged("detay");
                 }
                 else
+                {
+                    detay.TXTRAFKOLAYKOD = null;
+                    detay.LNGDEPOSIRAKOD = null;
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                }
 
 
             }
             catch (Exception)
             {
                 await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

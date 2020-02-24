@@ -4,11 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
     xmlns:behaviors="clr-namespace:Lastikoteli.Behaviors"
+    xmlns:convertors="clr-namespace:Lastikoteli.Convertors"
     xmlns:loadingView="clr-namespace:Lastikoteli.Helper"
     x:Class="Lastikoteli.Views.YeniSaklamaMarkaBilgi"
     BackgroundColor="Black"
     Title="Yeni Saklama"
     x:Name="PageYeniSaklamaMarkaBilgi">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convertors:DecimalConverter x:Key="decimalConvertor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Kaydet" Priority="1" Command="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.saklamayaAlCommand}"/>
@@ -166,7 +173,11 @@
 
 
                     <xfx:XfxEntry Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" TextColor="White" 
-                              Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.DBLDISDERINLIGI,Mode=TwoWay}" Keyboard="Numeric"/>
+                              Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.DBLDISDERINLIGI,Mode=TwoWay,Converter={StaticResource decimalConvertor}}" Keyboard="Numeric">
+                        <xfx:XfxEntry.Behaviors>
+                            <behaviors:EntryLengthValidatorBehavior MaxLength="4"/>
+                        </xfx:XfxEntry.Behaviors>
+                    </xfx:XfxEntry>
                     <Grid Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

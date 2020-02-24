@@ -57,6 +57,16 @@ namespace Lastikoteli.Services.Concrete
             return await Task.FromResult(ApiResultCheck.ResultCheck(responseContent));
         }
 
+        public async Task<ApiResponseGeneric<PlakaSorguResponse>> PlakaSorgula(string txtPlaka)
+        {
+            var Client = await GetClient();
+            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/SaklamaPlakaSorgula?txtPlaka={txtPlaka}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<PlakaSorguResponse>(responseContent));
+        }
+
+
+
         public async Task<ApiResponseGeneric<int>> YeniSaklamaEkle(SaklamaBaslikRequest request)
         {
             var client = await GetClient();
