@@ -73,7 +73,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Text="Brisa" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                        <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.LNGURUNTIP,Mode=TwoWay}"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent"  Toggled="Switch_Toggled" />
+                        <Switch Grid.Column="1" IsToggled="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.bytUrunTip,Mode=TwoWay}"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent"  Toggled="Switch_Toggled" />
                         <Label Grid.Column="2" Text="Diğer" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
                     </Grid>
                 </Frame>
@@ -124,24 +124,41 @@
                 <!--Diğer-->
                 <StackLayout x:Name="stackDiger" Grid.Row="2" BackgroundColor="Transparent" Orientation="Vertical" IsVisible="False" IsEnabled="False">
                     <Frame CornerRadius="10" Padding="0" Margin="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Marka" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTMARKA}"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Marka" PlaceholderColor="DarkGray" TextColor="Black" 
+                                      FontFamily="{StaticResource NotoSansRegular}" 
+                                      ErrorDisplay="None" 
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.kullaniciUrunBilgileri.TXTMARKA}"/>
                     </Frame>
                     <Frame CornerRadius="10" Padding="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Taban" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTTABAN}"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Taban" PlaceholderColor="DarkGray" TextColor="Black" 
+                                      FontFamily="{StaticResource NotoSansRegular}" 
+                                      ErrorDisplay="None" 
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.kullaniciUrunBilgileri.TXTTABAN}"/>
                     </Frame>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <xfx:XfxEntry Grid.Row="10" Placeholder="Kesit" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTKESIT}"/>
+                            <xfx:XfxEntry Grid.Row="10" Placeholder="Kesit" PlaceholderColor="DarkGray" TextColor="Black" 
+                                          FontFamily="{StaticResource NotoSansRegular}" 
+                                          ErrorDisplay="None" 
+                                          Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.kullaniciUrunBilgileri.TXTKESIT}"/>
                         </Frame>
                         <Frame  CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <xfx:XfxEntry Grid.Row="10" Placeholder="Çap" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{ Binding kullaniciUrunBilgileri.TXTCAP}"/>
+                            <xfx:XfxEntry Grid.Row="10" Placeholder="Çap" PlaceholderColor="DarkGray" TextColor="Black" 
+                                          FontFamily="{StaticResource NotoSansRegular}" 
+                                          ErrorDisplay="None" 
+                                          Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.kullaniciUrunBilgileri.TXTCAP}"/>
                         </Frame>
                     </StackLayout>
                     <Frame Grid.Row="3" CornerRadius="10" Padding="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Mevsim" PlaceholderColor="DarkGray" TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTMEVSIM}"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Mevsim" PlaceholderColor="DarkGray" TextColor="Black" FontFamily="{StaticResource NotoSansRegular}" 
+                                      ErrorDisplay="None" 
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.kullaniciUrunBilgileri.TXTMEVSIM}"/>
                     </Frame>
                     <Frame Grid.Row="4" CornerRadius="10" Padding="0">
-                        <xfx:XfxEntry Grid.Row="10" Placeholder="Desen" PlaceholderColor="DarkGray"        TextColor="White" FontFamily="{StaticResource NotoSansRegular}" ErrorDisplay="None" Text="{Binding kullaniciUrunBilgileri.TXTDESEN}"/>
+                        <xfx:XfxEntry Grid.Row="10" Placeholder="Desen" PlaceholderColor="DarkGray" TextColor="Black" 
+                                      FontFamily="{StaticResource NotoSansRegular}" 
+                                      ErrorDisplay="None" 
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.kullaniciUrunBilgileri.TXTDESEN}"/>
                     </Frame>
                 </StackLayout>
                 <!--Diğer-->

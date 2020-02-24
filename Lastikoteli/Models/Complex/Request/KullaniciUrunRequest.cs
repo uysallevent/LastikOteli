@@ -7,7 +7,6 @@ namespace Lastikoteli.Models.Complex.Request
     public class KullaniciUrunRequest
     {
         public int? LNGKOD { get; set; }
-        public int? LNGSAKLAMADETAYKOD { get; set; }
         public int? LNGLASTIKTIP { get; set; }
         public string TXTMARKA { get; set; }
         public string TXTTABAN { get; set; }

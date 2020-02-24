@@ -13,8 +13,27 @@ namespace Lastikoteli.Models.Complex.Request
         /// <summary>
         /// 1-Brisa Ürünü
         /// 2-Diğer Ürün
+        /// Switch üzerinden durum 1 yada 0 olarak ayarlandığı için gelen değerin 1 fazlasını alıyoruz
         /// </summary>
         public int? LNGURUNTIP { get; set; }
+
+        private bool _bytUrunTip;
+        public bool bytUrunTip
+        {
+            get
+            {
+                if (_bytUrunTip == false)
+                    LNGURUNTIP = 1;
+                else
+                    LNGURUNTIP = 2;
+                return _bytUrunTip;
+            }
+            set
+            {
+                _bytUrunTip = value;
+            }
+        }
+
         public int? LNGKULLANICIURUNKOD { get; set; }
         public string TXTURUNKOD { get; set; }
         public int? LNGLASTIKTIP { get; set; }
