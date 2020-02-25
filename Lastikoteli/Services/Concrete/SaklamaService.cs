@@ -57,15 +57,21 @@ namespace Lastikoteli.Services.Concrete
             return await Task.FromResult(ApiResultCheck.ResultCheck(responseContent));
         }
 
-        public async Task<ApiResponseGeneric<PlakaSorguResponse>> PlakaSorgula(string txtPlaka)
+        public async Task<ApiResponseGeneric<PlakaSorguResponse>> PlakaSorgula(SaklamaPlakaSorgulaRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/SaklamaPlakaSorgula?txtPlaka={txtPlaka}");
+            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/SaklamaPlakaSorgula?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<PlakaSorguResponse>(responseContent));
         }
 
-
+        public async Task<ApiResponseGeneric<List<AracUzerindekilerResponse>>> AracUzerindekileriGetir(SaklamaPlakaSorgulaRequest request)
+        {
+            var Client = await GetClient();
+            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/AracUzerindekileriGetir?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<List<AracUzerindekilerResponse>>(responseContent));
+        }
 
         public async Task<ApiResponseGeneric<int>> YeniSaklamaEkle(SaklamaBaslikRequest request)
         {

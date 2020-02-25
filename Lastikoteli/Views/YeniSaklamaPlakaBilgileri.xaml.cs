@@ -19,6 +19,7 @@ namespace Lastikoteli.Views
         {
             InitializeComponent();
             BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel(this.Navigation);
+            xfxEntryKm.Text = "";
         }
 
         public async void OpenPopup()

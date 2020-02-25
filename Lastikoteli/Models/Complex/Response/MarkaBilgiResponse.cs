@@ -10,5 +10,6 @@ namespace Lastikoteli.Models.Complex.Response
         public string txtMevsim { get; set; }
         public string txtDesen { get; set; }
         public string txtUrunKod { get; set; }
+        public bool bytSecilen { get; set; }
     }
 }

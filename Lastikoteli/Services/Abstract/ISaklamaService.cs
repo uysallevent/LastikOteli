@@ -16,6 +16,7 @@ namespace Lastikoteli.Services.Abstract
         Task<ApiResponseGeneric<List<SaklamaBilgileriResponse>>> SaklamadaKayitArama(SaklamaBilgiRequest request);
         Task<ApiResponseGeneric<PagingResponse<MusteriBilgileriResponse>>> MusteriListesi(SaklamaMusteriRequest request);
         Task<ApiResponse> YasalDisDerinligiGetir();
-        Task<ApiResponseGeneric<PlakaSorguResponse>> PlakaSorgula(string txtPlaka);
+        Task<ApiResponseGeneric<PlakaSorguResponse>> PlakaSorgula(SaklamaPlakaSorgulaRequest request);
+        Task<ApiResponseGeneric<List<AracUzerindekilerResponse>>> AracUzerindekileriGetir(SaklamaPlakaSorgulaRequest request);
     }
 }

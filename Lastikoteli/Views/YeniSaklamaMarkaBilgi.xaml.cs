@@ -14,6 +14,7 @@ namespace Lastikoteli.Views
         public YeniSaklamaMarkaBilgi()
         {
             InitializeComponent();
+
             BindingContext = yeniSaklamaView = new YeniSaklamaViewModel(this.Navigation);
         }
 
