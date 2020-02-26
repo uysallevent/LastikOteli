@@ -14,14 +14,13 @@ namespace Lastikoteli.ViewModels
 {
     public class YeniSaklamaViewModel : BaseViewModel
     {
-        private INavigation _navigation;
+
         public YeniSaklamaTabbedPage Page { get; set; }
         public YeniSaklamaMarkaBilgileriViewModel yeniSaklamaMarkaBilgileriViewModel { get; set; }
 
-        public YeniSaklamaViewModel(INavigation navigation)
+        public YeniSaklamaViewModel()
         {
-            _navigation = navigation;
-            yeniSaklamaMarkaBilgileriViewModel = new YeniSaklamaMarkaBilgileriViewModel(_navigation);
+            yeniSaklamaMarkaBilgileriViewModel = new YeniSaklamaMarkaBilgileriViewModel();
         }
 
     }

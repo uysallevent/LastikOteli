@@ -8,6 +8,11 @@ namespace Lastikoteli.Models.Complex.Response
     public class LastikBilgiListResponse
     {
         public int lngLastikYon { get; set; }
-        public ObservableCollection<LastikBilgiResponse> liste { get; set; }
+        public List<MarkaBilgiResponse> markaListe { get; set; }
+        public List<MarkaBilgiResponse> tabanListe { get; set; }
+        public List<MarkaBilgiResponse> kesitListe { get; set; }
+        public List<MarkaBilgiResponse> capListe { get; set; }
+        public List<MarkaBilgiResponse> mevsimListe { get; set; }
+        public List<MarkaBilgiResponse> desenListe { get; set; }
     }
 }

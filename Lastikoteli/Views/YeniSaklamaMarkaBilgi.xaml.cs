@@ -15,7 +15,12 @@ namespace Lastikoteli.Views
         {
             InitializeComponent();
 
-            BindingContext = yeniSaklamaView = new YeniSaklamaViewModel(this.Navigation);
+            BindingContext = yeniSaklamaView = new YeniSaklamaViewModel();
+
+            MessagingCenter.Subscribe<YeniSaklamaMarkaBilgileriViewModel>(this, "detayScrollUp", (s) =>
+            {
+                Device.BeginInvokeOnMainThread(async()=> await scrollDetay.ScrollToAsync(0, 0, true));
+            });
         }
 
         private void btn_Clicked(object sender, EventArgs e)

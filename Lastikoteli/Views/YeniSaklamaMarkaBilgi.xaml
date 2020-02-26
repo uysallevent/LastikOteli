@@ -47,7 +47,7 @@
                 <ImageButton x:Name="btnDigerSag" Grid.Row="5" Source="digersag1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="5"/>
                 <ImageButton x:Name="btnDigerSol" Grid.Row="6" Source="digersol1" BackgroundColor="White" CornerRadius="10" Padding="5" Clicked="btn_Clicked" Command="{Binding secilenLastikCommand}" CommandParameter="6"/>
             </Grid>
-            <ScrollView Grid.Column="1" >
+            <ScrollView x:Name="scrollDetay" Grid.Column="1" >
                 <Grid BackgroundColor="Black">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -92,13 +92,13 @@
                             <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                 ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.markaListe}"
                                 ItemDisplayBinding="{Binding txtMarka}" 
-                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMarkaIndex,Mode=TwoWay}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMarkaIndex}"/>
                         </Frame>
                         <Frame CornerRadius="10" Padding="0">
                             <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                 ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.tabanListe}" 
                                 ItemDisplayBinding="{Binding txtTaban}"  
-                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedTabanIndex,Mode=TwoWay}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedTabanIndex}"/>
                         </Frame>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                             <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
@@ -172,10 +172,14 @@
                     <!--Diğer-->
 
 
-                    <xfx:XfxEntry Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" TextColor="White" 
-                              Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.DBLDISDERINLIGI,Mode=TwoWay,Converter={StaticResource decimalConvertor}}" Keyboard="Numeric">
+                    <xfx:XfxEntry x:Name="xfxEntryDis" Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray" TextColor="White" 
+                              Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.DBLDISDERINLIGI,Mode=TwoWay}" Keyboard="Numeric">
                         <xfx:XfxEntry.Behaviors>
                             <behaviors:EntryLengthValidatorBehavior MaxLength="4"/>
+                            <behaviors:EventToCommandBehavior
+                                    EventName="Unfocused"
+                                    Command="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.DisDerinligiKontrolCommand}" 
+                                    CommandParameter="{Binding Source={x:Reference xfxEntryDis},Path=Text}"/>
                         </xfx:XfxEntry.Behaviors>
                     </xfx:XfxEntry>
                     <Grid Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="0">
@@ -199,11 +203,15 @@
                             </xfx:XfxEntry.Behaviors>
                         </xfx:XfxEntry>
 
-                        <xfx:XfxEntry Grid.Column="2" Placeholder="Hafta" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray"  TextColor="White" 
+                        <xfx:XfxEntry x:Name="xfxEntryHafta" Grid.Column="2" Placeholder="Hafta" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray"  TextColor="White" 
                                       FontFamily="{StaticResource NotoSansRegular}" 
                                       Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.TXTDOTHAFTA ,Mode=TwoWay}" Keyboard="Numeric">
                             <xfx:XfxEntry.Behaviors>
                                 <behaviors:EntryLengthValidatorBehavior MaxLength="4"/>
+                                <behaviors:EventToCommandBehavior
+                                    EventName="Unfocused"
+                                    Command="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.HaftaKontrolCommand}" 
+                                    CommandParameter="{Binding Source={x:Reference xfxEntryHafta},Path=Text}"/>
                             </xfx:XfxEntry.Behaviors>
                         </xfx:XfxEntry>
                     </Grid>

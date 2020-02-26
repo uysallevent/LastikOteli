@@ -7,7 +7,13 @@ namespace Lastikoteli.Models.Complex.Response
 {
     public class LastikBilgiResponse : INotifyPropertyChanged
     {
-        public int lngLastikYon { get; set; }
+        private int _lngLastikYon;
+        public int lngLastikYon
+        {
+            get { return _lngLastikYon; }
+            set { _lngLastikYon = value; OnPropertyChanged("lngLastikYon"); }
+        }
+
 
         private ObservableCollection<MarkaBilgiResponse> _markaListe;
         public ObservableCollection<MarkaBilgiResponse> markaListe { get { return _markaListe; } set { _markaListe = value; OnPropertyChanged("markaListe"); } }

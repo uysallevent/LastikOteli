@@ -22,7 +22,7 @@ namespace Lastikoteli.Views
             On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
             BarTextColor = Color.Black;
             BarBackgroundColor = Color.FromHex("#FFF");
-            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel(this.Navigation);
+            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel();
         }
     }
 }

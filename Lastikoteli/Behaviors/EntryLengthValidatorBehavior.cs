@@ -6,7 +6,7 @@ using Xfx;
 
 namespace Lastikoteli.Behaviors
 {
-    public class EntryLengthValidatorBehavior: Behavior<XfxEntry>
+    public class EntryLengthValidatorBehavior : Behavior<XfxEntry>
     {
         public int MaxLength { get; set; }
 
@@ -26,7 +26,7 @@ namespace Lastikoteli.Behaviors
         {
             var entry = (XfxEntry)sender;
 
-            if (entry.Text.Length > this.MaxLength)
+            if (!string.IsNullOrEmpty(entry.Text) && entry.Text.Length > this.MaxLength)
             {
                 string entryText = entry.Text;
                 entryText = entryText.Remove(entryText.Length - 1);

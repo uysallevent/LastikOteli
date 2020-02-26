@@ -18,8 +18,13 @@ namespace Lastikoteli.Views
         public YeniSaklamaPlakaBilgileri()
         {
             InitializeComponent();
-            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel(this.Navigation);
-            xfxEntryKm.Text = "";
+            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel();
+
+            MessagingCenter.Subscribe<YeniSaklamaMarkaBilgileriViewModel>(this, "tabPageBack", (s) =>
+            {
+                var masterPage = this.Parent as TabbedPage;
+                masterPage.CurrentPage = masterPage.Children[0];
+            });
         }
 
         public async void OpenPopup()

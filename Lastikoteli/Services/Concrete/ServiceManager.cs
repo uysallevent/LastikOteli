@@ -10,7 +10,7 @@ namespace Lastikoteli.Services.Concrete
     {
 
         public readonly string APIUrl = "http://52.233.133.106:8087";
-        //public readonly string APIUrl = "http://192.168.1.78:45455";
+        //public readonly string APIUrl = "http://192.168.1.78:45457";
         protected HttpClient Client;
         protected static object lockObj = new object();
 

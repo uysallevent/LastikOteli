@@ -8,27 +8,18 @@ namespace Lastikoteli.Convertors
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return null;
-            decimal thedecimal = (decimal)value;
-            return thedecimal.ToString();
+            if (value is decimal)
+                return value.ToString();
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return null;
-            string strValue = value as string;
-            if (string.IsNullOrEmpty(strValue))
-                strValue = "0";
-
-            strValue = strValue.Replace(".", ",");
-            decimal resultdecimal;
-            if (decimal.TryParse(strValue, out resultdecimal))
-            {
-                return resultdecimal;
-            }
-            return 0;
+            decimal dec;
+            value=value.ToString().Replace(".", ",");
+            if (decimal.TryParse(value as string, out dec))
+                return dec;
+            return value;
         }
     }
 }
