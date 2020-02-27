@@ -76,11 +76,15 @@ namespace Lastikoteli.ViewModels
             else if (randevu.TXTSOKMETAKMA == "T")
             {
                 await _doubleClickControl.PushAsync(new YeniTakma(
-                    new SaklamaBilgiRequest
+                    new TakmaRequest
                     {
-                        lngDistKod = randevu.LNGDISTKOD,
-                        lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK,
-                        lngIsEmriKod = randevu.LNGKOD
+                        saklamaBilgileri = new SaklamaBilgiRequest
+                        {
+                            lngDistKod = randevu.LNGDISTKOD,
+                            lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK,
+                            lngIsEmriKod = randevu.LNGKOD
+                        },
+                        isEmriBilgileri = randevu
                     }));
             }
             else if (randevu.TXTSOKMETAKMA == "S/T")
@@ -95,11 +99,15 @@ namespace Lastikoteli.ViewModels
                     break;
                 case "Sökme/Takma":
                     await _doubleClickControl.PushAsync(new YeniTakma(
-                        new SaklamaBilgiRequest
+                        new TakmaRequest
                         {
-                            lngDistKod = randevu.LNGDISTKOD,
-                            lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK,
-                            lngIsEmriKod = randevu.LNGKOD
+                            saklamaBilgileri = new SaklamaBilgiRequest
+                            {
+                                lngDistKod = randevu.LNGDISTKOD,
+                                lngSaklamaBaslik = randevu.LNGSAKLAMABASLIK,
+                                lngIsEmriKod = randevu.LNGKOD
+                            },
+                            isEmriBilgileri = randevu
                         }));
                     break;
             }

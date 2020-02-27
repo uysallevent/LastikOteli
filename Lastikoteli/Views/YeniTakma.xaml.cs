@@ -18,7 +18,7 @@ namespace Lastikoteli.Views
     public partial class YeniTakma : ContentPage
     {
         YeniTakmaViewModel _yeniTakmaViewModel;
-        public YeniTakma(SaklamaBilgiRequest request)
+        public YeniTakma(TakmaRequest request)
         {
             InitializeComponent();
             BindingContext = _yeniTakmaViewModel = new YeniTakmaViewModel(this.Navigation, request);

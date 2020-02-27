@@ -15,7 +15,6 @@ namespace Lastikoteli.Views
             (BindingContext as LoginViewModel).Page = this;
             entryUserName.Text = "test";
             entryPassword.Text = "123";
-            loginViewModel.gotoMainPageCommand.Execute(true);
         }
     }
 }

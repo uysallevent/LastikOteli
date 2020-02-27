@@ -22,5 +22,13 @@ namespace Lastikoteli.Services.Concrete
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<PagingResponse<Randevu>>(responseContent));
         }
+
+        public async Task<ApiResponseGeneric<PlakaSorguResponse>> IsEmriGetir(SaklamaPlakaSorgulaRequest request)
+        {
+            var Client = await GetClient();
+            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/SaklamaPlakaSorgula?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<PlakaSorguResponse>(responseContent));
+        }
     }
 }

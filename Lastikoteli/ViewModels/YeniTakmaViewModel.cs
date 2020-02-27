@@ -1,6 +1,7 @@
 ﻿using Lastikoteli.Helper.Abstract;
 using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
+using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -16,8 +17,8 @@ namespace Lastikoteli.ViewModels
 
         private INavigation _navigation;
         public YeniTakma Page { get; set; }
-        private SaklamaBilgiRequest _saklamaBilgiRequest;
 
+        private SaklamaBilgiRequest _saklamaBilgiRequest;
         public SaklamaBilgiRequest SaklamaBilgiRequest
         {
             get
@@ -32,6 +33,28 @@ namespace Lastikoteli.ViewModels
             {
                 _saklamaBilgiRequest = value;
                 OnPropertyChanged("SaklamaBilgiRequest");
+            }
+        }
+
+
+        private Randevu _randevuBilgi;
+        public Randevu randevuBilgi
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_saklamaBilgiRequest.txtPlaka))
+                {
+
+                }
+                else
+                    _randevuBilgi.TXTPLAKA = "";
+
+                return _randevuBilgi;
+            }
+            set
+            {
+                _randevuBilgi = value;
+                OnPropertyChanged("randevuBilgi");
             }
         }
 
@@ -68,12 +91,17 @@ namespace Lastikoteli.ViewModels
         public SaklamaBilgileriResponse SelectedModel { get; set; }
 
         public ICommand SaklamaBilgiGetirCommand { get; set; }
-        public YeniTakmaViewModel(INavigation navigation, SaklamaBilgiRequest request)
+
+
+        public YeniTakmaViewModel(INavigation navigation, TakmaRequest request)
         {
             _navigation = navigation;
-            SaklamaBilgiRequest = request;
+            SaklamaBilgiRequest = request.saklamaBilgileri;
+            randevuBilgi = request.isEmriBilgileri;
+
             if (SaklamaBilgiRequest.lngSaklamaBaslik != null && SaklamaBilgiRequest.lngSaklamaBaslik != 0)
                 Device.BeginInvokeOnMainThread(async () => await SaklamaBilgiGetirAsync());
+
 
             SaklamaBilgiGetirCommand = new Command(async () => await SaklamaBilgiGetirAsync());
             MessagingCenter.Subscribe<TakilacakLastikPopUpViewModel>(this, "popAsync", (s) =>
@@ -82,6 +110,7 @@ namespace Lastikoteli.ViewModels
                 MessagingCenter.Send(this, "refreshList");
             });
         }
+
         private async Task SaklamaBilgiGetirAsync()
         {
             try
@@ -91,6 +120,41 @@ namespace Lastikoteli.ViewModels
                     DependencyService.Get<IToastService>().ToastMessage("Arama için plaka ya da saklama no girin");
                     return;
                 }
+
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+
+                SaklamaBilgiRequest.lngDistKod = App.sessionInfo.lngDistkod;
+                var result = await SaklamaService.SaklamadaKayitArama(SaklamaBilgiRequest);
+
+                if (result.StatusCode != 500)
+                {
+                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>(result.Result);
+                }
+                else
+                {
+                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>();
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    await IsEmriBilgileriGetirAsync();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task IsEmriBilgileriGetirAsync()
+        {
+            try
+            {
 
                 if (IsBusy)
                     return;
@@ -120,8 +184,8 @@ namespace Lastikoteli.ViewModels
             {
                 IsBusy = false;
             }
-
         }
+
         private ObservableCollection<TakmaResponse> TakmaModelOlustur(SaklamaBilgileriResponse saklamaBilgileri)
         {
             var response = new ObservableCollection<TakmaResponse>();
