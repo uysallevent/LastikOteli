@@ -14,9 +14,9 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Frame Grid.Column="0" CornerRadius="15" Padding="1">
-                <xfx:XfxEntry  Placeholder="Müşteri No" PlaceholderColor="LightGray" TextColor="Black" TextChanged="txtValue_TextChanged"/>
+                <xfx:XfxEntry  Placeholder="Müşteri No" PlaceholderColor="LightGray" TextColor="Black" TextChanged="txtValue_TextChanged" ErrorDisplay="None"/>
             </Frame>
-            <ImageButton Grid.Column="1" Source="camera_white" BackgroundColor="Transparent"/>
+            <ImageButton Grid.Column="1"  BackgroundColor="Transparent"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

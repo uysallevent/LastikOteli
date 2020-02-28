@@ -10,7 +10,19 @@ namespace Lastikoteli.ViewModels
 {
     public class IsListesiAraViewModel : BaseViewModel
     {
-        public IsEmriRequest filter { get; set; }
+        private IsEmriRequest _filter;
+        public IsEmriRequest filter
+        {
+            get
+            {
+                return _filter;
+            }
+            set
+            {
+                SetProperty(ref _filter, value);
+            }
+        }
+
         public Command gotoIsListesiCommand { get; set; }
         public Command gotoYeniSaklamaCommand { get; set; }
         public Command gotoYeniTakmaCommand { get; set; }
@@ -25,6 +37,11 @@ namespace Lastikoteli.ViewModels
             gotoYeniSaklamaCommand = new Command(async () => await gotoYeniSaklamaPage());
             gotoYeniTakmaCommand = new Command(async () => await gotoYeniTakmaPage());
             filter = new IsEmriRequest();
+            MessagingCenter.Subscribe<PlakaView, string>(this, "plakaBarcode", (s, e) =>
+            {
+                filter.txtPlaka = e;
+                OnPropertyChanged("filter");
+            });
         }
 
         private async Task gotoIsListesiPage()

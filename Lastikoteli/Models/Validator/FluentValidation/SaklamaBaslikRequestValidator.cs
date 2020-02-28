@@ -23,22 +23,19 @@ namespace Lastikoteli.Models.Validator.FluentValidation
 
             RuleFor(x => x.TXTCEPTEL).NotEmpty().When(x => x.TXTEMAIL == null).WithMessage(Messages.cepTelNotEmtpy);
             RuleFor(x => x.TXTCEPTEL).NotNull().When(x => x.TXTEMAIL == null).WithMessage(Messages.cepTelNotEmtpy);
-            RuleFor(x => x.TXTCEPTEL).NotNull().When(x => x.TXTEMAIL == null).WithMessage(Messages.cepTelNotEmtpy);
             RuleFor(x => x.TXTCEPTEL).Matches("^(5(\\d{9}))$").WithMessage(Messages.cepTelFormatNotValid);
 
             RuleFor(x => x.TXTEMAIL).NotEmpty().When(x => x.TXTCEPTEL == null).WithMessage(Messages.emailNotEmtpy);
             RuleFor(x => x.TXTEMAIL).NotNull().When(x => x.TXTCEPTEL == null).WithMessage(Messages.emailNotEmtpy);
             RuleFor(x => x.TXTEMAIL).Matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$").WithMessage(Messages.emailFormatNotValid);
 
-            RuleFor(x => x.TXTTCKIMLIKNO).NotEmpty().WithMessage(Messages.tcNoNotEmpty);
-            RuleFor(x => x.TXTTCKIMLIKNO).NotNull().WithMessage(Messages.tcNoNotEmpty);
-            RuleFor(x => x.TXTTCKIMLIKNO).NotNull().When(x => x.TXTVN == null).WithMessage(Messages.tcNoNotEmpty);
+            RuleFor(x => x.TXTTCKIMLIKNO).NotEmpty().When(x => string.IsNullOrEmpty(x.TXTVN)).WithMessage(Messages.tcNoNotEmpty);
+            RuleFor(x => x.TXTTCKIMLIKNO).NotNull().When(x => string.IsNullOrEmpty(x.TXTVN)).WithMessage(Messages.tcNoNotEmpty);
 
-            RuleFor(x => x.TXTVN).NotEmpty().WithMessage(Messages.VNoNotEmpty);
-            RuleFor(x => x.TXTVN).NotNull().WithMessage(Messages.VNoNotEmpty);
-            RuleFor(x => x.TXTVN).NotNull().When(x => x.TXTTCKIMLIKNO == null).WithMessage(Messages.VNoNotEmpty);
+            RuleFor(x => x.TXTVN).NotEmpty().When(x => string.IsNullOrEmpty(x.TXTTCKIMLIKNO)).WithMessage(Messages.vNoNotEmpty);
+            RuleFor(x => x.TXTVN).NotNull().When(x => string.IsNullOrEmpty(x.TXTTCKIMLIKNO)).WithMessage(Messages.vNoNotEmpty);
 
-            RuleForEach(x => x.Tblsaklamadetay).SetValidator(new TblsaklamaDetayRequestValidator());
+            RuleForEach(x => x.Tblsaklamadetay).SetValidator(new TblsaklamaDetayRequestValidator()).When(x => x.LNGADET != null || x.LNGADET > 0);
         }
 
         private bool KmKontrol(long km)

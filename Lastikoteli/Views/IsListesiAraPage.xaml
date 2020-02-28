@@ -21,9 +21,9 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <customViews:DistInfoView Grid.Row="0"/>
-            <customViews:PlakaView Grid.Row="1" PlakaEntryText="{Binding filter.txtPlaka}"/>
+            <customViews:PlakaView Grid.Row="1" PlakaEntryText="{Binding filter.txtPlaka,Mode=TwoWay}"/>
             <customViews:SaklamaNoView Grid.Row="2" />
-            <customViews:MusteriNoView Grid.Row="3" MusteriNoEntryText="{Binding filter.txtMusteriErpKod}" />
+            <customViews:MusteriNoView Grid.Row="3" MusteriNoEntryText="{Binding filter.txtMusteriErpKod,Mode=TwoWay}" />
             <customViews:TarihView Grid.Row="4" Tarih="{Binding filter.trhHedefTarih}"/>
             <customControl:CustomButton Grid.Row="5" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20,20,20,0" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoIsListesiCommand}"/>
         </Grid>

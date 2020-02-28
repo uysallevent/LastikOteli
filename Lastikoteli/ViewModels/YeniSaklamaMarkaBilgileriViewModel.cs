@@ -552,13 +552,25 @@ namespace Lastikoteli.ViewModels
                 });
                 saklamaBaslikRequest.Tblsaklamadetay = detayListe.Where(x => x.BYTDURUM == 1).ToList();
 
-
                 var validationresult = saklamayaAlValidator.Validate(saklamaBaslikRequest);
                 if (!validationresult.IsValid)
                 {
 
-                    await App.Current.MainPage.DisplayAlert("Uyarı", $"{String.Join(",", validationresult.Errors.Select(x => x.ErrorMessage).Distinct())}", "Tamam");
+                    await App.Current.MainPage.DisplayAlert("Uyarı", $"{String.Join("", validationresult.Errors.Select(x => "- " + x.ErrorMessage + Environment.NewLine).Distinct())}", "Tamam");
                     return;
+                }
+
+                if (MuhtelifKayitKontrol(saklamaBaslikRequest))
+                {
+                    var soru = await App.Current.MainPage.DisplayPromptAsync("Uyarı", "Muhtelif Lasitk Adedi Girin", "Tamam", "İptal", "Max 6 lastik girebilirsiniz", 1, keyboard: Keyboard.Numeric);
+
+                    if (!string.IsNullOrEmpty(soru))
+                    {
+                        saklamaBaslikRequest.LNGADET = Convert.ToInt32(soru);
+                        saklamaBaslikRequest.Tblsaklamadetay.ForEach(x => x.TXTACIKLAMA = "Muhtelif kayıt");
+                    }
+                    else
+                        return;
                 }
 
 
@@ -571,6 +583,10 @@ namespace Lastikoteli.ViewModels
                 if (result.StatusCode != 500 && result.Result > 0)
                 {
                     await App.Current.MainPage.DisplayAlert("Uyarı", $"Lastikler {result.Result} saklama kodu ile kaydedilmiştir", "Tamam");
+
+                    Initializer();
+                    MarkaBilgiGetirCommand.Execute(true);
+
                     MessagingCenter.Send(this, "tabPageBack");
                     if (randevuBilgi != null)
                     {
@@ -582,7 +598,7 @@ namespace Lastikoteli.ViewModels
                 else
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
             }
@@ -590,8 +606,7 @@ namespace Lastikoteli.ViewModels
             {
 
                 IsBusy = false;
-                Initializer();
-                MarkaBilgiGetirCommand.Execute(true);
+
             }
         }
 
@@ -803,6 +818,27 @@ namespace Lastikoteli.ViewModels
         private async Task GotoMusteriPopUpAsync()
         {
             PopupNavigation.PushAsync(new MusteriAraPopUpPage());
+        }
+
+        private bool MuhtelifKayitKontrol(SaklamaBaslikRequest request)
+        {
+            bool brisaUrunKontrol = false, kullaniciUrunKontrol = false;
+
+            brisaUrunKontrol = request.Tblsaklamadetay.Any(x => !string.IsNullOrEmpty(x.TXTURUNKOD));
+
+            if (request.Tblsaklamadetay.Any(x => x.kullaniciUrunBilgileri != null))
+            {
+                kullaniciUrunKontrol = request.Tblsaklamadetay.Any(x =>
+             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTMARKA) &&
+             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTTABAN) &&
+             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTKESIT) &&
+             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTCAP) &&
+             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTMEVSIM) &&
+             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTDESEN)
+            );
+            }
+
+            return (!brisaUrunKontrol && !kullaniciUrunKontrol) ? true : false;
         }
     }
 }

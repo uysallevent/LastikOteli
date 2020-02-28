@@ -14,8 +14,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Frame Grid.Column="0" CornerRadius="15" Padding="1">
-            <xfx:XfxEntry Placeholder="Saklama No" PlaceholderColor="LightGray" TextColor="Black" TextChanged="txtValue_TextChanged" Keyboard="Numeric"/>
+            <xfx:XfxEntry Placeholder="Saklama No" PlaceholderColor="LightGray" TextColor="Black" TextChanged="txtValue_TextChanged" Keyboard="Numeric" ErrorDisplay="None"/>
         </Frame>
-        <ImageButton Grid.Column="1" Source="camera_white" BackgroundColor="Transparent"/>
+        <ImageButton Grid.Column="1" Source="camera_white" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
     </Grid>
 </ContentView>

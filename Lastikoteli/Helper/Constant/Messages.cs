@@ -14,6 +14,9 @@ namespace Lastikoteli.Helper.Constant
         public static string cepTelFormatNotValid = "Cep telefonunu başında sıfır olmadan giriniz";
         public static string emailFormatNotValid = "Email bilgisi doğru formatta girilmedi";
         public static string tcNoNotEmpty = "T.C no bilgisi boş bırakılamaz";
-        public static string VNoNotEmpty = "Vergi no bilgisi boş bırakılamaz";
+        public static string vNoNotEmpty = "Vergi no bilgisi boş bırakılamaz";
+        public static string urunNotEmpty = "Ürün bilgisi boş bırakılamaz";
+        public static string disDerinligiNotEmpty = "Diş derinliği bilgisi boş bırakılamaz";
+        public static string haftaNotEmpty = "Hafta bilgisi boş bırakılamaz ve 4 karakter olmalıdır";
     }
 }

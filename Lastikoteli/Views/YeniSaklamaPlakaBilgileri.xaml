@@ -42,8 +42,16 @@
             </Grid>
             <xfx:XfxEntry Grid.Row="4" Placeholder="Cep Tel" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTCEPTEL,Mode=TwoWay}"/>
             <xfx:XfxEntry Grid.Row="5" Placeholder="Eposta" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTEMAIL,Mode=TwoWay}"/>
-            <xfx:XfxEntry Grid.Row="6" Placeholder="T.C Kimlik" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTTCKIMLIKNO,Mode=TwoWay}"/>
-            <xfx:XfxEntry Grid.Row="7" Placeholder="Vergi No" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTVN,Mode=TwoWay}"/>
+            <xfx:XfxEntry Grid.Row="6" Placeholder="T.C Kimlik" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTTCKIMLIKNO,Mode=TwoWay}">
+                <xfx:XfxEntry.Behaviors>
+                    <behaviors:EntryLengthValidatorBehavior MaxLength="11"/>
+                </xfx:XfxEntry.Behaviors>
+            </xfx:XfxEntry>
+            <xfx:XfxEntry Grid.Row="7" Placeholder="Vergi No" PlaceholderColor="DarkGray" ActivePlaceholderColor="White" TextColor="White" Keyboard="Numeric" Text="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.saklamaBaslikRequest.TXTVN,Mode=TwoWay}">
+                <xfx:XfxEntry.Behaviors>
+                    <behaviors:EntryLengthValidatorBehavior MaxLength="10"/>
+                </xfx:XfxEntry.Behaviors>
+            </xfx:XfxEntry>
             <customControl:CustomButton Grid.Row="8" Text="LASTİKLERİ ÖNCEKİ SAKLAMADAN GETİR" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="DarkOrange" TextColor="Black" 
                                         Command="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.AracUzerindekilerCommand}" CommandParameter="{}"/>
             <customControl:CustomButton Grid.Row="9" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked"/>

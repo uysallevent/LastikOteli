@@ -2,14 +2,33 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xfx;
+using ZXing.Mobile;
+using ZXing.Net.Mobile.Forms;
 
 namespace Lastikoteli.Helper
 {
     public partial class SaklamaNoView : ContentView
     {
+        ZXingScannerPage scanPage;
+
         public SaklamaNoView()
         {
             InitializeComponent();
+            scanPage = new ZXingScannerPage();
+            scanPage.OnScanResult += ScanPage_OnScanResult;
+        }
+
+        private void ScanPage_OnScanResult(ZXing.Result result)
+        {
+
+            scanPage.IsScanning = false;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                App.Current.MainPage.Navigation.PopModalAsync(true);
+                MessagingCenter.Send(this, "saklamaKodBarcode", result.Text);
+
+            });
+
         }
 
         public string SaklamaNoEntryText
@@ -44,6 +63,11 @@ namespace Lastikoteli.Helper
                 xfxEntry.Text = "";
                 SaklamaNoEntryText = "";
             });
+        }
+
+        void ImageButton_Clicked(System.Object sender, System.EventArgs e)
+        {
+            App.Current.MainPage.Navigation.PushModalAsync(scanPage);
         }
     }
 }
