@@ -1,5 +1,6 @@
 ﻿using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
+using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.Views;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,12 @@ namespace Lastikoteli.ViewModels
     public class YeniSaklamaViewModel : BaseViewModel
     {
 
-        public YeniSaklamaTabbedPage Page { get; set; }
         public YeniSaklamaMarkaBilgileriViewModel yeniSaklamaMarkaBilgileriViewModel { get; set; }
 
-        public YeniSaklamaViewModel()
+
+        public YeniSaklamaViewModel(INavigation navigation)
         {
-            yeniSaklamaMarkaBilgileriViewModel = new YeniSaklamaMarkaBilgileriViewModel();
+            yeniSaklamaMarkaBilgileriViewModel = new YeniSaklamaMarkaBilgileriViewModel(navigation);
         }
 
     }

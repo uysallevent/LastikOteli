@@ -1,4 +1,5 @@
-﻿using Lastikoteli.Helper;
+﻿using FluentValidation;
+using Lastikoteli.Helper;
 using Lastikoteli.Helper.Abstract;
 using Lastikoteli.Models;
 using Lastikoteli.Models.MiyaPortal;
@@ -21,10 +22,11 @@ namespace Lastikoteli.ViewModels
         public IParametreService ParametreService => DependencyService.Get<IParametreService>();
         public IDepoService DepoService => DependencyService.Get<IDepoService>();
         public IEtiketYazdir EtiketYazdir => DependencyService.Get<IEtiketYazdir>();
+        public IValidator saklamayaAlValidator => DependencyService.Get<IValidator>();
 
 
         public DoubleClickControl _doubleClickControl;
-
+        protected INavigation _navigation { get; set; }
         protected Page CurrentPage { get; private set; }
         protected virtual void CurrentPageOnAppearing(object sender, EventArgs eventArgs) { }
         protected virtual void CurrentPageOnDisappearing(object sender, EventArgs eventArgs) { }

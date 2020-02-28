@@ -15,8 +15,6 @@ namespace Lastikoteli.ViewModels
 {
     public class TakilacakLastikPopUpViewModel : BaseViewModel
     {
-        private INavigation _navigation;
-        private IPopupNavigation _popupNavigation;
         public TakilacakLastikPopUpPage Page { get; set; }
 
         private TakmaResponse _takilacakLastik;
@@ -83,6 +81,14 @@ namespace Lastikoteli.ViewModels
 
                     if (result.StatusCode != 500 && result.Result)
                     {
+                        var durumDegistir = await IsEmriService.IsEmriDurumuTamamla(new IsEmriDurumGuncelleRequest
+                        {
+                            bytDurum = 2,
+                            lngDistKod = App.sessionInfo.lngDistkod,
+                            lngTip = 1,
+                            lngKod = TakilacakLastikListe.FirstOrDefault().lngIsEmriKod
+                        });
+
                         await App.Current.MainPage.DisplayAlert("Uyarı", $"{TakilacakLastikListe.FirstOrDefault().lngSaklamaKod} saklama kodlu lastikler için teslim etme işlemi başarılı", "Tamam");
                     }
                     else

@@ -10,7 +10,6 @@ namespace Lastikoteli.ViewModels
 {
     public class IsListesiAraViewModel : BaseViewModel
     {
-        private INavigation _navigation;
         public IsEmriRequest filter { get; set; }
         public Command gotoIsListesiCommand { get; set; }
         public Command gotoYeniSaklamaCommand { get; set; }
@@ -94,7 +93,7 @@ namespace Lastikoteli.ViewModels
             IsBusy = true;
             try
             {
-                await _doubleClickControl.PushAsync(new YeniTakma(new SaklamaBilgiRequest()));
+                await _doubleClickControl.PushAsync(new YeniTakma(new TakmaRequest()));
             }
             catch (Exception ex)
             {

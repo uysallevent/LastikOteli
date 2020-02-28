@@ -14,12 +14,11 @@ namespace Lastikoteli.Views
         public YeniSaklamaMarkaBilgi()
         {
             InitializeComponent();
-
-            BindingContext = yeniSaklamaView = new YeniSaklamaViewModel();
+            BindingContext = yeniSaklamaView = new YeniSaklamaViewModel(this.Navigation);
 
             MessagingCenter.Subscribe<YeniSaklamaMarkaBilgileriViewModel>(this, "detayScrollUp", (s) =>
             {
-                Device.BeginInvokeOnMainThread(async()=> await scrollDetay.ScrollToAsync(0, 0, true));
+                Device.BeginInvokeOnMainThread(async () => await scrollDetay.ScrollToAsync(0, 0, true));
             });
         }
 

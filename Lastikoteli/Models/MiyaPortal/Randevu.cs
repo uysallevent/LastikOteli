@@ -29,7 +29,7 @@ namespace Lastikoteli.Models.MiyaPortal
                 else if (BYTSOKMETAKMA == 1)
                     return "T";
                 else
-                    return "";
+                    return "Tamamlandı";
             }
         }
         public Int64? LNGARACKM { get; set; }

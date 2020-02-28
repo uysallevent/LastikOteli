@@ -8,6 +8,7 @@ using Lastikoteli.Services.Concrete;
 using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Helper.Abstract;
 using Lastikoteli.Helper;
+using Lastikoteli.Models.Validator.FluentValidation;
 
 namespace Lastikoteli
 {
@@ -23,6 +24,7 @@ namespace Lastikoteli
             DependencyService.Register<ParametreService>();
             DependencyService.Register<DepoService>();
             DependencyService.Register<EtiketYazdir>();
+            DependencyService.Register<SaklamaBaslikRequestValidator>();
             MainPage = new LoginPage();
             //MainPage = new YeniSaklamaTabbedPage();
         }

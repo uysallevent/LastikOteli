@@ -7,6 +7,7 @@ using Lastikoteli.Services.Abstract;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +24,20 @@ namespace Lastikoteli.Services.Concrete
             return await Task.FromResult(ApiResultCheck.ResultCheck<PagingResponse<Randevu>>(responseContent));
         }
 
-        public async Task<ApiResponseGeneric<PlakaSorguResponse>> IsEmriGetir(SaklamaPlakaSorgulaRequest request)
+        public async Task<ApiResponseGeneric<ObservableCollection<IsEmriResponse>>> PlakayaGoreIsEmriListesiGetir(SaklamaPlakaSorgulaRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/SaklamaPlakaSorgula?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
+            var response = await Client.GetAsync(APIUrl + $"/api/IsEmri/PlakayaGoreIsEmriListesiGetir?lngDistKod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
             var responseContent = await response.Content.ReadAsStringAsync();
-            return await Task.FromResult(ApiResultCheck.ResultCheck<PlakaSorguResponse>(responseContent));
+            return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<IsEmriResponse>>(responseContent));
+        }
+
+        public async Task<ApiResponseGeneric<bool>> IsEmriDurumuTamamla(IsEmriDurumGuncelleRequest request)
+        {
+            var client = await GetClient();
+            var response = await client.PostAsync(APIUrl + "/api/IsEmri/IsEmriDurumTamamla", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<bool>(responseContent));
         }
     }
 }

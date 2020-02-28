@@ -22,24 +22,24 @@ namespace Lastikoteli.Views
 
         public void IsEmriList(ObservableCollection<Randevu> isEmriList)
         {
-            isListesiViewModel.IsListesi = isEmriList;
-            LstIsList.ItemsSource = isListesiViewModel.IsListesi;
+            isListesiViewModel.isListesi = isEmriList;
+            LstIsList.ItemsSource = isListesiViewModel.isListesi;
         }
 
         private void BtnTakilacak_Clicked(object sender, EventArgs e)
         {
-            LstIsList.ItemsSource = isListesiViewModel.IsListesi.Where(x => x.TXTSOKMETAKMA == "T" || x.TXTSOKMETAKMA == "S/T").ToList();
+            LstIsList.ItemsSource = isListesiViewModel.isListesi.Where(x => x.TXTSOKMETAKMA == "T" || x.TXTSOKMETAKMA == "S/T").ToList();
         }
 
         private void BtnHepsi_Clicked(object sender, EventArgs e)
         {
-            LstIsList.ItemsSource = isListesiViewModel.IsListesi.ToList();
+            LstIsList.ItemsSource = isListesiViewModel.isListesi.ToList();
 
         }
 
         private void BtnSaklama_Clicked(object sender, EventArgs e)
         {
-            LstIsList.ItemsSource = isListesiViewModel.IsListesi.Where(x => x.TXTSOKMETAKMA == "S" || x.TXTSOKMETAKMA == "S/T").ToList();
+            LstIsList.ItemsSource = isListesiViewModel.isListesi.Where(x => x.TXTSOKMETAKMA == "S" || x.TXTSOKMETAKMA == "S/T").ToList();
 
         }
     }

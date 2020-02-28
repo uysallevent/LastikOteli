@@ -18,7 +18,7 @@ namespace Lastikoteli.Views
         public YeniSaklamaPlakaBilgileri()
         {
             InitializeComponent();
-            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel();
+            BindingContext = yeniSaklamaViewModel = new YeniSaklamaViewModel(this.Navigation);
 
             MessagingCenter.Subscribe<YeniSaklamaMarkaBilgileriViewModel>(this, "tabPageBack", (s) =>
             {

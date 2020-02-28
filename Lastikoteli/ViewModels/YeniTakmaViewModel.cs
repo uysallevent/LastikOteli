@@ -14,12 +14,11 @@ namespace Lastikoteli.ViewModels
 {
     public class YeniTakmaViewModel : BaseViewModel
     {
-
-        private INavigation _navigation;
         public YeniTakma Page { get; set; }
 
+
         private SaklamaBilgiRequest _saklamaBilgiRequest;
-        public SaklamaBilgiRequest SaklamaBilgiRequest
+        public SaklamaBilgiRequest saklamaBilgiRequest
         {
             get
             {
@@ -27,6 +26,7 @@ namespace Lastikoteli.ViewModels
                     _saklamaBilgiRequest.lngSaklamaBaslik = null;
                 else
                     _saklamaBilgiRequest.txtPlaka = "";
+
                 return _saklamaBilgiRequest;
             }
             set
@@ -42,13 +42,6 @@ namespace Lastikoteli.ViewModels
         {
             get
             {
-                if (!string.IsNullOrEmpty(_saklamaBilgiRequest.txtPlaka))
-                {
-
-                }
-                else
-                    _randevuBilgi.TXTPLAKA = "";
-
                 return _randevuBilgi;
             }
             set
@@ -70,6 +63,7 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+
         private SaklamaBilgileriResponse _selectedItemAdd;
         public SaklamaBilgileriResponse selectedItemAdd
         {
@@ -79,7 +73,23 @@ namespace Lastikoteli.ViewModels
                 if (value != null)
                 {
                     _selectedItemAdd = value;
-                    this.Page.OpenPopup(TakmaModelOlustur(_selectedItemAdd));
+                    SelectedModel = value;
+                    if (_selectedItemAdd.Tblsaklamadetay != null && _selectedItemAdd.Tblsaklamadetay.Count > 0)
+                        this.Page.OpenPopup(TakmaModelOlustur(_selectedItemAdd));
+                    else
+                    {
+                        randevuBilgi.TXTPLAKA = _selectedItemAdd.txtPlaka;
+                        randevuBilgi.LNGKOD = _selectedItemAdd.lngKod;
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            var ask = await Page.DisplayAlert("Uyarı", "Lastiklerin takma işlemini tamamlamak istiyormusunuz", "Evet", "Hayır");
+                            if (ask)
+                            {
+                                await IsEmriDurumDegistir();
+                            }
+                        });
+
+                    }
                     _selectedItemAdd = null;
                 }
                 else
@@ -88,6 +98,8 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("selectedItemAdd");
             }
         }
+
+
         public SaklamaBilgileriResponse SelectedModel { get; set; }
 
         public ICommand SaklamaBilgiGetirCommand { get; set; }
@@ -96,26 +108,46 @@ namespace Lastikoteli.ViewModels
         public YeniTakmaViewModel(INavigation navigation, TakmaRequest request)
         {
             _navigation = navigation;
-            SaklamaBilgiRequest = request.saklamaBilgileri;
-            randevuBilgi = request.isEmriBilgileri;
 
-            if (SaklamaBilgiRequest.lngSaklamaBaslik != null && SaklamaBilgiRequest.lngSaklamaBaslik != 0)
+            //Saklamabilgileri, isemribilgilerinin null olma durumu direk olarak Takma adımıyla sayfaya gelinmesiyle olur. Bu durumda teslim işleminden sonra bu sayfada kalınır
+            //Bu ikilinin null gelmeme durumunda bu sayfaya iş emri listesinden gelinmiş dmektir bu durumda teslim işleminin ardından iş listesine geri dönülür.
+            if (request.saklamaBilgileri == null && request.isEmriBilgileri != null)
+            {
+                saklamaBilgiRequest = request.saklamaBilgileri;
+                randevuBilgi = request.isEmriBilgileri;
+                MessagingCenter.Subscribe<TakilacakLastikPopUpViewModel>(this, "popAsync", (s) =>
+                {
+                    Device.BeginInvokeOnMainThread(() => _navigation.PopAsync(true));
+                    MessagingCenter.Send(this, "refreshList");
+                });
+            }
+            else
+            {
+                saklamaBilgiRequest = new SaklamaBilgiRequest();
+                randevuBilgi = new Randevu();
+                MessagingCenter.Subscribe<TakilacakLastikPopUpViewModel>(this, "popAsync", (s) =>
+                {
+                    saklamaBilgileriResponseList.Remove(SelectedModel);
+                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>(saklamaBilgileriResponseList);
+                });
+            }
+
+
+            if (request.saklamaBilgileri != null && saklamaBilgiRequest.lngSaklamaBaslik != null && saklamaBilgiRequest.lngSaklamaBaslik != 0)
                 Device.BeginInvokeOnMainThread(async () => await SaklamaBilgiGetirAsync());
 
+            if (request.isEmriBilgileri != null && randevuBilgi.LNGKOD != 0 && !string.IsNullOrEmpty(randevuBilgi.TXTPLAKA))
+                Device.BeginInvokeOnMainThread(async () => await IsEmriBilgileriGetirAsync());
 
             SaklamaBilgiGetirCommand = new Command(async () => await SaklamaBilgiGetirAsync());
-            MessagingCenter.Subscribe<TakilacakLastikPopUpViewModel>(this, "popAsync", (s) =>
-            {
-                Device.BeginInvokeOnMainThread(() => _navigation.PopAsync(true));
-                MessagingCenter.Send(this, "refreshList");
-            });
+
         }
 
         private async Task SaklamaBilgiGetirAsync()
         {
             try
             {
-                if ((SaklamaBilgiRequest.lngSaklamaBaslik == 0 || SaklamaBilgiRequest.lngSaklamaBaslik == null) && string.IsNullOrEmpty(SaklamaBilgiRequest.txtPlaka))
+                if ((saklamaBilgiRequest.lngSaklamaBaslik == 0 || saklamaBilgiRequest.lngSaklamaBaslik == null) && string.IsNullOrEmpty(saklamaBilgiRequest.txtPlaka))
                 {
                     DependencyService.Get<IToastService>().ToastMessage("Arama için plaka ya da saklama no girin");
                     return;
@@ -126,8 +158,8 @@ namespace Lastikoteli.ViewModels
 
                 IsBusy = true;
 
-                SaklamaBilgiRequest.lngDistKod = App.sessionInfo.lngDistkod;
-                var result = await SaklamaService.SaklamadaKayitArama(SaklamaBilgiRequest);
+                saklamaBilgiRequest.lngDistKod = App.sessionInfo.lngDistkod;
+                var result = await SaklamaService.SaklamadaKayitArama(saklamaBilgiRequest);
 
                 if (result.StatusCode != 500)
                 {
@@ -136,7 +168,9 @@ namespace Lastikoteli.ViewModels
                 else
                 {
                     saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>();
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    //await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    IsBusy = false;
+                    randevuBilgi = new Randevu { TXTPLAKA = saklamaBilgiRequest.txtPlaka };
                     await IsEmriBilgileriGetirAsync();
                 }
 
@@ -155,26 +189,75 @@ namespace Lastikoteli.ViewModels
         {
             try
             {
+                if (string.IsNullOrEmpty(randevuBilgi.TXTPLAKA))
+                {
+                    DependencyService.Get<IToastService>().ToastMessage("Arama için plaka ya da saklama no girin");
+                    return;
+                }
 
                 if (IsBusy)
                     return;
 
                 IsBusy = true;
 
-                SaklamaBilgiRequest.lngDistKod = App.sessionInfo.lngDistkod;
-                var result = await SaklamaService.SaklamadaKayitArama(SaklamaBilgiRequest);
+                var result = await IsEmriService.PlakayaGoreIsEmriListesiGetir(new SaklamaPlakaSorgulaRequest
+                {
+                    lngDistKod = App.sessionInfo.lngDistkod,
+                    txtPlaka = randevuBilgi.TXTPLAKA
+                });
 
                 if (result.StatusCode != 500)
                 {
-                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>(result.Result);
+                    //İş emrinden plaka göre gelen liste iş emri ekranında datagridde gösterilebilmek için saklamabilgileriresponse modeline döndürülüyor
+                    var list = result.Result.Select(x => new SaklamaBilgileriResponse
+                    {
+                        txtPlaka = x.txtPlaka,
+                        lngKod = x.lngKod
+                    }).ToList();
+
+                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>(list);
                 }
                 else
                 {
                     saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>();
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
-
                 }
+            }
+            catch (Exception ex)
+            {
+                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
+        private async Task IsEmriDurumDegistir()
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+
+                var result = await IsEmriService.IsEmriDurumuTamamla(new IsEmriDurumGuncelleRequest
+                {
+                    bytDurum = 2,
+                    lngDistKod = App.sessionInfo.lngDistkod,
+                    lngKod = randevuBilgi.LNGKOD,
+                    lngTip = 1
+                });
+
+                if (result.StatusCode != 500 && result.Result)
+                {
+                    await App.Current.MainPage.DisplayAlert("Uyarı", "İş emri tamamlandı", "Tamam");
+                    saklamaBilgileriResponseList.Remove(saklamaBilgileriResponseList.FirstOrDefault(x => x.lngKod == randevuBilgi.LNGKOD));
+                    saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>(saklamaBilgileriResponseList);
+                }
+                else
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
             }
             catch (Exception ex)
             {
@@ -191,16 +274,16 @@ namespace Lastikoteli.ViewModels
             var response = new ObservableCollection<TakmaResponse>();
             foreach (var item in saklamaBilgileri.Tblsaklamadetay)
             {
-                var marka = item.markaListe.FirstOrDefault(x => x.Value == true).Key;
-                var taban = item.tabanListe.FirstOrDefault(x => x.Value == true).Key;
-                var kesit = item.kesitListe.FirstOrDefault(x => x.Value == true).Key;
-                var cap = item.capListe.FirstOrDefault(x => x.Value == true).Key;
-                var mevsim = item.mevsimListe.FirstOrDefault(x => x.Value == true).Key;
-                var desen = item.desenListe.FirstOrDefault(x => x.Value == true).Key;
+                var marka = (item.markaListe != null && item.markaListe.Count > 0) ? item.markaListe.FirstOrDefault(x => x.Value == true).Key : item.txtMarka;
+                var taban = (item.tabanListe != null && item.tabanListe.Count > 0) ? item.tabanListe.FirstOrDefault(x => x.Value == true).Key : item.txtTaban;
+                var kesit = (item.kesitListe != null && item.kesitListe.Count > 0) ? item.kesitListe.FirstOrDefault(x => x.Value == true).Key : item.txtKesit;
+                var cap = (item.capListe != null && item.capListe.Count > 0) ? item.capListe.FirstOrDefault(x => x.Value == true).Key : item.txtCap;
+                var mevsim = (item.mevsimListe != null && item.mevsimListe.Count > 0) ? item.mevsimListe.FirstOrDefault(x => x.Value == true).Key : item.txtMevsim;
+                var desen = (item.desenListe != null && item.desenListe.Count > 0) ? item.desenListe.FirstOrDefault(x => x.Value == true).Key : item.txtMevsim;
 
                 response.Add(new TakmaResponse
                 {
-                    lngIsEmriKod = SaklamaBilgiRequest.lngIsEmriKod ?? 0,
+                    lngIsEmriKod = saklamaBilgiRequest.lngIsEmriKod ?? 0,
                     lngSaklamaKod = saklamaBilgileri.lngKod,
                     txtPozisyon = item.txtLastikYon,
                     txtRaf = item.txtRafKolayKod,

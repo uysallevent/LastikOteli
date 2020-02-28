@@ -11,8 +11,6 @@ namespace Lastikoteli.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-
-        private INavigation _navigation;
         public LoginPage Page { get; set; }
 
         private DoubleClickControl _doubleClickControl;

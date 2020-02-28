@@ -11,11 +11,15 @@ using Xamarin.Forms;
 using Xfx;
 using System.Collections.Generic;
 using Lastikoteli.Helper.Abstract;
+using Lastikoteli.Models.MiyaPortal;
+using Lastikoteli.Models.Validator.FluentValidation;
+using FluentValidation;
 
 namespace Lastikoteli.ViewModels
 {
     public class YeniSaklamaMarkaBilgileriViewModel : BaseViewModel
     {
+
         private int _selectedIndex;
         public int selectedMarkaIndex
         {
@@ -197,6 +201,18 @@ namespace Lastikoteli.ViewModels
         }
 
 
+        private Randevu _randevuBilgi;
+        public Randevu randevuBilgi
+        {
+            get { return _randevuBilgi; }
+            set
+            {
+                _randevuBilgi = value;
+                OnPropertyChanged("randevuBilgi");
+            }
+        }
+
+
         private MarkaBilgiRequest _markaBilgiRequest;
         public MarkaBilgiRequest markaBilgiReuqest
         {
@@ -356,9 +372,10 @@ namespace Lastikoteli.ViewModels
         public ICommand AracUzerindekilerCommand { get; set; }
         public ICommand HaftaKontrolCommand { get; set; }
 
-        public YeniSaklamaMarkaBilgileriViewModel()
+        public YeniSaklamaMarkaBilgileriViewModel(INavigation navigation)
         {
             Initializer();
+            _navigation = navigation;
             MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
             DisDerinligiKontrolCommand = new Command(async (x) => await DisDerinligiAsync(x));
             secilenLastikCommand = new Command((x) => secilenLastik(x));
@@ -381,6 +398,13 @@ namespace Lastikoteli.ViewModels
                 saklamaBaslikRequest.LNGMUSTERIKOD = e.LNGKOD;
                 saklamaBaslikRequest.TXTMUSTERIERPKOD = e.TXTERPKOD;
                 OnPropertyChanged("saklamaBaslikRequest");
+            });
+            MessagingCenter.Subscribe<IsListesiViewModel, Randevu>(this, "IsEmriYeniSaklama", (s, m) =>
+            {
+                saklamaBaslikRequest.TXTPLAKA = m.TXTPLAKA;
+                randevuBilgi = m;
+                OnPropertyChanged("saklamaBaslikRequest");
+                Device.BeginInvokeOnMainThread(async () => await PlakaKontrolAsync(m.TXTPLAKA));
             });
 
         }
@@ -528,6 +552,16 @@ namespace Lastikoteli.ViewModels
                 });
                 saklamaBaslikRequest.Tblsaklamadetay = detayListe.Where(x => x.BYTDURUM == 1).ToList();
 
+
+                var validationresult = saklamayaAlValidator.Validate(saklamaBaslikRequest);
+                if (!validationresult.IsValid)
+                {
+
+                    await App.Current.MainPage.DisplayAlert("Uyarı", $"{String.Join(",", validationresult.Errors.Select(x => x.ErrorMessage).Distinct())}", "Tamam");
+                    return;
+                }
+
+
                 if (IsBusy)
                     return;
 
@@ -538,6 +572,12 @@ namespace Lastikoteli.ViewModels
                 {
                     await App.Current.MainPage.DisplayAlert("Uyarı", $"Lastikler {result.Result} saklama kodu ile kaydedilmiştir", "Tamam");
                     MessagingCenter.Send(this, "tabPageBack");
+                    if (randevuBilgi != null)
+                    {
+                        IsBusy = false;
+                        await IsEmriDurumDegistir();
+                    }
+
                 }
                 else
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
@@ -686,6 +726,41 @@ namespace Lastikoteli.ViewModels
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
                 }
 
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task IsEmriDurumDegistir()
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+
+                var result = await IsEmriService.IsEmriDurumuTamamla(new IsEmriDurumGuncelleRequest
+                {
+                    bytDurum = 2,
+                    lngDistKod = App.sessionInfo.lngDistkod,
+                    lngKod = randevuBilgi.LNGKOD,
+                    lngTip = 2
+                });
+
+                if (result.StatusCode != 500 && result.Result)
+                {
+                    MessagingCenter.Send(this, "refreshList");
+                    Device.BeginInvokeOnMainThread(async () => await _navigation.PopAsync(true));
+                }
+                else
+                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
             }
             catch (Exception ex)
             {

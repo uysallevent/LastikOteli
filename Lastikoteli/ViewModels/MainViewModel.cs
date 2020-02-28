@@ -8,7 +8,6 @@ namespace Lastikoteli.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private INavigation _navigation;
         private DoubleClickControl _doubleClickControl;
         public Command gotoIsListesiPageCommand { get; set; }
 

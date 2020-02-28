@@ -17,18 +17,17 @@ namespace Lastikoteli.ViewModels
 {
     public class IsListesiViewModel : BaseViewModel
     {
-        private INavigation _navigation;
         public IsListesiPage Page { get; set; }
 
 
         private ObservableCollection<Randevu> _isListesi;
-        public ObservableCollection<Randevu> IsListesi
+        public ObservableCollection<Randevu> isListesi
         {
             get { return _isListesi; }
             set
             {
                 _isListesi = value;
-                OnPropertyChanged("IsListesi");
+                OnPropertyChanged("isListesi");
             }
         }
 
@@ -71,7 +70,8 @@ namespace Lastikoteli.ViewModels
             string actionSheetResult = "";
             if (randevu.TXTSOKMETAKMA == "S")
             {
-
+                await _doubleClickControl.PushAsync(new YeniSaklamaTabbedPage());
+                MessagingCenter.Send(this, "IsEmriYeniSaklama", randevu);
             }
             else if (randevu.TXTSOKMETAKMA == "T")
             {
@@ -91,10 +91,23 @@ namespace Lastikoteli.ViewModels
             {
                 actionSheetResult = await this.Page.DisplayActionSheet("Seçim Yapın", "İptal", null, "Saklama", "Sökme/Takma");
             }
+            else if (randevu.TXTSOKMETAKMA == "Tamamlandı")
+            {
+                if (randevu.BYTSAKLAMA == 2 && randevu.BYTSOKMETAKMA == 2)
+                    await Page.DisplayAlert("Uyarı", $"Saklama ve Sökme-Takma iş emri tamamlandı", "Tamam");
+                else if (randevu.BYTSAKLAMA == 2 && randevu.BYTSOKMETAKMA == 0)
+                    await Page.DisplayAlert("Uyarı", $"Saklama iş emri tamamlandı", "Tamam");
+                else if (randevu.BYTSAKLAMA == 0 && randevu.BYTSOKMETAKMA == 2)
+                    await Page.DisplayAlert("Uyarı", $"Sökme-Takma iş emri tamamlandı", "Tamam");
+
+            }
 
             switch (actionSheetResult)
             {
                 case "Saklama":
+
+                    await _doubleClickControl.PushAsync(new YeniSaklamaTabbedPage());
+                    MessagingCenter.Send(this, "IsEmriYeniSaklama", randevu);
 
                     break;
                 case "Sökme/Takma":
@@ -122,6 +135,11 @@ namespace Lastikoteli.ViewModels
              {
                  await isListesiGetir();
              });
+
+            MessagingCenter.Subscribe<YeniSaklamaMarkaBilgileriViewModel>(this, "refreshList", async (s) =>
+            {
+                await isListesiGetir();
+            });
         }
 
         public ICommand pullRefreshList { get; set; }
@@ -142,7 +160,10 @@ namespace Lastikoteli.ViewModels
                     Filter = IsListesiFilter.Filter
                 });
                 if (result.Result.Data != null && result.Result.Data.Count > 0)
-                    IsListesi = new ObservableCollection<Randevu>(result.Result.Data);
+                {
+
+                    isListesi = new ObservableCollection<Randevu>(result.Result.Data);
+                }
                 else
                     await this.Page.DisplayAlert("Uyarı", "İş emri bulunamadı", "Tamam");
             }
