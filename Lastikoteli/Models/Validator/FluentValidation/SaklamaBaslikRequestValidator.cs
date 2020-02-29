@@ -35,7 +35,7 @@ namespace Lastikoteli.Models.Validator.FluentValidation
             RuleFor(x => x.TXTVN).NotEmpty().When(x => string.IsNullOrEmpty(x.TXTTCKIMLIKNO)).WithMessage(Messages.vNoNotEmpty);
             RuleFor(x => x.TXTVN).NotNull().When(x => string.IsNullOrEmpty(x.TXTTCKIMLIKNO)).WithMessage(Messages.vNoNotEmpty);
 
-            RuleForEach(x => x.Tblsaklamadetay).SetValidator(new TblsaklamaDetayRequestValidator()).When(x => x.LNGADET != null || x.LNGADET > 0);
+            RuleForEach(x => x.Tblsaklamadetay).SetValidator(new TblsaklamaDetayRequestValidator()).When(x => x.LNGADET == null || x.LNGADET == 0);
         }
 
         private bool KmKontrol(long km)

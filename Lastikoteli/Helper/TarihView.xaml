@@ -11,8 +11,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Frame Grid.Column="0" CornerRadius="15" Padding="1">
-            <DatePicker DateSelected="DatePicker_DateSelected"/>
+        <Frame Grid.Column="0" CornerRadius="15" Padding="1" BackgroundColor="Black">
+            <DatePicker DateSelected="DatePicker_DateSelected" TextColor="White" BackgroundColor="Black"/>
         </Frame>
     </Grid>
 </ContentView>

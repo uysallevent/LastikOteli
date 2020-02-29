@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
              x:Class="Lastikoteli.Helper.PlakaView">
-    <Grid BackgroundColor="Black" HorizontalOptions="FillAndExpand" Padding="5">
+    <Grid  BackgroundColor="Black" HorizontalOptions="FillAndExpand" Padding="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
@@ -11,8 +11,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Frame Grid.Column="0" CornerRadius="15" Padding="1">
-            <xfx:XfxEntry x:Name="txtValue" Text="{Binding PlakaEntryText}" Placeholder="Plaka" PlaceholderColor="LightGray" TextColor="Black" TextChanged="txtValue_TextChanged" ErrorDisplay="None"/>
+        <Frame Grid.Column="0" CornerRadius="15" Padding="1" BackgroundColor="Black">
+            <xfx:XfxEntry x:Name="txtValue"  Placeholder="Plaka" PlaceholderColor="White" ActivePlaceholderColor="White" TextColor="White" BackgroundColor="Black" TextChanged="txtValue_TextChanged" ErrorDisplay="None"/>
         </Frame>
         <ImageButton Grid.Column="1" Source="camera_white" BackgroundColor="Transparent" Clicked="ImageButton_Clicked"/>
     </Grid>

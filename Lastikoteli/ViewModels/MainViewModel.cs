@@ -10,6 +10,7 @@ namespace Lastikoteli.ViewModels
     {
         private DoubleClickControl _doubleClickControl;
         public Command gotoIsListesiPageCommand { get; set; }
+        public Command gotoHavuzIslemleriPageCommand { get; set; }
 
 
         public MainViewModel(INavigation navigation)
@@ -17,7 +18,31 @@ namespace Lastikoteli.ViewModels
             _navigation = navigation;
             _doubleClickControl = new DoubleClickControl(_navigation);
             gotoIsListesiPageCommand = new Command(async () => await GotoIsListesiPage());
+            gotoHavuzIslemleriPageCommand = new Command(async () => await gotoHavuzIslemleriPage());
 
+
+        }
+
+        private async Task gotoHavuzIslemleriPage()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                await _doubleClickControl.PushAsync(new HavuzIslemleriTabbedPage());
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task GotoIsListesiPage()

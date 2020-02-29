@@ -12,8 +12,8 @@
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
              x:Class="Lastikoteli.Views.MusteriAraPopUpPage"  
-                 BackgroundColor="Transparent" 
-                 Padding="10">
+             BackgroundColor="Transparent" 
+             Padding="10">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
             PositionIn="Center"

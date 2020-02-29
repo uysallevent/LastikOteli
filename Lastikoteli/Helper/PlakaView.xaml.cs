@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xfx;
 using ZXing.Net.Mobile.Forms;
 
@@ -10,28 +6,25 @@ namespace Lastikoteli.Helper
 {
     public partial class PlakaView : ContentView
     {
-        ZXingScannerPage scanPage;
+        private ZXingScannerPage scanPage;
+
         public PlakaView()
         {
             InitializeComponent();
             scanPage = new ZXingScannerPage();
             scanPage.OnScanResult += ScanPage_OnScanResult;
-
         }
 
         private void ScanPage_OnScanResult(ZXing.Result result)
         {
-
             scanPage.IsScanning = false;
             Device.BeginInvokeOnMainThread(() =>
             {
                 App.Current.MainPage.Navigation.PopModalAsync(true);
+                txtValue.Text = result.Text;
                 MessagingCenter.Send(this, "plakaBarcode", result.Text);
-
             });
-
         }
-
 
         public string PlakaEntryText
         {
@@ -41,9 +34,7 @@ namespace Lastikoteli.Helper
             }
             set
             {
-
                 SetValue(PlakaEntryTextProperty, value);
-
             }
         }
 
@@ -63,10 +54,13 @@ namespace Lastikoteli.Helper
 
         private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var xfxEntry = (XfxEntry)sender;
 
-            xfxEntry.Text = xfxEntry.Text.ToUpper();
-            PlakaEntryText = xfxEntry.Text;
+            var xfxEntry = (XfxEntry)sender;
+            if(!string.IsNullOrEmpty(xfxEntry.Text))
+            {
+                xfxEntry.Text = xfxEntry.Text.ToUpper();
+                PlakaEntryText = xfxEntry.Text;
+            }
 
             MessagingCenter.Send(this, "saklamaKodTemizle");
             MessagingCenter.Subscribe<SaklamaNoView>(this, "plakaTemizle", (s) =>
@@ -79,15 +73,15 @@ namespace Lastikoteli.Helper
                 xfxEntry.Text = "";
                 PlakaEntryText = "";
             });
+
+
+
+
         }
 
-
-
-
-        void ImageButton_Clicked(System.Object sender, System.EventArgs e)
+        private void ImageButton_Clicked(System.Object sender, System.EventArgs e)
         {
             App.Current.MainPage.Navigation.PushModalAsync(scanPage);
-
         }
     }
 }

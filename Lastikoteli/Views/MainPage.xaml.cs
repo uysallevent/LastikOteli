@@ -16,10 +16,5 @@ namespace Lastikoteli.Views
 
         }
 
-        private void CustomButton_Clicked(object sender, EventArgs e)
-        {
-            PopupNavigation.PushAsync(new SearchPrinterPopupPage());
-
-        }
     }
 }

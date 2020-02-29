@@ -25,6 +25,8 @@ namespace Lastikoteli.Models.Complex.Response
         public string txtCap { get; set; }
         public string txtMevsim { get; set; }
         public string txtDesen { get; set; }
+        public int bytDurum { get; set; }
+        public int bytHavuzda { get; set; }
         public KullaniciUrunResponse kullaniciUrunResponse { get; set; }
         public List<KeyValuePair<string, bool>> markaListe { get; set; }
         public List<KeyValuePair<string, bool>> tabanListe { get; set; }

@@ -24,7 +24,6 @@ namespace Lastikoteli.ViewModels
         public IEtiketYazdir EtiketYazdir => DependencyService.Get<IEtiketYazdir>();
         public IValidator saklamayaAlValidator => DependencyService.Get<IValidator>();
 
-
         public DoubleClickControl _doubleClickControl;
         protected INavigation _navigation { get; set; }
         protected Page CurrentPage { get; private set; }

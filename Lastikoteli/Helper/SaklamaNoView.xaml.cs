@@ -25,8 +25,17 @@ namespace Lastikoteli.Helper
             Device.BeginInvokeOnMainThread(() =>
             {
                 App.Current.MainPage.Navigation.PopModalAsync(true);
-                MessagingCenter.Send(this, "saklamaKodBarcode", result.Text);
+                if (!string.IsNullOrEmpty(result.Text))
+                {
+                    string resultText = result.Text;
+                    for (int i = resultText.Length - 1; i >= 0; i--)
+                        if (!char.IsNumber(resultText[i]))
+                            resultText = resultText.Remove(i, 1);
 
+                    xfxSaklamaNoEntry.Text = resultText;
+                }
+
+                MessagingCenter.Send(this, "saklamaKodBarcode", result.Text);
             });
 
         }
@@ -46,10 +55,9 @@ namespace Lastikoteli.Helper
         private void txtValue_TextChanged(object sender, TextChangedEventArgs e)
         {
             var xfxEntry = (XfxEntry)sender;
-            if (!StringFormatControl.IsAllCharNumeric(xfxEntry.Text))
-                xfxEntry.Text = xfxEntry.Text.Remove(xfxEntry.Text.Length - 1);
+            //if (!StringFormatControl.IsAllCharNumeric(xfxEntry.Text))
+            //    xfxEntry.Text = xfxEntry.Text.Remove(xfxEntry.Text.Length - 1);
 
-            xfxEntry.Text = xfxEntry.Text.ToUpper();
             SaklamaNoEntryText = xfxEntry.Text;
 
             MessagingCenter.Send(this, "plakaTemizle");
@@ -63,6 +71,8 @@ namespace Lastikoteli.Helper
                 xfxEntry.Text = "";
                 SaklamaNoEntryText = "";
             });
+
+
         }
 
         void ImageButton_Clicked(System.Object sender, System.EventArgs e)
