@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Lastikoteli.Models.Complex.Response
@@ -25,6 +26,8 @@ namespace Lastikoteli.Models.Complex.Response
         public string txtCap { get; set; }
         public string txtMevsim { get; set; }
         public string txtDesen { get; set; }
+        public string txtTamMarka { get { return $"{txtMarka}{Environment.NewLine}{txtTaban}/{txtKesit}R{txtCap}{Environment.NewLine}{txtMevsim}{Environment.NewLine}{txtDesen}"; } }
+        public bool bytOtl { get { return (txtLastikDurum == "ÖTL YE ALINDI") ? true : false; } }
         public int bytDurum { get; set; }
         public int bytHavuzda { get; set; }
         public KullaniciUrunResponse kullaniciUrunResponse { get; set; }

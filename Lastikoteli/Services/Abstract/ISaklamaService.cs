@@ -18,5 +18,6 @@ namespace Lastikoteli.Services.Abstract
         Task<ApiResponse> YasalDisDerinligiGetir();
         Task<ApiResponseGeneric<PlakaSorguResponse>> PlakaSorgula(SaklamaPlakaSorgulaRequest request);
         Task<ApiResponseGeneric<List<AracUzerindekilerResponse>>> AracUzerindekileriGetir(SaklamaPlakaSorgulaRequest request);
+        Task<ApiResponseGeneric<bool>> ElTerminaliLastikRafGuncelle(LastikRafGuncelleRequest request);
     }
 }

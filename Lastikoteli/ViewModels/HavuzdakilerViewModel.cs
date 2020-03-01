@@ -25,6 +25,7 @@ namespace Lastikoteli.ViewModels
             set { SetProperty(ref _saklamaBilgiRequest, value); }
         }
 
+
         private IList<SaklamaBilgileriResponse> _havuzdakilerListesi;
         public IList<SaklamaBilgileriResponse> havuzdakilerListesi
         {
@@ -32,11 +33,41 @@ namespace Lastikoteli.ViewModels
             set { SetProperty(ref _havuzdakilerListesi, value); }
         }
 
+
+        private IList<LastikSaklamaBilgiResponse> _saklamaListe;
+        public IList<LastikSaklamaBilgiResponse> saklamaListe
+        {
+            get { return _saklamaListe; }
+            set { SetProperty(ref _saklamaListe, value); }
+        }
+
+
+        private LastikSaklamaBilgiResponse _secilenSaklama;
+        public LastikSaklamaBilgiResponse secilenSaklama
+        {
+            get { return _secilenSaklama; }
+            set
+            {
+                SetProperty(ref _secilenSaklama, value);
+                if (_secilenSaklama != null)
+                {
+                    var secilenKayit = havuzdakilerListesi.FirstOrDefault(x => x.lngKod == _secilenSaklama.lngSaklamaKodu);
+                    PopupNavigation.PushAsync(new LastikRafIslemleriPopUpPage(secilenKayit));
+                }
+                _secilenSaklama = null;
+            }
+        }
+
+
         public ICommand HavuzdaKayitAramaCommand { get; set; }
         public HavuzdakilerViewModel()
         {
             saklamaBilgiRequest = new SaklamaBilgiRequest();
             HavuzdaKayitAramaCommand = new Command(async () => await HavuzdaKayitAramaAsync());
+            MessagingCenter.Subscribe<LastikRafIslemleriPopUpViewModel, int>(this, "guncellenenRafSaklama", (s, e) =>
+            {
+                saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(saklamaListe.Where(x => x.lngSaklamaKodu != e).ToList());
+            });
         }
 
         private async Task HavuzdaKayitAramaAsync()
@@ -55,7 +86,7 @@ namespace Lastikoteli.ViewModels
                 if (result.StatusCode != 500 && result.Result.Count > 0)
                 {
                     havuzdakilerListesi = new ObservableCollection<SaklamaBilgileriResponse>(result.Result);
-                    PopupNavigation.PushAsync(new SaklamaListePopUpPage(havuzdakilerListesi.Select(x => new LastikSaklamaBilgiResponse { lngSakalamaKod = x.lngKod, txtPlaka = x.txtPlaka, txtDurum = "Havuzda" }).ToList()));
+                    saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(havuzdakilerListesi.Select(x => new LastikSaklamaBilgiResponse { lngSaklamaKodu = x.lngKod, txtPlaka = x.txtPlaka, txtDurum = "Havuzda" }).ToList());
                 }
                 else
                     await Page.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");

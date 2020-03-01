@@ -38,10 +38,10 @@
     <EmbeddedResource Update="Views\HavuzIslemleriTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MusteriAraPopUpPage.xaml">
+    <EmbeddedResource Update="Views\LastikRafIslemleriPopUpPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SaklamaListePopUpPage.xaml">
+    <EmbeddedResource Update="Views\MusteriAraPopUpPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SearchPrinterPopupPage.xaml">

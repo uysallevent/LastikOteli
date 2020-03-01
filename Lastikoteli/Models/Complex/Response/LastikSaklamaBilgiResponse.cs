@@ -6,7 +6,7 @@ namespace Lastikoteli.Models.Complex.Response
 {
    public  class LastikSaklamaBilgiResponse
     {
-        public int lngSakalamaKod { get; set; }
+        public int lngSaklamaKodu { get; set; }
         public string txtPlaka { get; set; }
         public string txtDurum { get; set; }
     }

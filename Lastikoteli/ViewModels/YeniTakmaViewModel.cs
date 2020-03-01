@@ -108,10 +108,9 @@ namespace Lastikoteli.ViewModels
         public YeniTakmaViewModel(INavigation navigation, TakmaRequest request)
         {
             _navigation = navigation;
-
             //Saklamabilgileri, isemribilgilerinin null olma durumu direk olarak Takma adımıyla sayfaya gelinmesiyle olur. Bu durumda teslim işleminden sonra bu sayfada kalınır
             //Bu ikilinin null gelmeme durumunda bu sayfaya iş emri listesinden gelinmiş dmektir bu durumda teslim işleminin ardından iş listesine geri dönülür.
-            if ((request.saklamaBilgileri == null && request.saklamaBilgileri.lngSaklamaBaslik != null) || (request.isEmriBilgileri != null && request.isEmriBilgileri.LNGKOD != 0))
+            if ((request.saklamaBilgileri != null && request.saklamaBilgileri.lngSaklamaBaslik != null) || (request.isEmriBilgileri != null && request.isEmriBilgileri.LNGKOD != 0))
             {
                 saklamaBilgiRequest = request.saklamaBilgileri;
                 randevuBilgi = request.isEmriBilgileri;

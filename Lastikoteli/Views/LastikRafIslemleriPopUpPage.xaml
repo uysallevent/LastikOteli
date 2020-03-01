@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:customViews="clr-namespace:Lastikoteli.Helper"
+             xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
+             xmlns:behaviors="clr-namespace:Lastikoteli.Behaviors"
+             mc:Ignorable="d"
+             x:Class="Lastikoteli.Views.LastikRafIslemleriPopUpPage" x:Name="lastikRafIsmlemleriPage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Grid>
+        <Frame CornerRadius="10" BackgroundColor="Black" BorderColor="White">
+            <Grid BackgroundColor="Black">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ImageButton Grid.Row="0" HorizontalOptions="End" Source="btnpopupclose" BackgroundColor="White" CornerRadius="20" Clicked="ImageButton_Clicked"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <xfx:XfxEntry x:Name="xfxEntryRafKod" Grid.Column="0" Placeholder="Sıra Kolay Kod" BackgroundColor="Black" ActivePlaceholderColor="White" PlaceholderColor="DarkGray" TextColor="White">
+                        <xfx:XfxEntry.Behaviors>
+                            <behaviors:EventToCommandBehavior 
+                                    EventName="Unfocused"
+                                    Command="{Binding Source={x:Reference lastikRafIsmlemleriPage},Path=BindingContext.RafKolayKodKontrolCommand}" 
+                                    CommandParameter="{Binding Source={x:Reference xfxEntryRafKod},Path=Text}"/>
+                        </xfx:XfxEntry.Behaviors>
+                    </xfx:XfxEntry>
+                    <ImageButton Grid.Column="1" Source="magnifyingglass_white" BackgroundColor="Transparent" Command="{Binding RafSecCommand}"/>
+                    <ImageButton Grid.Column="2" Source="camera_white" BackgroundColor="Transparent"/>
+                </Grid>
+                <dg:DataGrid x:Name="LstLastikBilgileri" Grid.Row="2"
+                     SelectionEnabled="True"
+                     RowHeight="70"
+                     HeaderHeight="50"
+                     BorderColor="#FFFFFF"
+                     HeaderBackground="#E0E6F8"
+                     SelectedItem="{Binding detayListeResponse, Mode=TwoWay}"
+                     ItemsSource="{Binding lastikListe, Mode=TwoWay}">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <dg:DataGrid.HeaderFontSize>
+                        <OnIdiom  x:TypeArguments="x:Double">
+                            <OnIdiom.Tablet>15</OnIdiom.Tablet>
+                            <OnIdiom.Phone>13</OnIdiom.Phone>
+                        </OnIdiom>
+                    </dg:DataGrid.HeaderFontSize>
+                    <dg:DataGrid.Columns>
+                        <dg:DataGridColumn Title="Raf" PropertyName="txtRafKolayKod" Width="1*" HorizontalContentAlignment="Center"/>
+                        <dg:DataGridColumn Title="Lastik" PropertyName="txtTamMarka" Width="2*"/>
+                        <dg:DataGridColumn Title="Poz" PropertyName="txtLastikYon" Width="0.95*" />
+                        <dg:DataGridColumn Title="ÖTL" PropertyName="bytOtl" Width="0.95*">
+                            <dg:DataGridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentView >
+                                        <CheckBox IsChecked="{Binding .,Mode=TwoWay}" IsEnabled="False" HorizontalOptions="CenterAndExpand"/>
+                                    </ContentView>
+                                </DataTemplate>
+                            </dg:DataGridColumn.CellTemplate>
+                        </dg:DataGridColumn>
+                    </dg:DataGrid.Columns>
+                </dg:DataGrid>
+                <customControl:CustomButton  Grid.Row="3" Text="Kaydet" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White"  Command="{Binding RafGuncelleCommand}"/>
+            </Grid>
+        </Frame>
+        <customViews:LoadingView />
+    </Grid>
+</pages:PopupPage>

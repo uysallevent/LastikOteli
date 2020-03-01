@@ -81,5 +81,13 @@ namespace Lastikoteli.Services.Concrete
             return await Task.FromResult(ApiResultCheck.ResultCheck<int>(responseContent));
         }
 
+        public async Task<ApiResponseGeneric<bool>> ElTerminaliLastikRafGuncelle(LastikRafGuncelleRequest request)
+        {
+            var client = await GetClient();
+            var response = await client.PostAsync(APIUrl + "/api/Saklama/ElTerminaliLastikRafGuncelle", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<bool>(responseContent));
+        }
+
     }
 }

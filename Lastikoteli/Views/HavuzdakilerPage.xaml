@@ -5,21 +5,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:customViews="clr-namespace:Lastikoteli.Helper"
              xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
              x:Class="Lastikoteli.Views.HavuzdakilerPage" BackgroundColor="Black">
     <Grid>
-        <Grid RowSpacing="0">
+        <Grid RowSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <customViews:PlakaView Grid.Row="0" PlakaEntryText="{Binding saklamaBilgiRequest.txtPlaka,Mode=TwoWay}"/>
             <customViews:SaklamaNoView Grid.Row="1" SaklamaNoEntryText="{Binding saklamaBilgiRequest.lngSaklamaBaslik,Mode=TwoWay}" />
-            <customControl:CustomButton Grid.Row="3" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20,20,20,0" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding HavuzdaKayitAramaCommand}"/>
+            <customControl:CustomButton Grid.Row="2" Text="ARA" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding HavuzdaKayitAramaCommand}"/>
+
+            <dg:DataGrid x:Name="LstMusteriBilgileri"
+                     Grid.Row="3"
+                     SelectionEnabled="True"
+                     RowHeight="70"
+                     HeaderHeight="50"
+                     BorderColor="#FFFFFF"
+                     HeaderBackground="#E0E6F8"
+                     SelectedItem="{Binding secilenSaklama,Mode=TwoWay}"
+                     ItemsSource="{Binding saklamaListe, Mode=TwoWay}">
+                <x:Arguments>
+                    <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+                </x:Arguments>
+                <dg:DataGrid.HeaderFontSize>
+                    <OnIdiom  x:TypeArguments="x:Double">
+                        <OnIdiom.Tablet>15</OnIdiom.Tablet>
+                        <OnIdiom.Phone>13</OnIdiom.Phone>
+                    </OnIdiom>
+                </dg:DataGrid.HeaderFontSize>
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="Saklama Kodu" PropertyName="lngSaklamaKodu" Width="1*"/>
+                    <dg:DataGridColumn Title="Plaka" PropertyName="txtPlaka" Width="1*"/>
+                    <dg:DataGridColumn Title="Durum" PropertyName="txtDurum" Width="1*"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
         </Grid>
         <customViews:LoadingView />
     </Grid>
