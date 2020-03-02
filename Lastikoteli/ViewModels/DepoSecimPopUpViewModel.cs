@@ -44,7 +44,7 @@ namespace Lastikoteli.ViewModels
                     if (selectedDepoBilgi.lngDepoSira == 5)
                     {
                         MessagingCenter.Send(this, "selectedRaf", _selectedDepo);
-                        PopupNavigation.PopAsync(true);
+                        Device.BeginInvokeOnMainThread(async()=>await PopupNavigation.PopAsync(true));
                         return;
                     }
 

@@ -7,7 +7,7 @@
              xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
-             x:Class="Lastikoteli.Views.HavuzdakilerPage" BackgroundColor="Black" Title="Havuzdaki Lastikler">
+             x:Class="Lastikoteli.Views.HavuzaGidecekler" Title="Havuza Gidecek Lastikler">
     <Grid>
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>

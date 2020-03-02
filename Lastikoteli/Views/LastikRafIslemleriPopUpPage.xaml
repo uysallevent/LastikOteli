@@ -49,7 +49,7 @@
                         </xfx:XfxEntry.Behaviors>
                     </xfx:XfxEntry>
                     <ImageButton Grid.Column="1" Source="magnifyingglass_white" BackgroundColor="Transparent" Command="{Binding RafSecCommand}"/>
-                    <ImageButton Grid.Column="2" Source="camera_white" BackgroundColor="Transparent"/>
+                    <ImageButton Grid.Column="2" Source="camera_white" BackgroundColor="Transparent" Clicked="QRCodeImageButton_Clicked"/>
                 </Grid>
                 <dg:DataGrid x:Name="LstLastikBilgileri" Grid.Row="2"
                      SelectionEnabled="True"

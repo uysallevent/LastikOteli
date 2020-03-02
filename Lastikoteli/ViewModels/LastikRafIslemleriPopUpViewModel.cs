@@ -42,8 +42,8 @@ namespace Lastikoteli.ViewModels
             set
             {
                 SetProperty(ref _detayListeResponse, value);
-                RafSecCommand.Execute(true);
-
+                if (_detayListeResponse != null)
+                    Device.BeginInvokeOnMainThread(async () => await PopupNavigation.PushAsync(new DepoSecimPopUpPage()));
             }
         }
 
@@ -51,6 +51,7 @@ namespace Lastikoteli.ViewModels
         public ICommand RafSecCommand { get; set; }
         public ICommand RafKolayKodKontrolCommand { get; set; }
         public ICommand RafGuncelleCommand { get; set; }
+
 
         public LastikRafIslemleriPopUpViewModel(SaklamaBilgileriResponse saklamaBilgileriResponse)
         {
@@ -62,15 +63,26 @@ namespace Lastikoteli.ViewModels
 
             MessagingCenter.Subscribe<DepoSecimPopUpViewModel, DepoDizilimResponse>(this, "selectedRaf", (s, e) =>
             {
-                var secilenLastik = detayListeResponse;
-                lastikListe.ToList().ForEach(x =>
+                //Tüm lastikler için tek raf seçilme durumunda detayListeResponse null gelir
+                if (detayListeResponse != null)
                 {
-                    if (x.lngKod == secilenLastik.lngKod)
+                    var secilenLastik = detayListeResponse;
+                    lastikListe.ToList().ForEach(x =>
                     {
-                        x.lngDepoSiraKod = e.lngKod;
-                        x.txtRafKolayKod = e.txtAd;
-                    }
-                });
+                        if (x.lngKod == secilenLastik.lngKod)
+                        {
+                            x.lngDepoSiraKod = e.lngKod;
+                            x.txtRafKolayKod = e.txtAd;
+                        }
+                    });
+                }
+                else
+                {
+                    lastikListe.ToList().ForEach(x => { x.lngDepoSiraKod = e.lngKod; x.txtRafKolayKod = e.txtKod; });
+
+                }
+                detayListeResponse = null;
+                OnPropertyChanged("detayListeResponse");
                 lastikListe = new ObservableCollection<DetayListeResponse>(lastikListe);
             });
 
@@ -89,7 +101,7 @@ namespace Lastikoteli.ViewModels
                 {
                     lngDistKod = App.sessionInfo.lngDistkod,
                     lngSaklamaKodu = saklamaBilgileri.lngKod,
-                    detayKodRafKodList = lastikListe.Select(x => new KeyValuePair<int, int>(x.lngKod, x.lngDepoSiraKod ?? 0)).ToList()
+                    detayKodRafKodList = lastikListe.Select(x => new KeyValuePair<int, int?>(x.lngKod, x.lngDepoSiraKod ?? 0)).ToList()
                 });
 
                 if (result.StatusCode != 500 && result.Result)
@@ -116,6 +128,7 @@ namespace Lastikoteli.ViewModels
 
         private async Task RafSecAsync()
         {
+            detayListeResponse = null;
             await PopupNavigation.PushAsync(new DepoSecimPopUpPage());
 
         }
@@ -140,6 +153,8 @@ namespace Lastikoteli.ViewModels
                     {
                         y.lngDepoSiraKod = result.Result;
                     });
+                    lastikListe.ToList().ForEach(y => { y.lngDepoSiraKod = result.Result; y.txtRafKolayKod = x.ToString(); });
+                    lastikListe = new ObservableCollection<DetayListeResponse>(lastikListe);
 
                 }
                 else

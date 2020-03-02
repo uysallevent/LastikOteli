@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:customViews="clr-namespace:Lastikoteli.Helper"
+              xmlns:customViews="clr-namespace:Lastikoteli.Helper"
              xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
-             x:Class="Lastikoteli.Views.HavuzdakilerPage" BackgroundColor="Black" Title="Havuzdaki Lastikler">
+             x:Class="Lastikoteli.Views.DepoIslemleriPage" BackgroundColor="Black" Title="Depo İşlemleri">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Raf Etiketi Yazdır" Order="Secondary" Priority="1" IconImageSource="icon_saklama" Command="{Binding gotoRafEtiketiYazdirCommand}"/>
+    </ContentPage.ToolbarItems>
     <Grid>
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>

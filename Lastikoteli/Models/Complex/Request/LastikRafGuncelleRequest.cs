@@ -8,6 +8,6 @@ namespace Lastikoteli.Models.Complex.Request
     {
         public int lngDistKod { get; set; }
         public int lngSaklamaKodu { get; set; }
-        public List<KeyValuePair<int, int>> detayKodRafKodList { get; set; }
+        public List<KeyValuePair<int, int?>> detayKodRafKodList { get; set; }
     }
 }

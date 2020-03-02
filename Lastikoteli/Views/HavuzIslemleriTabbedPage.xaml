@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:Lastikoteli.Views"
              mc:Ignorable="d"
-             x:Class="Lastikoteli.Views.HavuzIslemleriTabbedPage">
+             x:Class="Lastikoteli.Views.HavuzIslemleriTabbedPage" Title="Havuz İşlemleri">
     <views:HavuzdakilerPage Title="Havuzdakiler" IconImageSource="icon_tab_havuzda.png" BackgroundColor="Black"/>
+    <views:HavuzaGidecekler Title="Havuza Gidecekler" IconImageSource="icon_tab_havuzagidecek.png" BackgroundColor="Black"/>
 
 </TabbedPage>

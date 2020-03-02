@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:customViews="clr-namespace:Lastikoteli.Helper"
+             mc:Ignorable="d"
+             x:Class="Lastikoteli.Views.RafYazdirPage" BackgroundColor="Black" Title="Sıra Etiket Basımı">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Picker Title="Depo Seçin" Grid.Row="0" BackgroundColor="White" ItemDisplayBinding="{Binding txtAd}" ItemsSource="{Binding depoList,Mode=TwoWay}" SelectedItem="{Binding depoDizilimResponse,Mode=TwoWay}"/>
+            <Picker Title="Kat Seçin" Grid.Row="1" BackgroundColor="White" ItemDisplayBinding="{Binding txtAd}" ItemsSource="{Binding katList,Mode=TwoWay}" SelectedItem="{Binding katDizilimResponse,Mode=TwoWay}"/>
+            <Picker Title="Koridor Seçin" Grid.Row="2" BackgroundColor="White" ItemDisplayBinding="{Binding txtAd}" ItemsSource="{Binding koridorList,Mode=TwoWay}" SelectedItem="{Binding koridorDizilimResponse,Mode=TwoWay}"/>
+            <Picker Title="Raf Seçin" Grid.Row="3" BackgroundColor="White" ItemDisplayBinding="{Binding txtAd}"  ItemsSource="{Binding rafList,Mode=TwoWay}" SelectedItem="{Binding rafDizilimResponse,Mode=TwoWay}"/>
+            <customControl:CustomButton  Grid.Row="4" Text="TAK" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" CommandParameter="{Binding .}" Command="{Binding YazdirCommand}"/>
+            <dg:DataGrid x:Name="LstLastikBilgileri" Grid.Row="5"
+                     SelectionEnabled="True"
+                     RowHeight="70"
+                     HeaderHeight="50"
+                     BorderColor="#FFFFFF"
+                     HeaderBackground="#E0E6F8"
+                     SelectedItem="{Binding siraDizilimResponse, Mode=TwoWay}"
+                     ItemsSource="{Binding siraList, Mode=TwoWay}">
+                <x:Arguments>
+                    <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+                </x:Arguments>
+                <dg:DataGrid.HeaderFontSize>
+                    <OnIdiom  x:TypeArguments="x:Double">
+                        <OnIdiom.Tablet>15</OnIdiom.Tablet>
+                        <OnIdiom.Phone>13</OnIdiom.Phone>
+                    </OnIdiom>
+                </dg:DataGrid.HeaderFontSize>
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="Ad" PropertyName="txtAd" Width="1*"/>
+                    <dg:DataGridColumn Title="Kod" PropertyName="txtKod" Width="1*"/>
+                    <dg:DataGridColumn Title="Seç" PropertyName="bytSec" Width="0.95*">
+                        <dg:DataGridColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentView >
+                                    <Switch IsToggled="{Binding .,Mode=TwoWay}"/>
+                                </ContentView>
+                            </DataTemplate>
+                        </dg:DataGridColumn.CellTemplate>
+                    </dg:DataGridColumn>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+
+        </Grid>
+        <customViews:LoadingView />
+    </Grid>
+</ContentPage>

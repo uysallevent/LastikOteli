@@ -3,6 +3,7 @@ using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.Views;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -254,6 +255,13 @@ namespace Lastikoteli.ViewModels
                     await App.Current.MainPage.DisplayAlert("Uyarı", "İş emri tamamlandı", "Tamam");
                     saklamaBilgileriResponseList.Remove(saklamaBilgileriResponseList.FirstOrDefault(x => x.lngKod == randevuBilgi.LNGKOD));
                     saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>(saklamaBilgileriResponseList);
+                    if ((saklamaBilgiRequest != null && saklamaBilgiRequest.lngSaklamaBaslik != null) || (randevuBilgi != null && randevuBilgi.LNGKOD != 0))
+                    {
+                        await _navigation.PopAsync();
+                        MessagingCenter.Send(this, "refreshList");
+
+                    }
+
                 }
                 else
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");

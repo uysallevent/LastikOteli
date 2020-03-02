@@ -1,21 +1,27 @@
-﻿using Lastikoteli.Models.Complex.Request;
+﻿using Lastikoteli.Helper;
+using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Views;
+using Rg.Plugins.Popup.Services;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Rg.Plugins.Popup.Services;
 
 namespace Lastikoteli.ViewModels
 {
-    public class HavuzdakilerViewModel : BaseViewModel
+    public class DepoIslemleriViewModel : BaseViewModel
     {
-        public HavuzdakilerPage Page { get; set; }
+
+        private DoubleClickControl _doubleClickControl;
+
+        private INavigation _navigation;
+
+        public DepoIslemleriPage Page { get; set; }
 
 
         private SaklamaBilgiRequest _saklamaBilgiRequest;
@@ -26,11 +32,11 @@ namespace Lastikoteli.ViewModels
         }
 
 
-        private IList<SaklamaBilgileriResponse> _havuzdakilerListesi;
-        public IList<SaklamaBilgileriResponse> havuzdakilerListesi
+        private IList<SaklamaBilgileriResponse> _saklamadakilerListesi;
+        public IList<SaklamaBilgileriResponse> saklamadakilerListesi
         {
-            get { return _havuzdakilerListesi; }
-            set { SetProperty(ref _havuzdakilerListesi, value); }
+            get { return _saklamadakilerListesi; }
+            set { SetProperty(ref _saklamadakilerListesi, value); }
         }
 
 
@@ -51,7 +57,7 @@ namespace Lastikoteli.ViewModels
                 SetProperty(ref _secilenSaklama, value);
                 if (_secilenSaklama != null)
                 {
-                    var secilenKayit = havuzdakilerListesi.FirstOrDefault(x => x.lngKod == _secilenSaklama.lngSaklamaKodu);
+                    var secilenKayit = saklamadakilerListesi.FirstOrDefault(x => x.lngKod == _secilenSaklama.lngSaklamaKodu);
                     PopupNavigation.PushAsync(new LastikRafIslemleriPopUpPage(secilenKayit));
                 }
                 _secilenSaklama = null;
@@ -61,10 +67,15 @@ namespace Lastikoteli.ViewModels
 
 
         public ICommand HavuzdaKayitAramaCommand { get; set; }
-        public HavuzdakilerViewModel()
+        public ICommand gotoRafEtiketiYazdirCommand { get; set; }
+
+        public DepoIslemleriViewModel(INavigation navigation)
         {
+            _navigation = navigation;
+            _doubleClickControl = new DoubleClickControl(_navigation);
             saklamaBilgiRequest = new SaklamaBilgiRequest();
             HavuzdaKayitAramaCommand = new Command(async () => await HavuzdaKayitAramaAsync());
+            gotoRafEtiketiYazdirCommand = new Command(async () => await gotoRafEtiketiYazdirAsync());
             MessagingCenter.Subscribe<LastikRafIslemleriPopUpViewModel, int>(this, "guncellenenRafSaklama", (s, e) =>
             {
                 if (saklamaListe != null)
@@ -83,12 +94,11 @@ namespace Lastikoteli.ViewModels
                 saklamaBilgiRequest.lngDistKod = App.sessionInfo.lngDistkod;
                 var result = await SaklamaService.SaklamadaKayitArama(saklamaBilgiRequest);
 
-                var havuzListe = HavuzdakiLastikler(result.Result);
 
                 if (result.StatusCode != 500 && result.Result.Count > 0)
                 {
-                    havuzdakilerListesi = new ObservableCollection<SaklamaBilgileriResponse>(result.Result);
-                    saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(havuzdakilerListesi.Select(x => new LastikSaklamaBilgiResponse { lngSaklamaKodu = x.lngKod, txtPlaka = x.txtPlaka, txtDurum = "Havuzda" }).ToList());
+                    saklamadakilerListesi = new ObservableCollection<SaklamaBilgileriResponse>(result.Result);
+                    saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(saklamadakilerListesi.Select(x => new LastikSaklamaBilgiResponse { lngSaklamaKodu = x.lngKod, txtPlaka = x.txtPlaka, txtDurum = "Saklamada" }).ToList());
                 }
                 else
                     await Page.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");
@@ -97,23 +107,34 @@ namespace Lastikoteli.ViewModels
             catch (Exception)
             {
 
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task gotoRafEtiketiYazdirAsync()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                await _doubleClickControl.PushAsync(new RafYazdirPage());
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
 
             }
             finally
             {
                 IsBusy = false;
             }
-
         }
 
-        private List<SaklamaBilgileriResponse> HavuzdakiLastikler(List<SaklamaBilgileriResponse> list)
-        {
-            foreach (var item in list)
-                item.Tblsaklamadetay.RemoveAll(x => x.bytHavuzda != 1);
-
-            list.RemoveAll(x => x.Tblsaklamadetay.Count == 0);
-
-            return list;
-        }
     }
 }
