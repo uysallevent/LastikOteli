@@ -1,4 +1,5 @@
-﻿using Lastikoteli.ViewModels;
+﻿using Lastikoteli.Models.Complex.Request;
+using Lastikoteli.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -16,10 +17,10 @@ namespace Lastikoteli.Views
     public partial class SearchPrinterPopupPage : PopupPage
     {
         SearchPrinterPopUpViewModel searchPrinterPopUpViewModel;
-        public SearchPrinterPopupPage()
+        public SearchPrinterPopupPage(PrintRequest request)
         {
             InitializeComponent();
-            BindingContext = searchPrinterPopUpViewModel = new SearchPrinterPopUpViewModel();
+            BindingContext = searchPrinterPopUpViewModel = new SearchPrinterPopUpViewModel(request);
             (BindingContext as SearchPrinterPopUpViewModel).Page = this;
         }
 

@@ -14,14 +14,11 @@ using Xamarin.Forms;
 
 namespace Lastikoteli.ViewModels
 {
-    public class DepoIslemleriViewModel : BaseViewModel
+    public class KayitGuncellemeViewModel : BaseViewModel
     {
-
-        private DoubleClickControl _doubleClickControl;
-
         private INavigation _navigation;
-
-        public DepoIslemleriPage Page { get; set; }
+        private DoubleClickControl _doubleClickControl;
+        public KayitGuncellemePage Page { get; set; }
 
 
         private SaklamaBilgiRequest _saklamaBilgiRequest;
@@ -31,21 +28,6 @@ namespace Lastikoteli.ViewModels
             set { SetProperty(ref _saklamaBilgiRequest, value); }
         }
 
-
-        private IList<SaklamaBilgileriResponse> _saklamadakilerListesi;
-        public IList<SaklamaBilgileriResponse> saklamadakilerListesi
-        {
-            get { return _saklamadakilerListesi; }
-            set { SetProperty(ref _saklamadakilerListesi, value); }
-        }
-
-
-        private IList<LastikSaklamaBilgiResponse> _saklamaListe;
-        public IList<LastikSaklamaBilgiResponse> saklamaListe
-        {
-            get { return _saklamaListe; }
-            set { SetProperty(ref _saklamaListe, value); }
-        }
 
 
         private LastikSaklamaBilgiResponse _secilenSaklama;
@@ -58,7 +40,7 @@ namespace Lastikoteli.ViewModels
                 if (_secilenSaklama != null)
                 {
                     var secilenKayit = saklamadakilerListesi.FirstOrDefault(x => x.lngKod == _secilenSaklama.lngSaklamaKodu);
-                    PopupNavigation.PushAsync(new LastikRafIslemleriPopUpPage(secilenKayit));
+                    Device.BeginInvokeOnMainThread(async()=>await _doubleClickControl.PushAsync(new KayitGuncellemeTabbedPage(new KayitGuncelleRequest { lngDistKod = App.sessionInfo.lngDistkod, lngSaklamaKod = secilenKayit.lngKod })));
                 }
                 _secilenSaklama = null;
                 OnPropertyChanged("secilenSaklama");
@@ -66,21 +48,31 @@ namespace Lastikoteli.ViewModels
         }
 
 
-        public ICommand saklamadaKayitAramaCommand { get; set; }
-        public ICommand gotoRafEtiketiYazdirCommand { get; set; }
+        private IList<LastikSaklamaBilgiResponse> _saklamaListe;
+        public IList<LastikSaklamaBilgiResponse> saklamaListe
+        {
+            get { return _saklamaListe; }
+            set { SetProperty(ref _saklamaListe, value); }
+        }
 
-        public DepoIslemleriViewModel(INavigation navigation)
+
+        private IList<SaklamaBilgileriResponse> _saklamadakilerListesi;
+        public IList<SaklamaBilgileriResponse> saklamadakilerListesi
+        {
+            get { return _saklamadakilerListesi; }
+            set { SetProperty(ref _saklamadakilerListesi, value); }
+        }
+
+
+        public ICommand saklamadaKayitAramaCommand { get; set; }
+
+        public KayitGuncellemeViewModel(INavigation navigation)
         {
             _navigation = navigation;
             _doubleClickControl = new DoubleClickControl(_navigation);
-            saklamaBilgiRequest = new SaklamaBilgiRequest();
             saklamadaKayitAramaCommand = new Command(async () => await saklamadaKayitAramaAsync());
-            gotoRafEtiketiYazdirCommand = new Command(async () => await gotoRafEtiketiYazdirAsync());
-            MessagingCenter.Subscribe<LastikRafIslemleriPopUpViewModel, int>(this, "guncellenenRafSaklama", (s, e) =>
-            {
-                if (saklamaListe != null)
-                    saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(saklamaListe.Where(x => x.lngSaklamaKodu != e).ToList());
-            });
+            saklamaBilgiRequest = new SaklamaBilgiRequest();
+
         }
 
         private async Task saklamadaKayitAramaAsync()
@@ -101,40 +93,20 @@ namespace Lastikoteli.ViewModels
                     saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(saklamadakilerListesi.Select(x => new LastikSaklamaBilgiResponse { lngSaklamaKodu = x.lngKod, txtPlaka = x.txtPlaka, txtDurum = "Saklamada" }).ToList());
                 }
                 else
+                {
+                    saklamadakilerListesi = new ObservableCollection<SaklamaBilgileriResponse>();
                     await Page.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");
+                }
 
             }
             catch (Exception)
             {
-
+                await Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
             }
             finally
             {
                 IsBusy = false;
             }
         }
-
-        private async Task gotoRafEtiketiYazdirAsync()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                await _doubleClickControl.PushAsync(new RafYazdirPage());
-            }
-            catch (Exception ex)
-            {
-                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
-
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
     }
 }

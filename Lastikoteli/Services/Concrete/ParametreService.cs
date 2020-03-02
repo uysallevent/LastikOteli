@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Lastikoteli.Helper.ServiceHelper;
+﻿using Lastikoteli.Helper.ServiceHelper;
 using Lastikoteli.Models;
-using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Models.Complex.Request;
+using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Services.Abstract;
-using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lastikoteli.Services.Concrete
 {
     public class ParametreService : ServiceManager, IParametreService
     {
-
         public async Task<ApiResponseGeneric<ObservableCollection<MarkaBilgiResponse>>> MarkaBilgiGetir(MarkaBilgiRequest request)
         {
             var Client = await GetClient();
@@ -30,6 +28,14 @@ namespace Lastikoteli.Services.Concrete
             return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<KeyValuePair<string, string>>>(responseContent));
         }
 
+        public async Task<ApiResponseGeneric<SiraKolayKodDesenBilgiResponse>> SiraKolayKodDesenBilgiGetir()
+        {
+            var Client = await GetClient();
+            var response = await Client.GetAsync(APIUrl + "/api/Parametre/SiraKolayKodDesenBilgiGetir");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return await Task.FromResult(ApiResultCheck.ResultCheck<SiraKolayKodDesenBilgiResponse>(responseContent));
+        }
+
         private string MarkaBilgiRequestModelOlustur(MarkaBilgiRequest request)
         {
             string response = "?";
@@ -44,31 +50,26 @@ namespace Lastikoteli.Services.Concrete
                 if (item.Name == "txtMarka")
                 {
                     response += $"txtMarka={request.txtMarka}&";
-
                 }
 
                 if (item.Name == "txtTaban")
                 {
                     response += $"txtTaban={request.txtTaban}&";
-
                 }
 
                 if (item.Name == "txtKesit")
                 {
                     response += $"txtKesit={request.txtKesit}&";
-
                 }
 
                 if (item.Name == "txtCap")
                 {
                     response += $"txtCap={request.txtCap}&";
-
                 }
 
                 if (item.Name == "txtMevsim")
                 {
                     response += $"txtMevsim={request.txtMevsim}&";
-
                 }
 
                 if (item.Name == "txtDesen")

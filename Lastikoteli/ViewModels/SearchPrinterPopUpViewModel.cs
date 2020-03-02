@@ -41,7 +41,6 @@ namespace Lastikoteli.ViewModels
         }
 
 
-
         public void UpdateStatusText(string message)
         {
             statusText = message;
@@ -109,6 +108,8 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("printerList");
             }
         }
+
+
         public void StartDiscovery(ConnectionType connectionType)
         {
             IsBusy = true;
@@ -149,14 +150,11 @@ namespace Lastikoteli.ViewModels
         }
 
         public ICommand FindPrinterCommand { get; set; }
-        public SearchPrinterPopUpViewModel()
+        public SearchPrinterPopUpViewModel(PrintRequest request)
         {
             etiketYazdir = new EtiketYazdir();
             StartPrinterDiscovery();
-            MessagingCenter.Subscribe<YeniSaklamaViewModel, PrintRequest>(this, "yazilacakEtiket", (s, e) =>
-             {
-                 lastikDesenListesi = e;
-             });
+            lastikDesenListesi = request;
         }
 
 

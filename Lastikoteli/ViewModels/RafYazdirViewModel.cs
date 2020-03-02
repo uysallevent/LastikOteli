@@ -1,6 +1,7 @@
 ﻿using Lastikoteli.Models.Complex.Request;
 using Lastikoteli.Models.Complex.Response;
 using Lastikoteli.Views;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +26,10 @@ namespace Lastikoteli.ViewModels
                 SetProperty(ref _depoDizilimResponse, value);
                 selectedDepoBilgi.lngDepoSira = 2;
                 selectedDepoBilgi.lngKod = value.lngKod;
+                katList = new ObservableCollection<DepoDizilimResponse>();
+                koridorList = new ObservableCollection<DepoDizilimResponse>();
+                rafList = new ObservableCollection<DepoDizilimResponse>();
+                siraList = new ObservableCollection<DepoDizilimResponse>();
                 Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
             }
         }
@@ -37,9 +42,15 @@ namespace Lastikoteli.ViewModels
             set
             {
                 SetProperty(ref _katDizilimResponse, value);
-                selectedDepoBilgi.lngDepoSira = 3;
-                selectedDepoBilgi.lngKod = value.lngKod;
-                Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
+                if (_katDizilimResponse != null)
+                {
+                    selectedDepoBilgi.lngDepoSira = 3;
+                    selectedDepoBilgi.lngKod = value.lngKod;
+                    koridorList = new ObservableCollection<DepoDizilimResponse>();
+                    rafList = new ObservableCollection<DepoDizilimResponse>();
+                    siraList = new ObservableCollection<DepoDizilimResponse>();
+                    Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
+                }
             }
         }
 
@@ -51,9 +62,14 @@ namespace Lastikoteli.ViewModels
             set
             {
                 SetProperty(ref _koridorDizilimResponse, value);
-                selectedDepoBilgi.lngDepoSira = 4;
-                selectedDepoBilgi.lngKod = value.lngKod;
-                Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
+                if (_koridorDizilimResponse != null)
+                {
+                    selectedDepoBilgi.lngDepoSira = 4;
+                    selectedDepoBilgi.lngKod = value.lngKod;
+                    rafList = new ObservableCollection<DepoDizilimResponse>();
+                    siraList = new ObservableCollection<DepoDizilimResponse>();
+                    Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
+                }
             }
         }
 
@@ -65,15 +81,20 @@ namespace Lastikoteli.ViewModels
             set
             {
                 SetProperty(ref _rafDizilimResponse, value);
-                selectedDepoBilgi.lngDepoSira = 5;
-                selectedDepoBilgi.lngKod = value.lngKod;
-                Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
+                if (_rafDizilimResponse != null)
+                {
+                    selectedDepoBilgi.lngDepoSira = 5;
+                    selectedDepoBilgi.lngKod = value.lngKod;
+                    siraList = new ObservableCollection<DepoDizilimResponse>();
+                    Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
+                }
+
             }
         }
 
 
-        private DepoDizilimRequest _siraDizilimResponse;
-        public DepoDizilimRequest siraDizilimResponse
+        private DepoDizilimResponse _siraDizilimResponse;
+        public DepoDizilimResponse siraDizilimResponse
         {
             get
             {
@@ -129,7 +150,10 @@ namespace Lastikoteli.ViewModels
         public IList<DepoDizilimResponse> rafList
         {
             get { return _rafList; }
-            set { SetProperty(ref _rafList, value); }
+            set
+            {
+                SetProperty(ref _rafList, value);
+            }
         }
 
 
@@ -141,11 +165,36 @@ namespace Lastikoteli.ViewModels
         }
 
 
+        private bool _hepsiniSec;
+
+        public bool hepsiniSec
+        {
+            get { return _hepsiniSec; }
+            set
+            {
+                SetProperty(ref _hepsiniSec, value);
+                if (siraList != null && siraList.Count > 0 && _hepsiniSec)
+                {
+                    siraList.ToList().ForEach(x => x.bytSec = 1);
+                    siraList = new ObservableCollection<DepoDizilimResponse>(siraList);
+                }
+                if (siraList != null && siraList.Count > 0 && !_hepsiniSec)
+                {
+                    siraList.ToList().ForEach(x => x.bytSec = 0);
+                    siraList = new ObservableCollection<DepoDizilimResponse>(siraList);
+                }
+
+            }
+        }
+
+
+
         public ICommand YazdirCommand { get; set; }
 
         public RafYazdirViewModel()
         {
-            siraDizilimResponse = new DepoDizilimRequest();
+            hepsiniSec = false;
+            siraDizilimResponse = new DepoDizilimResponse();
             YazdirCommand = new Command(async () => await YazdirAsync());
             selectedDepoBilgi = new DepoDizilimRequest() { lngDistKod = App.sessionInfo.lngDistkod, lngDepoSira = 1 };
             Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
@@ -155,12 +204,39 @@ namespace Lastikoteli.ViewModels
         {
             try
             {
-                var result = siraList;
+                if (IsBusy)
+                    return;
+
+                if(siraList.Count(x=>x.bytSec==1)==0)
+                {
+                    await Page.DisplayAlert("Uyarı", "Yazdırılacak sıra bilgisi seçilmedi", "Tamam");
+                    return;
+                }
+
+                IsBusy = true;
+
+                var result = await ParametreService.SiraKolayKodDesenBilgiGetir();
+
+                if (result.StatusCode != 500 && !string.IsNullOrEmpty(result.Result.yaziciDesenBilgi))
+                    PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
+                    {
+                        siraKolayKodEtiketBilgileri = new SiraKolayKodBilgiRequest
+                        {
+                            desenKodu = "",
+                            rafKolayKodListesi = siraList.Where(x => x.bytSec == 1).ToList()
+                        }
+                    }));
+                else
+                    await Page.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Sıra kolay kod desen bilgisi alınamadı", "Tamam");
+
             }
             catch (Exception)
             {
-
-                throw;
+                await Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -190,7 +266,7 @@ namespace Lastikoteli.ViewModels
 
                     if (selectedDepoBilgi.lngDepoSira == 5)
                     {
-                        result.Result.ToList().ForEach(x => x.bytSec = true);
+                        result.Result.ToList().ForEach(x => x.bytSec = 0);
                         siraList = new ObservableCollection<DepoDizilimResponse>(result.Result);
                     }
                 }

@@ -22,7 +22,7 @@
             <customButton:CustomButton Grid.Row="1" Text="İş Listesi (Takma/Saklama)" Margin="10" Padding="20" CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_islistesi.png" Command="{Binding gotoIsListesiPageCommand}"/>
             <customButton:CustomButton Grid.Row="2" Text="Havuz İşlemleri" Margin="10" Padding="20"  CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_havuz.png" Command="{Binding gotoHavuzIslemleriPageCommand}"/>
             <customButton:CustomButton Grid.Row="3" Text="Depo İçi İşlemler" Margin="10" Padding="20"  CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_depo.png" Command="{Binding gotoDepoIslemleriPageCommand}"/>
-            <customButton:CustomButton Grid.Row="4" Text="Kayıt Güncelleme" Margin="10" Padding="20"  CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_kayitguncelleme.png"/>
+            <customButton:CustomButton Grid.Row="4" Text="Kayıt Güncelleme" Margin="10" Padding="20"  CornerRadius="10" FontFamily="{StaticResource NotoSansBold}" FontSize="20" BackgroundColor="LightSlateGray" ImageSource="icon_kayitguncelleme.png" Command="{Binding gotoKayitGuncellemePageCommand}"/>
             <Label Grid.Row="5" Text="Brisa Lastik Oteli Versiyon 1.0" FontFamily="{StaticResource NotoSansRegular}" HorizontalOptions="CenterAndExpand" TextColor="White" Margin="5"/>
 
         </Grid>

@@ -64,18 +64,38 @@ namespace Lastikoteli.Helper
 
         public void SendZplReceipt(IConnection printerConnection, PrintRequest request)
         {
-            foreach (var item in request.lastikListesi)
+            if (request.lastikEtiketBilgileri != null && request.lastikEtiketBilgileri.lastikListesi.Count > 0 && !string.IsNullOrEmpty(request.lastikEtiketBilgileri.desenKodu))
             {
-                var desenKodu = request.desenKodu
-                    .Replace("[PLAKA]", item.txtPlaka)
-                    .Replace("[HIZMETVEREN]", item.txtDistAdi)
-                    .Replace("[MUSTERISTRING]", item.txtUnvan)
-                    .Replace("[MARKASTRING]", item.txtMarka)
-                    .Replace("[SAKLAMAKODU]", "--SK--" + item.lngSaklamaBaslik.ToString())
-                    .Replace("[TALEPEDENBAYII]", item.txtKullaniciAdiSoyad)
-                    .Replace("[ACIKLAMA]", item.txtAciklama);
-                printerConnection.Write(GetBytes(desenKodu));
+                foreach (var item in request.lastikEtiketBilgileri.lastikListesi)
+                {
+                    var desenKodu = request.lastikEtiketBilgileri.desenKodu
+                        .Replace("[PLAKA]", item.txtPlaka)
+                        .Replace("[HIZMETVEREN]", item.txtDistAdi)
+                        .Replace("[MUSTERISTRING]", item.txtUnvan)
+                        .Replace("[MARKASTRING]", item.txtMarka)
+                        .Replace("[SAKLAMAKODU]", "--SK--" + item.lngSaklamaBaslik.ToString())
+                        .Replace("[TALEPEDENBAYII]", item.txtKullaniciAdiSoyad)
+                        .Replace("[ACIKLAMA]", item.txtAciklama);
+                    printerConnection.Write(GetBytes(desenKodu));
+                }
             }
+            else if (request.siraKolayKodEtiketBilgileri != null && !string.IsNullOrEmpty(request.siraKolayKodEtiketBilgileri.desenKodu))
+            {
+                string desenKodu = "";
+                for (int i = 0; i < request.siraKolayKodEtiketBilgileri.rafKolayKodListesi.Count; i += 2)
+                {
+                    if (i == request.siraKolayKodEtiketBilgileri.rafKolayKodListesi.Count - 1)
+                        desenKodu = request.siraKolayKodEtiketBilgileri.desenKodu
+                            .Replace("[RafKK1]", request.siraKolayKodEtiketBilgileri.rafKolayKodListesi[i].txtKod);
+
+                    desenKodu = request.siraKolayKodEtiketBilgileri.desenKodu
+                        .Replace("[RafKK1]", request.siraKolayKodEtiketBilgileri.rafKolayKodListesi[i].txtKod)
+                        .Replace("[RafKK2]", request.siraKolayKodEtiketBilgileri.rafKolayKodListesi[i].txtKod);
+
+                    printerConnection.Write(GetBytes(desenKodu));
+                }
+            }
+
         }
     }
 }

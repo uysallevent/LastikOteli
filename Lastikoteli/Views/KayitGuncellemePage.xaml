@@ -7,10 +7,8 @@
              xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              mc:Ignorable="d"
-             x:Class="Lastikoteli.Views.DepoIslemleriPage" BackgroundColor="Black" Title="Depo İşlemleri">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Raf Etiketi Yazdır" Order="Secondary" Priority="1" IconImageSource="icon_saklama" Command="{Binding gotoRafEtiketiYazdirCommand}"/>
-    </ContentPage.ToolbarItems>
+             x:Class="Lastikoteli.Views.KayitGuncellemePage"
+             BackgroundColor="Black">
     <Grid>
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
@@ -44,7 +42,6 @@
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Title="Saklama Kodu" PropertyName="lngSaklamaKodu" Width="1*"/>
                     <dg:DataGridColumn Title="Plaka" PropertyName="txtPlaka" Width="1*"/>
-                    <dg:DataGridColumn Title="Durum" PropertyName="txtDurum" Width="1*"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
         </Grid>

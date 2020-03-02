@@ -12,5 +12,6 @@ namespace Lastikoteli.Services.Abstract
     {
         Task<ApiResponseGeneric<ObservableCollection<MarkaBilgiResponse>>> MarkaBilgiGetir(MarkaBilgiRequest request);
         Task<ApiResponseGeneric<ObservableCollection<KeyValuePair<string, string>>>> DesenBilgileriGetir(DesenRequest request);
+        Task<ApiResponseGeneric<SiraKolayKodDesenBilgiResponse>> SiraKolayKodDesenBilgiGetir();
     }
 }

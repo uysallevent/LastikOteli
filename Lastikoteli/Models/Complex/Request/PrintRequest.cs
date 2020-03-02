@@ -7,7 +7,7 @@ namespace Lastikoteli.Models.Complex.Request
 {
     public class PrintRequest
     {
-        public string desenKodu { get; set; }
-        public List<LastikEtiketRequest> lastikListesi { get; set; }
+        public LastikEtiketBilgileriRequest lastikEtiketBilgileri { get; set; }
+        public SiraKolayKodBilgiRequest siraKolayKodEtiketBilgileri { get; set; }
     }
 }

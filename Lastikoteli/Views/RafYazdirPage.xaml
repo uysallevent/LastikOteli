@@ -16,6 +16,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Picker Title="Depo Seçin" Grid.Row="0" BackgroundColor="White" ItemDisplayBinding="{Binding txtAd}" ItemsSource="{Binding depoList,Mode=TwoWay}" SelectedItem="{Binding depoDizilimResponse,Mode=TwoWay}"/>
@@ -23,38 +24,42 @@
             <Picker Title="Koridor Seçin" Grid.Row="2" BackgroundColor="White" ItemDisplayBinding="{Binding txtAd}" ItemsSource="{Binding koridorList,Mode=TwoWay}" SelectedItem="{Binding koridorDizilimResponse,Mode=TwoWay}"/>
             <Picker Title="Raf Seçin" Grid.Row="3" BackgroundColor="White" ItemDisplayBinding="{Binding txtAd}"  ItemsSource="{Binding rafList,Mode=TwoWay}" SelectedItem="{Binding rafDizilimResponse,Mode=TwoWay}"/>
             <customControl:CustomButton  Grid.Row="4" Text="TAK" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" CommandParameter="{Binding .}" Command="{Binding YazdirCommand}"/>
-            <dg:DataGrid x:Name="LstLastikBilgileri" Grid.Row="5"
-                     SelectionEnabled="True"
-                     RowHeight="70"
-                     HeaderHeight="50"
-                     BorderColor="#FFFFFF"
-                     HeaderBackground="#E0E6F8"
-                     SelectedItem="{Binding siraDizilimResponse, Mode=TwoWay}"
-                     ItemsSource="{Binding siraList, Mode=TwoWay}">
-                <x:Arguments>
-                    <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
-                </x:Arguments>
-                <dg:DataGrid.HeaderFontSize>
-                    <OnIdiom  x:TypeArguments="x:Double">
-                        <OnIdiom.Tablet>15</OnIdiom.Tablet>
-                        <OnIdiom.Phone>13</OnIdiom.Phone>
-                    </OnIdiom>
-                </dg:DataGrid.HeaderFontSize>
-                <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="Ad" PropertyName="txtAd" Width="1*"/>
-                    <dg:DataGridColumn Title="Kod" PropertyName="txtKod" Width="1*"/>
-                    <dg:DataGridColumn Title="Seç" PropertyName="bytSec" Width="0.95*">
-                        <dg:DataGridColumn.CellTemplate>
-                            <DataTemplate>
-                                <ContentView >
-                                    <Switch IsToggled="{Binding .,Mode=TwoWay}"/>
-                                </ContentView>
-                            </DataTemplate>
-                        </dg:DataGridColumn.CellTemplate>
-                    </dg:DataGridColumn>
-                </dg:DataGrid.Columns>
-            </dg:DataGrid>
 
+                <StackLayout Grid.Row="5"  Orientation="Horizontal" HorizontalOptions="End">
+                    <Label Text="Hepsini Seç" FontFamily="{StaticResource NotoSansBold}" TextColor="White" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                <Frame CornerRadius="10" BackgroundColor="DarkGray" Padding="3" Margin="0,0,20,0">
+                    <Switch IsToggled="{Binding hepsiniSec,Mode=TwoWay}" BackgroundColor="DarkGray" OnColor="DarkOrange" ThumbColor="white"  VerticalOptions="Center"/>
+                </Frame>
+                </StackLayout>
+            
+                <ListView x:Name="lstSira" 
+                      Grid.Row="6"  
+                      HasUnevenRows="True" 
+                      BackgroundColor="Black" 
+                      SeparatorColor="Gray" 
+                      SeparatorVisibility="Default" 
+                      CachingStrategy="RetainElement"
+                      VerticalOptions="FillAndExpand"
+                      SelectionMode="None"
+                      SelectedItem="{Binding siraDizilimResponse, Mode=TwoWay}"
+                      ItemsSource="{Binding siraList,Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell BindingContext="{Binding .}">
+                            <Grid Padding="20,0,20,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding txtAd}"  TextColor="white" FontSize="20"/>
+                                <Frame Grid.Column="1" CornerRadius="10" BackgroundColor="DarkGray" Padding="3">
+                                    <Switch IsToggled="{Binding bytSec,Mode=TwoWay}" BackgroundColor="Transparent" OnColor="DarkOrange" ThumbColor="white"  VerticalOptions="Center"/>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
         <customViews:LoadingView />
     </Grid>
