@@ -59,7 +59,7 @@
                     <behaviors:EntryLengthValidatorBehavior MaxLength="10"/>
                 </xfx:XfxEntry.Behaviors>
             </xfx:XfxEntry>
-            <customControl:CustomButton Grid.Row="8" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked"/>
+            <customControl:CustomButton Grid.Row="8" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked" Command="{Binding Source={x:Reference PagePlakaBilgiGuncelleme}, Path=BindingContext.DevamButonuCommand}"/>
         </Grid>
         <loadingView:LoadingView />
     </Grid>

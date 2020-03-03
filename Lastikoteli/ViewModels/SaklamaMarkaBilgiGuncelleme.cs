@@ -17,6 +17,8 @@ namespace Lastikoteli.ViewModels
 {
     public class SaklamaMarkaBilgiGuncelleme : BaseViewModel
     {
+        public YeniSaklamaMarkaBilgi Page { get; set; }
+
         private MarkaBilgiResponse _selectedMarka;
         public MarkaBilgiResponse selectedMarka
         {
@@ -463,48 +465,48 @@ namespace Lastikoteli.ViewModels
         {
             get
             {
-                for (int i = 0; i < 6; i++)
-                {
-                    //Ön sol lastik seçili ise tüm lastik bilgileri aynı olacak şekilde ayarlanır
-                    if (lngLastikYon == i + 1)
-                    {
-                        detayListe[i].bytUrunTip = _detay.bytUrunTip;
-                        detayListe[i].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
-                        detayListe[i].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
-                        detayListe[i].LNGLASTIKDURUM = (_detay.ISOTL == 0) ? 1 : 3; //1 lastiğin saklamada olma durumu. 3 lastiğin ÖTL olma durumu
-                        detayListe[i].LNGLASTIKTIP = i + 1;
-                        detayListe[i].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                        detayListe[i].LNGURUNTIP = _detay.LNGURUNTIP;
-                        detayListe[i].TXTRAFKOLAYKOD = _detay.TXTRAFKOLAYKOD;
-                        detayListe[i].TXTDOTFABRIKA = _detay.TXTDOTFABRIKA;
-                        detayListe[i].TXTDOTHAFTA = _detay.TXTDOTHAFTA;
-                        detayListe[i].TXTDOTURETIM = _detay.TXTDOTURETIM;
-                        detayListe[i].BYTHAVUZDA = (string.IsNullOrEmpty(_detay.TXTRAFKOLAYKOD)) ? 1 : 0;
-                        if (!_detay.bytUrunTip)
-                            detayListe[i].TXTURUNKOD = _detay.TXTURUNKOD;
-                        else
-                        {
-                            detayListe[i].TXTURUNKOD = null;
-                            detayListe[i].kullaniciUrunBilgileri.TXTMARKA = _detay.kullaniciUrunBilgileri.TXTMARKA;
-                            detayListe[i].kullaniciUrunBilgileri.TXTTABAN = _detay.kullaniciUrunBilgileri.TXTTABAN;
-                            detayListe[i].kullaniciUrunBilgileri.TXTKESIT = _detay.kullaniciUrunBilgileri.TXTKESIT;
-                            detayListe[i].kullaniciUrunBilgileri.TXTCAP = _detay.kullaniciUrunBilgileri.TXTCAP;
-                            detayListe[i].kullaniciUrunBilgileri.TXTMEVSIM = _detay.kullaniciUrunBilgileri.TXTMEVSIM;
-                            detayListe[i].kullaniciUrunBilgileri.TXTDESEN = _detay.kullaniciUrunBilgileri.TXTDESEN;
-                            detayListe[i].kullaniciUrunBilgileri.LNGLASTIKTIP = lngLastikYon;
-                            detayListe[i].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                        }
-                    }
+                //for (int i = 0; i < 6; i++)
+                //{
+                //    //Ön sol lastik seçili ise tüm lastik bilgileri aynı olacak şekilde ayarlanır
+                //    if (lngLastikYon == i + 1)
+                //    {
+                //        detayListe[i].bytUrunTip = _detay.bytUrunTip;
+                //        detayListe[i].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
+                //        detayListe[i].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
+                //        detayListe[i].LNGLASTIKDURUM = (_detay.ISOTL == 0) ? 1 : 3; //1 lastiğin saklamada olma durumu. 3 lastiğin ÖTL olma durumu
+                //        detayListe[i].LNGLASTIKTIP = i + 1;
+                //        detayListe[i].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                //        detayListe[i].LNGURUNTIP = _detay.LNGURUNTIP;
+                //        detayListe[i].TXTRAFKOLAYKOD = _detay.TXTRAFKOLAYKOD;
+                //        detayListe[i].TXTDOTFABRIKA = _detay.TXTDOTFABRIKA;
+                //        detayListe[i].TXTDOTHAFTA = _detay.TXTDOTHAFTA;
+                //        detayListe[i].TXTDOTURETIM = _detay.TXTDOTURETIM;
+                //        detayListe[i].BYTHAVUZDA = (string.IsNullOrEmpty(_detay.TXTRAFKOLAYKOD)) ? 1 : 0;
+                //        if (!_detay.bytUrunTip)
+                //            detayListe[i].TXTURUNKOD = _detay.TXTURUNKOD;
+                //        else
+                //        {
+                //            detayListe[i].TXTURUNKOD = null;
+                //            detayListe[i].kullaniciUrunBilgileri.TXTMARKA = _detay.kullaniciUrunBilgileri.TXTMARKA;
+                //            detayListe[i].kullaniciUrunBilgileri.TXTTABAN = _detay.kullaniciUrunBilgileri.TXTTABAN;
+                //            detayListe[i].kullaniciUrunBilgileri.TXTKESIT = _detay.kullaniciUrunBilgileri.TXTKESIT;
+                //            detayListe[i].kullaniciUrunBilgileri.TXTCAP = _detay.kullaniciUrunBilgileri.TXTCAP;
+                //            detayListe[i].kullaniciUrunBilgileri.TXTMEVSIM = _detay.kullaniciUrunBilgileri.TXTMEVSIM;
+                //            detayListe[i].kullaniciUrunBilgileri.TXTDESEN = _detay.kullaniciUrunBilgileri.TXTDESEN;
+                //            detayListe[i].kullaniciUrunBilgileri.LNGLASTIKTIP = lngLastikYon;
+                //            detayListe[i].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                //        }
+                //    }
 
-                    if (lngLastikYon == i + 1)
-                    {
-                        detayListe[i].ISOTL = _detay.ISOTL;
-                        detayListe[i].BYTDURUM = _detay.BYTDURUM;
-                        detayListe[i].TXTACIKLAMA = _detay.TXTACIKLAMA;
-                        detayListe[i].kullaniciUrunBilgileri.BYTDURUM = _detay.BYTDURUM;
+                //    if (lngLastikYon == i + 1)
+                //    {
+                //        detayListe[i].ISOTL = _detay.ISOTL;
+                //        detayListe[i].BYTDURUM = _detay.BYTDURUM;
+                //        detayListe[i].TXTACIKLAMA = _detay.TXTACIKLAMA;
+                //        detayListe[i].kullaniciUrunBilgileri.BYTDURUM = _detay.BYTDURUM;
 
-                    }
-                }
+                //    }
+                //}
                 return _detay;
             }
             set
@@ -548,7 +550,7 @@ namespace Lastikoteli.ViewModels
         public ICommand RafKolayKodKontrolCommand { get; set; }
         public ICommand PlakaKontrolCommand { get; set; }
         public ICommand HaftaKontrolCommand { get; set; }
-
+        public ICommand DevamButonuCommand { get; set; }
         public SaklamaMarkaBilgiGuncelleme(INavigation navigation, KayitGuncelleRequest request)
         {
             _navigation = navigation;
@@ -561,6 +563,7 @@ namespace Lastikoteli.ViewModels
             RafKolayKodKontrolCommand = new Command(async (x) => await RafKolayKodKontrolAsync(x));
             PlakaKontrolCommand = new Command(async (x) => await PlakaKontrolAsync(x));
             HaftaKontrolCommand = new Command((x) => HaftaKontrolAsync(x));
+            DevamButonuCommand = new Command(()=> DevamButonuAsync());
 
             Device.BeginInvokeOnMainThread(async () =>
             {
@@ -583,7 +586,10 @@ namespace Lastikoteli.ViewModels
             });
         }
 
-
+        private void DevamButonuAsync()
+        {
+            secilenLastik(2);
+        }
 
         private void secilenLastik(object x)
         {
@@ -865,6 +871,7 @@ namespace Lastikoteli.ViewModels
                     return;
 
                 IsBusy = true;
+                saklamaBaslikRequest.Tblsaklamadetay = detayListe.ToList();
                 var result = saklamaBaslikRequest;
             }
             catch (Exception)
@@ -948,10 +955,12 @@ namespace Lastikoteli.ViewModels
 
                         if (x.txtLastikYon == "Ön Sağ")
                         {
+                            detayListe[0].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
                             detayListe[0].BYTDURUM = x.bytDurum;
                             detayListe[0].BYTHAVUZDA = x.bytHavuzda;
                             detayListe[0].LNGURUNTIP = x.lngUrunTip;
                             detayListe[0].DBLDISDERINLIGI = x.dblDisDerinligi;
+                            detayListe[0].LNGLASTIKDURUM = x.lngLastikDurum;
                             detayListe[0].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
                             detayListe[0].LNGKOD = x.lngKod;
                             detayListe[0].LNGLASTIKTIP = x.lngLastikTip;
@@ -978,17 +987,27 @@ namespace Lastikoteli.ViewModels
                                 detayListe[0].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                             }
                             else
+                            {
                                 detayListe[0].TXTURUNKOD = x.txtUrunKod;
+                                onSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                onSag[1] = x.txtTaban;
+                                onSag[2] = x.txtKesit;
+                                onSag[3] = x.txtCap;
+                                onSag[4] = x.txtMevsim;
+                                onSag[5] = x.txtDesen;
+                            }
 
 
                         }
 
                         if (x.txtLastikYon == "Ön Sol")
                         {
+                            detayListe[1].bytUrunTip = (x.lngUrunTip==1)?false:true;
                             detayListe[1].BYTDURUM = x.bytDurum;
                             detayListe[1].BYTHAVUZDA = x.bytHavuzda;
                             detayListe[1].LNGURUNTIP = x.lngUrunTip;
                             detayListe[1].DBLDISDERINLIGI = x.dblDisDerinligi;
+                            detayListe[1].LNGLASTIKDURUM = x.lngLastikDurum;
                             detayListe[1].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
                             detayListe[1].LNGKOD = x.lngKod;
                             detayListe[1].LNGLASTIKTIP = x.lngLastikTip;
@@ -1015,15 +1034,27 @@ namespace Lastikoteli.ViewModels
                                 detayListe[1].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                             }
                             else
+                            {
                                 detayListe[1].TXTURUNKOD = x.txtUrunKod;
+                                onSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                onSol[1] = x.txtTaban;
+                                onSol[2] = x.txtKesit;
+                                onSol[3] = x.txtCap;
+                                onSol[4] = x.txtMevsim;
+                                onSol[5] = x.txtDesen;
+                            }
+
+
                         }
 
                         if (x.txtLastikYon == "Arka Sağ")
                         {
+                            detayListe[2].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
                             detayListe[2].BYTDURUM = x.bytDurum;
                             detayListe[2].BYTHAVUZDA = x.bytHavuzda;
                             detayListe[2].LNGURUNTIP = x.lngUrunTip;
                             detayListe[2].DBLDISDERINLIGI = x.dblDisDerinligi;
+                            detayListe[2].LNGLASTIKDURUM = x.lngLastikDurum;
                             detayListe[2].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
                             detayListe[2].LNGKOD = x.lngKod;
                             detayListe[2].LNGLASTIKTIP = x.lngLastikTip;
@@ -1050,15 +1081,25 @@ namespace Lastikoteli.ViewModels
                                 detayListe[2].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                             }
                             else
+                            {
                                 detayListe[2].TXTURUNKOD = x.txtUrunKod;
+                                arkaSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                arkaSag[1] = x.txtTaban;
+                                arkaSag[2] = x.txtKesit;
+                                arkaSag[3] = x.txtCap;
+                                arkaSag[4] = x.txtMevsim;
+                                arkaSag[5] = x.txtDesen;
+                            }
                         }
 
                         if (x.txtLastikYon == "Arka Sol")
                         {
+                            detayListe[3].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
                             detayListe[3].BYTDURUM = x.bytDurum;
                             detayListe[3].BYTHAVUZDA = x.bytHavuzda;
                             detayListe[3].LNGURUNTIP = x.lngUrunTip;
                             detayListe[3].DBLDISDERINLIGI = x.dblDisDerinligi;
+                            detayListe[3].LNGLASTIKDURUM = x.lngLastikDurum;
                             detayListe[3].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
                             detayListe[3].LNGKOD = x.lngKod;
                             detayListe[3].LNGLASTIKTIP = x.lngLastikTip;
@@ -1085,15 +1126,25 @@ namespace Lastikoteli.ViewModels
                                 detayListe[3].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                             }
                             else
+                            {
                                 detayListe[3].TXTURUNKOD = x.txtUrunKod;
+                                arkaSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                arkaSol[1] = x.txtTaban;
+                                arkaSol[2] = x.txtKesit;
+                                arkaSol[3] = x.txtCap;
+                                arkaSol[4] = x.txtMevsim;
+                                arkaSol[5] = x.txtDesen;
+                            }
                         }
 
                         if (x.txtLastikYon == "Diğer Sağ 1")
                         {
+                            detayListe[4].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
                             detayListe[4].BYTDURUM = x.bytDurum;
                             detayListe[4].BYTHAVUZDA = x.bytHavuzda;
                             detayListe[4].LNGURUNTIP = x.lngUrunTip;
                             detayListe[4].DBLDISDERINLIGI = x.dblDisDerinligi;
+                            detayListe[4].LNGLASTIKDURUM = x.lngLastikDurum;
                             detayListe[4].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
                             detayListe[4].LNGKOD = x.lngKod;
                             detayListe[4].LNGLASTIKTIP = x.lngLastikTip;
@@ -1120,15 +1171,25 @@ namespace Lastikoteli.ViewModels
                                 detayListe[4].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                             }
                             else
+                            {
                                 detayListe[4].TXTURUNKOD = x.txtUrunKod;
+                                digerSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                digerSag[1] = x.txtTaban;
+                                digerSag[2] = x.txtKesit;
+                                digerSag[3] = x.txtCap;
+                                digerSag[4] = x.txtMevsim;
+                                digerSag[5] = x.txtDesen;
+                            }
                         }
 
                         if (x.txtLastikYon == "Diğer Sol 1")
                         {
+                            detayListe[5].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
                             detayListe[5].BYTDURUM = x.bytDurum;
                             detayListe[5].BYTHAVUZDA = x.bytHavuzda;
                             detayListe[5].LNGURUNTIP = x.lngUrunTip;
                             detayListe[5].DBLDISDERINLIGI = x.dblDisDerinligi;
+                            detayListe[5].LNGLASTIKDURUM = x.lngLastikDurum;
                             detayListe[5].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
                             detayListe[5].LNGKOD = x.lngKod;
                             detayListe[5].LNGLASTIKTIP = x.lngLastikTip;
@@ -1155,7 +1216,15 @@ namespace Lastikoteli.ViewModels
                                 detayListe[5].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                             }
                             else
+                            {
                                 detayListe[5].TXTURUNKOD = x.txtUrunKod;
+                                digerSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                digerSol[1] = x.txtTaban;
+                                digerSol[2] = x.txtKesit;
+                                digerSol[3] = x.txtCap;
+                                digerSol[4] = x.txtMevsim;
+                                digerSol[5] = x.txtDesen;
+                            }
                         }
                     });
 

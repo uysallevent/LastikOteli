@@ -10,6 +10,7 @@ namespace Lastikoteli.Models.Complex.Response
         public int lngKod { get; set; }
         public int lngUrunTip { get; set; }
         public string txtUrunKod { get; set; }
+        public int lngLastikDurum { get; set; }
         public int lngLastikTip { get; set; }
         public int? lngDepoSiraKod { get; set; }
         public string txtLastikDurum { get; set; }

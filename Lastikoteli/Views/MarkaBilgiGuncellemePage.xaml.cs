@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lastikoteli.ViewModels;
+using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,11 @@ namespace Lastikoteli.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MarkaBilgiGuncellemePage : ContentPage
     {
+        SaklamaMarkaBilgiGuncelleme saklamaMarkaBilgiGuncelleme;
         public MarkaBilgiGuncellemePage()
         {
             InitializeComponent();
+
         }
 
         private void btn_Clicked(object sender, EventArgs e)
@@ -78,7 +82,6 @@ namespace Lastikoteli.Views
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
             var sw = (Switch)sender;
-            sw.SetBinding(Switch.IsToggledProperty, "detay.bytUrunTip");
             if (sw.IsToggled)
             {
                 stackBrisa.IsVisible = false;

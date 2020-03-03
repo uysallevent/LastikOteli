@@ -83,7 +83,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="Brisa" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                            <Switch Grid.Column="1"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent"  Toggled="Switch_Toggled" />
+                            <Switch Grid.Column="1"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent" IsToggled="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.detay.bytUrunTip,Mode=TwoWay}"  Toggled="Switch_Toggled" />
                             <Label Grid.Column="2" Text="Diğer" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
                         </Grid>
                     </Frame>
@@ -94,39 +94,45 @@
                             <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                 ItemsSource="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.lastikBilgileri.markaListe}"
                                 ItemDisplayBinding="{Binding txtMarka}" 
-                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedMarkaIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedMarkaIndex}" 
+                                    SelectedItem="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedMarka,Mode=TwoWay}"/>
                         </Frame>
                         <Frame CornerRadius="10" Padding="0">
                             <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                 ItemsSource="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.lastikBilgileri.tabanListe}" 
                                 ItemDisplayBinding="{Binding txtTaban}"  
-                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedTabanIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedTabanIndex,Mode=TwoWay}"
+                                    SelectedItem="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedTaban,Mode=TwoWay}"/>
                         </Frame>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                             <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
                                 <Picker Title="Kesit" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                     ItemsSource="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.lastikBilgileri.kesitListe}" 
                                     ItemDisplayBinding="{Binding txtKesit}" 
-                                    SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedKesitIndex}"/>
+                                    SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedKesitIndex,Mode=TwoWay}"
+                                        SelectedItem="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedKesit,Mode=TwoWay}"/>
                             </Frame>
                             <Frame  CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
                                 <Picker Title="Çap" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                     ItemsSource="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.lastikBilgileri.capListe}" 
                                     ItemDisplayBinding="{Binding txtCap}" 
-                                    SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedCapIndex}"/>
+                                    SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedCapIndex,Mode=TwoWay}"
+                                        SelectedItem="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedCap,Mode=TwoWay}"/>
                             </Frame>
                         </StackLayout>
                         <Frame Grid.Row="3" CornerRadius="10" Padding="0">
                             <Picker Title="Mevsim" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"
                                 ItemsSource="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.lastikBilgileri.mevsimListe}"
                                 ItemDisplayBinding="{Binding txtMevsim}"
-                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedMevsimIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedMevsimIndex,Mode=TwoWay}"
+                                    SelectedItem="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedMevsim,Mode=TwoWay}"/>
                         </Frame>
                         <Frame Grid.Row="4" CornerRadius="10" Padding="0">
                             <Picker Title="Desen" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"
                                 ItemsSource="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.lastikBilgileri.desenListe}" 
                                 ItemDisplayBinding="{Binding txtDesen}" 
-                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedDesenIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedDesenIndex,Mode=TwoWay}"
+                                    SelectedItem="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.selectedDesen,Mode=TwoWay}"/>
                         </Frame>
                     </StackLayout>
                     <!--Brisa-->
