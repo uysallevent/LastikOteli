@@ -20,7 +20,7 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Kaydet" Priority="1" Command="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.saklamayaAlCommand}"/>
+        <ToolbarItem Text="Kaydet" Priority="1" Command="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.saklamaKayitGuncelleCommand}"/>
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid>
