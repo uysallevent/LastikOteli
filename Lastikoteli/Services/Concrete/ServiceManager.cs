@@ -22,7 +22,7 @@ namespace Lastikoteli.Services.Concrete
                 if (Client == null)
                 {
                     Client = new HttpClient();
-                    Client.Timeout = TimeSpan.FromMinutes(60);
+                    Client.Timeout = TimeSpan.FromSeconds(20);
                     Client.DefaultRequestHeaders.Add("accept", "Applciation/json");
                 }
             }

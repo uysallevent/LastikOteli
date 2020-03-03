@@ -25,6 +25,7 @@ namespace Lastikoteli
             DependencyService.Register<DepoService>();
             DependencyService.Register<EtiketYazdir>();
             DependencyService.Register<SaklamaBaslikRequestValidator>();
+            DependencyService.Register<SeciliMarkaBilgiIslemleri>();
             MainPage = new LoginPage();
             //MainPage = new YeniSaklamaTabbedPage();
         }

@@ -92,39 +92,45 @@
                             <Picker Title="Marka"  BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                 ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.markaListe}"
                                 ItemDisplayBinding="{Binding txtMarka}" 
-                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMarkaIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMarkaIndex}" 
+                                    SelectedItem="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMarka,Mode=TwoWay}"/>
                         </Frame>
                         <Frame CornerRadius="10" Padding="0">
                             <Picker Title="Taban" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                 ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.tabanListe}" 
                                 ItemDisplayBinding="{Binding txtTaban}"  
-                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedTabanIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedTabanIndex,Mode=TwoWay}"
+                                    SelectedItem="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedTaban,Mode=TwoWay}"/>
                         </Frame>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                             <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
                                 <Picker Title="Kesit" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                     ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.kesitListe}" 
                                     ItemDisplayBinding="{Binding txtKesit}" 
-                                    SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedKesitIndex}"/>
+                                    SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedKesitIndex,Mode=TwoWay}"
+                                        SelectedItem="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedKesit,Mode=TwoWay}"/>
                             </Frame>
                             <Frame  CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
                                 <Picker Title="Çap" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}" 
                                     ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.capListe}" 
                                     ItemDisplayBinding="{Binding txtCap}" 
-                                    SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedCapIndex}"/>
+                                    SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedCapIndex,Mode=TwoWay}"
+                                        SelectedItem="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedCap,Mode=TwoWay}"/>
                             </Frame>
                         </StackLayout>
                         <Frame Grid.Row="3" CornerRadius="10" Padding="0">
                             <Picker Title="Mevsim" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"
                                 ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.mevsimListe}"
                                 ItemDisplayBinding="{Binding txtMevsim}"
-                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMevsimIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMevsimIndex,Mode=TwoWay}"
+                                    SelectedItem="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedMevsim,Mode=TwoWay}"/>
                         </Frame>
                         <Frame Grid.Row="4" CornerRadius="10" Padding="0">
                             <Picker Title="Desen" BackgroundColor="White" FontFamily="{StaticResource NotoSansRegular}"
                                 ItemsSource="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.lastikBilgileri.desenListe}" 
                                 ItemDisplayBinding="{Binding txtDesen}" 
-                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedDesenIndex}"/>
+                                SelectedIndex="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedDesenIndex,Mode=TwoWay}"
+                                    SelectedItem="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.selectedDesen,Mode=TwoWay}"/>
                         </Frame>
                     </StackLayout>
                     <!--Brisa-->

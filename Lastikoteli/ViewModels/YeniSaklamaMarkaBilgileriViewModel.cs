@@ -14,138 +14,312 @@ using Lastikoteli.Helper.Abstract;
 using Lastikoteli.Models.MiyaPortal;
 using Lastikoteli.Models.Validator.FluentValidation;
 using FluentValidation;
+using System.Web;
+using Lastikoteli.Helper;
 
 namespace Lastikoteli.ViewModels
 {
     public class YeniSaklamaMarkaBilgileriViewModel : BaseViewModel
     {
-
-        private int _selectedIndex;
-        public int selectedMarkaIndex
+        private MarkaBilgiResponse _selectedMarka;
+        public MarkaBilgiResponse selectedMarka
         {
             get
             {
-                return _selectedIndex;
+                if (lngLastikYon == 1 && _selectedMarka != null)
+                    onSag[0] = _selectedMarka.txtMarka;
+                if (lngLastikYon == 2 && _selectedMarka != null)
+                    onSol[0] = _selectedMarka.txtMarka;
+                if (lngLastikYon == 3 && _selectedMarka != null)
+                    arkaSag[0] = _selectedMarka.txtMarka;
+                if (lngLastikYon == 4 && _selectedMarka != null)
+                    arkaSol[0] = _selectedMarka.txtMarka;
+                if (lngLastikYon == 5 && _selectedMarka != null)
+                    digerSag[0] = _selectedMarka.txtMarka;
+                if (lngLastikYon == 6 && _selectedMarka != null)
+                    digerSol[0] = _selectedMarka.txtMarka;
+                return _selectedMarka;
             }
             set
             {
-                _selectedIndex = value;
-                if (_selectedIndex != -1)
+                SetProperty(ref _selectedMarka, value);
+                if (_selectedMarka != null)
                 {
                     markaBilgiReuqest.txtTaban = "";
                     markaBilgiReuqest.txtKesit = "";
                     markaBilgiReuqest.txtCap = "";
                     markaBilgiReuqest.txtMevsim = "";
                     markaBilgiReuqest.txtDesen = "";
-                    markaBilgiReuqest.txtMarka = lastikBilgileri.markaListe[_selectedIndex].txtMarka;
+                    markaBilgiReuqest.txtMarka = _selectedMarka.txtMarka;
 
                     MarkaBilgiGetirCommand.Execute(true);
                 }
-                OnPropertyChanged("selectedMarkaIndex");
-
             }
         }
-        public int selectedTabanIndex
+
+
+        private MarkaBilgiResponse _selectedTaban;
+        public MarkaBilgiResponse selectedTaban
         {
             get
             {
-                return _selectedIndex;
+                if (lngLastikYon == 1 && _selectedTaban != null)
+                    onSag[1] = _selectedTaban.txtTaban;
+                if (lngLastikYon == 2 && _selectedTaban != null)
+                    onSol[1] = _selectedTaban.txtTaban;
+                if (lngLastikYon == 3 && _selectedTaban != null)
+                    arkaSag[1] = _selectedTaban.txtTaban;
+                if (lngLastikYon == 4 && _selectedTaban != null)
+                    arkaSol[1] = _selectedTaban.txtTaban;
+                if (lngLastikYon == 5 && _selectedTaban != null)
+                    digerSag[1] = _selectedTaban.txtTaban;
+                if (lngLastikYon == 6 && _selectedTaban != null)
+                    digerSol[1] = _selectedTaban.txtTaban;
+                return _selectedTaban;
             }
             set
             {
-                _selectedIndex = value;
-                if (_selectedIndex != -1)
+                SetProperty(ref _selectedTaban, value);
+                if (_selectedTaban != null)
                 {
                     markaBilgiReuqest.txtKesit = "";
                     markaBilgiReuqest.txtCap = "";
                     markaBilgiReuqest.txtMevsim = "";
                     markaBilgiReuqest.txtDesen = "";
-                    markaBilgiReuqest.txtTaban = lastikBilgileri.tabanListe[_selectedIndex].txtTaban;
+                    markaBilgiReuqest.txtTaban = _selectedTaban.txtTaban;
                     MarkaBilgiGetirCommand.Execute(true);
                 }
-                OnPropertyChanged("selectedTabanIndex");
-
             }
         }
-        public int selectedKesitIndex
+
+
+        private MarkaBilgiResponse _selectedKesit;
+        public MarkaBilgiResponse selectedKesit
         {
             get
             {
-                return _selectedIndex;
+
+                if (lngLastikYon == 1 && _selectedKesit != null)
+                    onSag[2] = _selectedKesit.txtKesit;
+                if (lngLastikYon == 2 && _selectedKesit != null)
+                    onSol[2] = _selectedKesit.txtKesit;
+                if (lngLastikYon == 3 && _selectedKesit != null)
+                    arkaSag[2] = _selectedKesit.txtKesit;
+                if (lngLastikYon == 4 && _selectedKesit != null)
+                    arkaSol[2] = _selectedKesit.txtKesit;
+                if (lngLastikYon == 5 && _selectedKesit != null)
+                    digerSag[2] = _selectedKesit.txtKesit;
+                if (lngLastikYon == 6 && _selectedKesit != null)
+                    digerSol[2] = _selectedKesit.txtKesit;
+                return _selectedKesit;
             }
             set
             {
-                _selectedIndex = value;
-                if (_selectedIndex != -1)
+                SetProperty(ref _selectedKesit, value);
+                if (_selectedKesit != null)
                 {
                     markaBilgiReuqest.txtCap = "";
                     markaBilgiReuqest.txtMevsim = "";
                     markaBilgiReuqest.txtDesen = "";
-                    markaBilgiReuqest.txtKesit = lastikBilgileri.kesitListe[_selectedIndex].txtKesit;
+                    markaBilgiReuqest.txtKesit = _selectedKesit.txtKesit;
                     MarkaBilgiGetirCommand.Execute(true);
                 }
+            }
+        }
+
+
+        private MarkaBilgiResponse _selectedCap;
+        public MarkaBilgiResponse selectedCap
+        {
+            get
+            {
+                if (lngLastikYon == 1 && _selectedCap != null)
+                    onSag[3] = _selectedCap.txtCap;
+                if (lngLastikYon == 2 && _selectedCap != null)
+                    onSol[3] = _selectedCap.txtCap;
+                if (lngLastikYon == 3 && _selectedCap != null)
+                    arkaSag[3] = _selectedCap.txtCap;
+                if (lngLastikYon == 4 && _selectedCap != null)
+                    arkaSol[3] = _selectedCap.txtCap;
+                if (lngLastikYon == 5 && _selectedCap != null)
+                    digerSag[3] = _selectedCap.txtCap;
+                if (lngLastikYon == 6 && _selectedCap != null)
+                    digerSol[3] = _selectedCap.txtCap;
+                return _selectedCap;
+            }
+            set
+            {
+                SetProperty(ref _selectedCap, value);
+                if (_selectedCap != null)
+                {
+                    markaBilgiReuqest.txtMevsim = "";
+                    markaBilgiReuqest.txtDesen = "";
+                    markaBilgiReuqest.txtCap = _selectedCap.txtCap;
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+            }
+        }
+
+
+        private MarkaBilgiResponse _selectedMevsim;
+        public MarkaBilgiResponse selectedMevsim
+        {
+            get
+            {
+                if (lngLastikYon == 1 && _selectedMevsim != null)
+                    onSag[4] = _selectedMevsim.txtMevsim;
+                if (lngLastikYon == 2 && _selectedMevsim != null)
+                    onSol[4] = _selectedMevsim.txtMevsim;
+                if (lngLastikYon == 3 && _selectedMevsim != null)
+                    arkaSag[4] = _selectedMevsim.txtMevsim;
+                if (lngLastikYon == 4 && _selectedMevsim != null)
+                    arkaSol[4] = _selectedMevsim.txtMevsim;
+                if (lngLastikYon == 5 && _selectedMevsim != null)
+                    digerSag[4] = _selectedMevsim.txtMevsim;
+                if (lngLastikYon == 6 && _selectedMevsim != null)
+                    digerSol[4] = _selectedMevsim.txtMevsim;
+                return _selectedMevsim;
+            }
+            set
+            {
+                SetProperty(ref _selectedMevsim, value);
+                if (_selectedMevsim != null)
+                {
+                    markaBilgiReuqest.txtDesen = "";
+                    markaBilgiReuqest.txtMevsim = _selectedMevsim.txtMevsim;
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+            }
+        }
+
+
+        private MarkaBilgiResponse _selectedDesen;
+        public MarkaBilgiResponse selectedDesen
+        {
+            get
+            {
+                if (lngLastikYon == 1 && _selectedDesen != null)
+                    onSag[5] = _selectedDesen.txtDesen;
+                if (lngLastikYon == 2 && _selectedDesen != null)
+                    onSol[5] = _selectedDesen.txtDesen;
+                if (lngLastikYon == 3 && _selectedDesen != null)
+                    arkaSag[5] = _selectedDesen.txtDesen;
+                if (lngLastikYon == 4 && _selectedDesen != null)
+                    arkaSol[5] = _selectedDesen.txtDesen;
+                if (lngLastikYon == 5 && _selectedDesen != null)
+                    digerSag[5] = _selectedDesen.txtDesen;
+                if (lngLastikYon == 6 && _selectedDesen != null)
+                    digerSol[5] = _selectedDesen.txtDesen;
+                return _selectedDesen;
+            }
+            set
+            {
+                SetProperty(ref _selectedDesen, value);
+                if (_selectedDesen != null)
+                {
+                    markaBilgiReuqest.txtDesen = HttpUtility.UrlEncode(_selectedDesen.txtDesen);
+                    MarkaBilgiGetirCommand.Execute(true);
+                }
+            }
+        }
+
+
+        private int _selectedMarkaIndex;
+        public int selectedMarkaIndex
+        {
+            get
+            {
+                return _selectedMarkaIndex;
+            }
+            set
+            {
+                _selectedMarkaIndex = value;
+                OnPropertyChanged("selectedMarkaIndex");
+
+            }
+        }
+
+        private int _selectedTabanIndex;
+        public int selectedTabanIndex
+        {
+            get
+            {
+                return _selectedTabanIndex;
+            }
+            set
+            {
+                _selectedTabanIndex = value;
+
+                OnPropertyChanged("selectedTabanIndex");
+
+            }
+        }
+
+        private int _selectedKesitIndex;
+        public int selectedKesitIndex
+        {
+            get
+            {
+
+                return _selectedKesitIndex;
+            }
+            set
+            {
+                _selectedKesitIndex = value;
                 OnPropertyChanged("selectedKesitIndex");
 
             }
         }
+
+        private int _selectedCapIndex;
         public int selectedCapIndex
         {
             get
             {
-                return _selectedIndex;
+                return _selectedCapIndex;
             }
             set
             {
-                _selectedIndex = value;
-                if (_selectedIndex != -1)
-                {
-                    markaBilgiReuqest.txtMevsim = "";
-                    markaBilgiReuqest.txtDesen = "";
-                    markaBilgiReuqest.txtCap = lastikBilgileri.capListe[_selectedIndex].txtCap;
-                    MarkaBilgiGetirCommand.Execute(true);
-                }
+                _selectedCapIndex = value;
+
                 OnPropertyChanged("selectedCapIndex");
             }
         }
+
+        private int _selectedMevsimIndex;
         public int selectedMevsimIndex
         {
             get
             {
-                return _selectedIndex;
+                return _selectedMevsimIndex;
             }
             set
             {
-                _selectedIndex = value;
-                if (_selectedIndex != -1)
-                {
-                    markaBilgiReuqest.txtDesen = "";
-                    markaBilgiReuqest.txtMevsim = lastikBilgileri.mevsimListe[_selectedIndex].txtMevsim;
-                    MarkaBilgiGetirCommand.Execute(true);
-                }
+                _selectedMevsimIndex = value;
+
                 OnPropertyChanged("selectedMevsimIndex");
 
             }
         }
+
+        private int _selectedDesenIndex;
         public int selectedDesenIndex
         {
             get
             {
-                return _selectedIndex;
+                return _selectedDesenIndex;
             }
             set
             {
-                _selectedIndex = value;
-                if (_selectedIndex != -1)
-                {
-                    markaBilgiReuqest.txtDesen = lastikBilgileri.desenListe[_selectedIndex].txtDesen;
-                    MarkaBilgiGetirCommand.Execute(true);
-                }
+                _selectedDesenIndex = value;
                 OnPropertyChanged("selectedDesenIndex");
 
             }
         }
 
+
         public decimal dblDisDerinligi { get; set; }
+
 
         private bool _bytUrunTip;
         public bool bytUrunTip
@@ -160,6 +334,7 @@ namespace Lastikoteli.ViewModels
                 OnPropertyChanged("bytUrunTip");
             }
         }
+
 
         private int _lngLastikYon;
         /// <summary>
@@ -262,21 +437,6 @@ namespace Lastikoteli.ViewModels
         }
 
 
-        private ObservableCollection<LastikBilgiResponse> _seiclenLastikBilgileriList;
-        public ObservableCollection<LastikBilgiResponse> SecilenlastikBilgileriList
-        {
-            get
-            {
-                return _seiclenLastikBilgileriList;
-            }
-            set
-            {
-                _seiclenLastikBilgileriList = value;
-                OnPropertyChanged("SecilenlastikBilgileriList");
-            }
-        }
-
-
         private SaklamaDetayRequest _detay;
         public SaklamaDetayRequest detay
         {
@@ -359,6 +519,15 @@ namespace Lastikoteli.ViewModels
                 SetProperty<SaklamaBaslikRequest>(ref _saklamaBaslikRequest, value);
             }
         }
+        #endregion
+
+        #region SeciliMarkaIndexler
+        public string[] onSol { get; set; }
+        public string[] onSag { get; set; }
+        public string[] arkaSol { get; set; }
+        public string[] arkaSag { get; set; }
+        public string[] digerSol { get; set; }
+        public string[] digerSag { get; set; }
         #endregion
 
 
@@ -612,10 +781,75 @@ namespace Lastikoteli.ViewModels
 
         private void secilenLastik(object x)
         {
-            tumunuEsitle = false;
             lngLastikYon = Convert.ToInt32(x);
             detay = detayListe[lngLastikYon - 1];
             tumunuEsitle = true;
+            if (lngLastikYon == 1)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    for (int i = 0; i < onSag.Length; i++)
+                    {
+                        markaBilgiReuqest.txtTaban = (i == 5) ? onSol[5] : "";
+                        markaBilgiReuqest.txtKesit = (i == 4) ? onSol[4] : "";
+                        markaBilgiReuqest.txtCap = (i == 3) ? onSol[3] : "";
+                        markaBilgiReuqest.txtMevsim = (i == 2) ? onSol[2] : "";
+                        markaBilgiReuqest.txtDesen = (i == 1) ? onSol[1] : "";
+                        markaBilgiReuqest.txtMarka = (i == 0) ? onSol[0] : "";
+
+                        await MarkaBilgiGetirAsync();
+
+                        if (i == 0)
+                            selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
+                        if (i == 1)
+                            selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
+                        if (i == 2)
+                            selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
+                        if (i == 3)
+                            selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
+                        if (i == 4)
+                            selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
+                        if (i == 5)
+                            selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
+                    }
+
+                });
+            }
+
+            if (lngLastikYon == 2)
+            {
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    for (int i = 0; i < onSol.Length; i++)
+                    {
+                        markaBilgiReuqest.txtTaban = (i == 5) ? onSol[5] : "";
+                        markaBilgiReuqest.txtKesit = (i == 4) ? onSol[4] : "";
+                        markaBilgiReuqest.txtCap = (i == 3) ? onSol[3] : "";
+                        markaBilgiReuqest.txtMevsim = (i == 2) ? onSol[2] : "";
+                        markaBilgiReuqest.txtDesen = (i == 1) ? onSol[1] : "";
+                        markaBilgiReuqest.txtMarka = (i == 0) ? onSol[0] : "";
+
+                        await MarkaBilgiGetirAsync();
+
+                        if (i == 0)
+                            selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
+                        if (i == 1)
+                            selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
+                        if (i == 2)
+                            selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
+                        if (i == 3)
+                            selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
+                        if (i == 4)
+                            selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
+                        if (i == 5)
+                            selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
+
+                    }
+
+                });
+            }
+
             MessagingCenter.Send(this, "detayScrollUp");
         }
 
@@ -686,52 +920,45 @@ namespace Lastikoteli.ViewModels
                     }
                     else if (!string.IsNullOrEmpty(markaBilgiReuqest.txtMevsim))
                     {
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == lngLastikYon).desenListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         lastikBilgileri.desenListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         detay.TXTURUNKOD = null;
                     }
                     else if (!string.IsNullOrEmpty(markaBilgiReuqest.txtCap))
                     {
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == lngLastikYon).mevsimListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        lastikBilgileri.mevsimListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         lastikBilgileri.desenListe = new ObservableCollection<MarkaBilgiResponse>();
+                        lastikBilgileri.mevsimListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         detay.TXTURUNKOD = null;
                     }
                     else if (!string.IsNullOrEmpty(markaBilgiReuqest.txtKesit))
                     {
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == lngLastikYon).capListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         lastikBilgileri.capListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         lastikBilgileri.mevsimListe = new ObservableCollection<MarkaBilgiResponse>();
                         lastikBilgileri.desenListe = new ObservableCollection<MarkaBilgiResponse>();
+                        lastikBilgileri.capListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         detay.TXTURUNKOD = null;
                     }
                     else if (!string.IsNullOrEmpty(markaBilgiReuqest.txtTaban))
                     {
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == lngLastikYon).kesitListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        lastikBilgileri.kesitListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
+
                         lastikBilgileri.capListe = new ObservableCollection<MarkaBilgiResponse>();
                         lastikBilgileri.mevsimListe = new ObservableCollection<MarkaBilgiResponse>();
                         lastikBilgileri.desenListe = new ObservableCollection<MarkaBilgiResponse>();
+                        lastikBilgileri.kesitListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         detay.TXTURUNKOD = null;
+
                     }
                     else if (!string.IsNullOrEmpty(markaBilgiReuqest.txtMarka))
                     {
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == lngLastikYon).tabanListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        lastikBilgileri.tabanListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         lastikBilgileri.kesitListe = new ObservableCollection<MarkaBilgiResponse>();
                         lastikBilgileri.capListe = new ObservableCollection<MarkaBilgiResponse>();
                         lastikBilgileri.mevsimListe = new ObservableCollection<MarkaBilgiResponse>();
                         lastikBilgileri.desenListe = new ObservableCollection<MarkaBilgiResponse>();
+                        lastikBilgileri.tabanListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         detay.TXTURUNKOD = null;
+
                     }
                     else if (string.IsNullOrEmpty(markaBilgiReuqest.txtMarka))
                     {
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == 1).markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == 2).markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == 3).markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == 4).markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == 5).markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
-                        SecilenlastikBilgileriList.FirstOrDefault(x => x.lngLastikYon == 6).markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                         lastikBilgileri.markaListe = new ObservableCollection<MarkaBilgiResponse>(result.Result);
                     }
                 }
@@ -792,7 +1019,6 @@ namespace Lastikoteli.ViewModels
             lngLastikYon = 2;
             dblDisDerinligi = 0;
             tumunuEsitle = true;
-
             saklamaBaslikRequest = new SaklamaBaslikRequest() { BYTDURUM = 1, LNGDISTKOD = App.sessionInfo.lngDistkod, LNGFILOKOD = 0, LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod };
             detayListe = new ObservableCollection<SaklamaDetayRequest>();
             detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
@@ -802,17 +1028,14 @@ namespace Lastikoteli.ViewModels
             detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 0, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
             detayListe.Add(new SaklamaDetayRequest() { BYTDURUM = 0, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() });
             detay = new SaklamaDetayRequest() { BYTDURUM = 1, BYTHAVUZDA = 1, LNGURUNTIP = 0, kullaniciUrunBilgileri = new KullaniciUrunRequest() };
-
             markaBilgiReuqest = new MarkaBilgiRequest();
             lastikBilgileri = new LastikBilgiResponse();
-
-            SecilenlastikBilgileriList = new ObservableCollection<LastikBilgiResponse>();
-            SecilenlastikBilgileriList.Add(new LastikBilgiResponse { lngLastikYon = 1 });
-            SecilenlastikBilgileriList.Add(new LastikBilgiResponse { lngLastikYon = 2 });
-            SecilenlastikBilgileriList.Add(new LastikBilgiResponse { lngLastikYon = 3 });
-            SecilenlastikBilgileriList.Add(new LastikBilgiResponse { lngLastikYon = 4 });
-            SecilenlastikBilgileriList.Add(new LastikBilgiResponse { lngLastikYon = 5 });
-            SecilenlastikBilgileriList.Add(new LastikBilgiResponse { lngLastikYon = 6 });
+            onSol = new string[] { "", "", "", "", "", "" };
+            onSag = new string[] { "", "", "", "", "", "" };
+            arkaSol = new string[] { "", "", "", "", "", "" };
+            arkaSag = new string[] { "", "", "", "", "", "" };
+            digerSol = new string[] { "", "", "", "", "", "" };
+            digerSag = new string[] { "", "", "", "", "", "" };
         }
 
         private async Task GotoMusteriPopUpAsync()

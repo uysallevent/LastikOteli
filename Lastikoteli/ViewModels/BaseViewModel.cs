@@ -23,6 +23,9 @@ namespace Lastikoteli.ViewModels
         public IDepoService DepoService => DependencyService.Get<IDepoService>();
         public IEtiketYazdir EtiketYazdir => DependencyService.Get<IEtiketYazdir>();
         public IValidator saklamayaAlValidator => DependencyService.Get<IValidator>();
+        public ISeciliMarkaBilgiIslemleri SeciliMarkaBilgiIslem => DependencyService.Get<ISeciliMarkaBilgiIslemleri>();
+
+
 
         public DoubleClickControl _doubleClickControl;
         protected INavigation _navigation { get; set; }
