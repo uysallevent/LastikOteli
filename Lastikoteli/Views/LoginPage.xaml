@@ -23,7 +23,7 @@
                 <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="Transparent">
                     <xfx:XfxEntry x:Name="entryUserName" Placeholder="Kullanıcı Adı" BackgroundColor="Transparent" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding loginRequest.kullaniciAd}"/>
                     <xfx:XfxEntry x:Name="entryPassword" Placeholder="Şifre" BackgroundColor="Transparent" IsPassword="True" FontFamily="{StaticResource NotoSansRegular}" Text="{Binding loginRequest.sifre}"/>
-                    <xlabs:CheckBox Checked="False" HorizontalOptions="CenterAndExpand" DefaultText="Beni Hatırla" FontName="{StaticResource NotoSansRegular}"/>
+                    <xlabs:CheckBox Checked="{Binding isCheckStatus}" HorizontalOptions="CenterAndExpand" DefaultText="Beni Hatırla" FontName="{StaticResource NotoSansRegular}"/>
                     <customControl:CustomButton Grid.Row="4" Text="GİRİŞ" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20,20,20,0" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding gotoMainPageCommand}"/>
                 </StackLayout>
             </Frame>

@@ -13,8 +13,8 @@ namespace Lastikoteli.Views
             InitializeComponent();
             BindingContext = loginViewModel = new LoginViewModel(this.Navigation);
             (BindingContext as LoginViewModel).Page = this;
-            entryUserName.Text = "test";
-            entryPassword.Text = "123";
+            //entryUserName.Text = "test";
+            //entryPassword.Text = "123";
         }
     }
 }
