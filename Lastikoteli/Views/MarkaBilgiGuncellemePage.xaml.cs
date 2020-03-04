@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xfx;
 
 namespace Lastikoteli.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MarkaBilgiGuncellemePage : ContentPage
     {
-        SaklamaMarkaBilgiGuncelleme saklamaMarkaBilgiGuncelleme;
         public MarkaBilgiGuncellemePage()
         {
             InitializeComponent();
@@ -79,10 +79,12 @@ namespace Lastikoteli.Views
 
         }
 
-        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        private void urunTip_Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            var sw = (Switch)sender;
-            if (sw.IsToggled)
+            var swUrunTip = (Switch)sender;
+            (BindingContext as SaklamaMarkaBilgiGuncelleme).detay.LNGURUNTIP = (swUrunTip.IsToggled) ? 2 : 1;
+
+            if (swUrunTip.IsToggled)
             {
                 stackBrisa.IsVisible = false;
                 stackBrisa.IsEnabled = false;
@@ -100,9 +102,33 @@ namespace Lastikoteli.Views
             }
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as SaklamaMarkaBilgiGuncelleme).DevamButonuCommand.Execute(true);
+        }
+
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
             PopupNavigation.PushAsync(new DepoSecimPopUpPage());
+        }
+
+        private void isOtl_Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            var swOTL = (Switch)sender;
+            (BindingContext as SaklamaMarkaBilgiGuncelleme).detay.ISOTL = (swOTL.IsToggled) ? 1 : 0;
+        }
+
+        private void bytDurum_Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            var swBytDurum = (Switch)sender;
+            (BindingContext as SaklamaMarkaBilgiGuncelleme).detay.BYTDURUM = (swBytDurum.IsToggled) ? 1 : 0;
+        }
+
+        private void xfxEntryDis_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var entryDD = (XfxEntry)sender;
+            (BindingContext as SaklamaMarkaBilgiGuncelleme).detay.txtDisDerinligi = entryDD.Text;
         }
     }
 }

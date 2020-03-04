@@ -68,9 +68,9 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="Aktif" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                            <Switch Grid.Column="1" IsToggled="{Binding detay.BYTDURUM,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"/>
+                            <Switch Grid.Column="1" IsToggled="{Binding detay.BYTDURUM,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White" Toggled="bytDurum_Switch_Toggled"/>
                             <Label Grid.Column="3" Text="ÖTL" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                            <Switch Grid.Column="4" IsToggled="{Binding detay.ISOTL,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   />
+                            <Switch Grid.Column="4" IsToggled="{Binding detay.ISOTL,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White" Toggled="isOtl_Switch_Toggled" />
                         </Grid>
                     </Frame>
                     <Frame Grid.Row="1" CornerRadius="10" Padding="0">
@@ -179,7 +179,7 @@
 
 
                     <xfx:XfxEntry x:Name="xfxEntryDis" Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray" TextColor="White" 
-                              Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.DBLDISDERINLIGI,Mode=TwoWay}" Keyboard="Numeric">
+                              Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.txtDisDerinligi,Mode=TwoWay}" Keyboard="Numeric" TextChanged="disDerinligi_XfxEntry_TextChanged">
                         <xfx:XfxEntry.Behaviors>
                             <behaviors:EntryLengthValidatorBehavior MaxLength="4"/>
                             <behaviors:EventToCommandBehavior
@@ -196,14 +196,17 @@
                         </Grid.ColumnDefinitions>
                         <xfx:XfxEntry Grid.Column="0" Placeholder="Üretim" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray" TextColor="White" 
                                       FontFamily="{StaticResource NotoSansRegular}" 
-                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.TXTDOTURETIM,Mode=TwoWay}" Keyboard="Numeric">
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.TXTDOTURETIM,Mode=TwoWay}" 
+                                      Keyboard="Numeric"
+                                      TextChanged="uretim_XfxEntry_TextChanged">
                             <xfx:XfxEntry.Behaviors>
                                 <behaviors:EntryLengthValidatorBehavior MaxLength="4"/>
                             </xfx:XfxEntry.Behaviors>
                         </xfx:XfxEntry>
                         <xfx:XfxEntry Grid.Column="1" Placeholder="Fabrika" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray"  TextColor="White" 
                                       FontFamily="{StaticResource NotoSansRegular}" 
-                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.TXTDOTFABRIKA,Mode=TwoWay}">
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.TXTDOTFABRIKA,Mode=TwoWay}"
+                                      TextChanged="fabrika_XfxEntry_TextChanged">
                             <xfx:XfxEntry.Behaviors>
                                 <behaviors:EntryLengthValidatorBehavior MaxLength="5"/>
                             </xfx:XfxEntry.Behaviors>
@@ -211,7 +214,8 @@
 
                         <xfx:XfxEntry x:Name="xfxEntryHafta" Grid.Column="2" Placeholder="Hafta" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray"  TextColor="White" 
                                       FontFamily="{StaticResource NotoSansRegular}" 
-                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.TXTDOTHAFTA ,Mode=TwoWay}" Keyboard="Numeric">
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.TXTDOTHAFTA ,Mode=TwoWay}" Keyboard="Numeric"
+                                      TextChanged="hafta_XfxEntry_TextChanged">
                             <xfx:XfxEntry.Behaviors>
                                 <behaviors:EntryLengthValidatorBehavior MaxLength="4"/>
                                 <behaviors:EventToCommandBehavior

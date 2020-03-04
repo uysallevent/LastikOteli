@@ -34,6 +34,29 @@ namespace Lastikoteli.Models.Complex.Request
             }
         }
 
+        private string _txtDisDerinligi;
+
+        public string txtDisDerinligi
+        {
+            get { return _txtDisDerinligi; }
+            set
+            {
+                _txtDisDerinligi = value;
+                if (value != null)
+                {
+                    decimal dblDisDer = 0;
+                    var kontrol = decimal.TryParse(_txtDisDerinligi.Replace(",", "."), out dblDisDer);
+                    if (kontrol)
+                    {
+                        DBLDISDERINLIGI = dblDisDer;
+                        DBLDISDERINLIGI = dblDisDer;
+                    }
+                    else
+                        DBLDISDERINLIGI = 0;
+                }
+            }
+        }
+
         public int? LNGKULLANICIURUNKOD { get; set; }
         public string TXTURUNKOD { get; set; }
         public int? LNGLASTIKTIP { get; set; }

@@ -70,9 +70,9 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="Aktif" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                            <Switch Grid.Column="1" IsToggled="{Binding detay.BYTDURUM,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"/>
+                            <Switch Grid.Column="1" IsToggled="{Binding detay.BYTDURUM,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White" Toggled="bytDurum_Switch_Toggled"/>
                             <Label Grid.Column="3" Text="ÖTL" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                            <Switch Grid.Column="4" IsToggled="{Binding detay.ISOTL,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   />
+                            <Switch Grid.Column="4" IsToggled="{Binding detay.ISOTL,Mode=TwoWay}" ThumbColor="Black" OnColor="DarkOrange" BackgroundColor="White"   Toggled="isOtl_Switch_Toggled"/>
                         </Grid>
                     </Frame>
                     <Frame Grid.Row="1" CornerRadius="10" Padding="0">
@@ -83,7 +83,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="Brisa" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                            <Switch Grid.Column="1"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent" IsToggled="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.detay.bytUrunTip,Mode=TwoWay}"  Toggled="Switch_Toggled" />
+                            <Switch Grid.Column="1"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent" IsToggled="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.detay.bytUrunTip,Mode=TwoWay}"  Toggled="urunTip_Switch_Toggled" />
                             <Label Grid.Column="2" Text="Diğer" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
                         </Grid>
                     </Frame>
@@ -181,7 +181,7 @@
 
 
                     <xfx:XfxEntry x:Name="xfxEntryDis" Grid.Row="3" Placeholder="Diş Derinliği" PlaceholderColor="DarkGray" ActivePlaceholderColor="DarkGray" TextColor="White" 
-                              Text="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.detay.DBLDISDERINLIGI,Mode=TwoWay}" Keyboard="Numeric">
+                              Text="{Binding Source={x:Reference PageSaklamaMarkaBilgiGuncelleme},Path=BindingContext.detay.txtDisDerinligi,Mode=TwoWay}" Keyboard="Numeric" TextChanged="xfxEntryDis_TextChanged">
                         <xfx:XfxEntry.Behaviors>
                             <behaviors:EntryLengthValidatorBehavior MaxLength="4"/>
                             <behaviors:EventToCommandBehavior

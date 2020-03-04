@@ -8,9 +8,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="Orange"/>
-        <Label Grid.Row="2" Text="Lütfen Bekleyin ..." TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        <Frame Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="10" BackgroundColor="White" WidthRequest="100" HeightRequest="50" Padding="0" Opacity="0.7">
+            <Image Source="loading_brisa_logo"  HorizontalOptions="Center" VerticalOptions="Center" />
+        </Frame>
+        <ActivityIndicator Grid.Row="2" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="Orange"/>
+        <Label Grid.Row="3" Text="Lütfen Bekleyin ..." TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
     </Grid>
 </ContentView>

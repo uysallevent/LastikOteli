@@ -26,16 +26,8 @@ namespace Lastikoteli.ViewModels
             {
                 if (lngLastikYon == 1 && _selectedMarka != null)
                     onSag[0] = _selectedMarka.txtMarka;
-                if (lngLastikYon == 2 && _selectedMarka != null && tumunuEsitle)
-                {
+                if (lngLastikYon == 2 && _selectedMarka != null)
                     onSol[0] = _selectedMarka.txtMarka;
-                    onSag[0] = _selectedMarka.txtMarka;
-                    arkaSag[0] = _selectedMarka.txtMarka;
-                    arkaSol[0] = _selectedMarka.txtMarka;
-                    digerSag[0] = _selectedMarka.txtMarka;
-                    digerSol[0] = _selectedMarka.txtMarka;
-
-                }
                 if (lngLastikYon == 3 && _selectedMarka != null)
                     arkaSag[0] = _selectedMarka.txtMarka;
                 if (lngLastikYon == 4 && _selectedMarka != null)
@@ -71,15 +63,8 @@ namespace Lastikoteli.ViewModels
             {
                 if (lngLastikYon == 1 && _selectedTaban != null)
                     onSag[1] = _selectedTaban.txtTaban;
-                if (lngLastikYon == 2 && _selectedTaban != null && tumunuEsitle)
-                {
+                if (lngLastikYon == 2 && _selectedTaban != null)
                     onSol[1] = _selectedTaban.txtTaban;
-                    onSag[1] = _selectedTaban.txtTaban;
-                    arkaSol[1] = _selectedTaban.txtTaban;
-                    arkaSag[1] = _selectedTaban.txtTaban;
-                    digerSag[1] = _selectedTaban.txtTaban;
-                    digerSol[1] = _selectedTaban.txtTaban;
-                }
                 if (lngLastikYon == 3 && _selectedTaban != null)
                     arkaSag[1] = _selectedTaban.txtTaban;
                 if (lngLastikYon == 4 && _selectedTaban != null)
@@ -114,16 +99,8 @@ namespace Lastikoteli.ViewModels
 
                 if (lngLastikYon == 1 && _selectedKesit != null)
                     onSag[2] = _selectedKesit.txtKesit;
-                if (lngLastikYon == 2 && _selectedKesit != null && tumunuEsitle)
-                {
+                if (lngLastikYon == 2 && _selectedKesit != null)
                     onSol[2] = _selectedKesit.txtKesit;
-                    onSag[2] = _selectedKesit.txtKesit;
-                    arkaSol[2] = _selectedKesit.txtKesit;
-                    arkaSag[2] = _selectedKesit.txtKesit;
-                    digerSag[2] = _selectedKesit.txtKesit;
-                    digerSol[2] = _selectedKesit.txtKesit;
-
-                }
                 if (lngLastikYon == 3 && _selectedKesit != null)
                     arkaSag[2] = _selectedKesit.txtKesit;
                 if (lngLastikYon == 4 && _selectedKesit != null)
@@ -156,16 +133,9 @@ namespace Lastikoteli.ViewModels
             {
                 if (lngLastikYon == 1 && _selectedCap != null)
                     onSag[3] = _selectedCap.txtCap;
-                if (lngLastikYon == 2 && _selectedCap != null && tumunuEsitle)
-                {
+                if (lngLastikYon == 2 && _selectedCap != null)
                     onSol[3] = _selectedCap.txtCap;
-                    onSag[3] = _selectedCap.txtCap;
-                    arkaSol[3] = _selectedCap.txtCap;
-                    arkaSag[3] = _selectedCap.txtCap;
-                    digerSag[3] = _selectedCap.txtCap;
-                    digerSol[3] = _selectedCap.txtCap;
 
-                }
                 if (lngLastikYon == 3 && _selectedCap != null)
                     arkaSag[3] = _selectedCap.txtCap;
                 if (lngLastikYon == 4 && _selectedCap != null)
@@ -197,15 +167,8 @@ namespace Lastikoteli.ViewModels
             {
                 if (lngLastikYon == 1 && _selectedMevsim != null)
                     onSag[4] = _selectedMevsim.txtMevsim;
-                if (lngLastikYon == 2 && _selectedMevsim != null && tumunuEsitle)
-                {
+                if (lngLastikYon == 2 && _selectedMevsim != null)
                     onSol[4] = _selectedMevsim.txtMevsim;
-                    onSag[4] = _selectedMevsim.txtMevsim;
-                    arkaSol[4] = _selectedMevsim.txtMevsim;
-                    arkaSag[4] = _selectedMevsim.txtMevsim;
-                    digerSag[4] = _selectedMevsim.txtMevsim;
-                    digerSol[4] = _selectedMevsim.txtMevsim;
-                }
                 if (lngLastikYon == 3 && _selectedMevsim != null)
                     arkaSag[4] = _selectedMevsim.txtMevsim;
                 if (lngLastikYon == 4 && _selectedMevsim != null)
@@ -236,15 +199,8 @@ namespace Lastikoteli.ViewModels
             {
                 if (lngLastikYon == 1 && _selectedDesen != null)
                     onSag[5] = _selectedDesen.txtDesen;
-                if (lngLastikYon == 2 && _selectedDesen != null && tumunuEsitle)
-                {
+                if (lngLastikYon == 2 && _selectedDesen != null)
                     onSol[5] = _selectedDesen.txtDesen;
-                    onSag[5] = _selectedDesen.txtDesen;
-                    arkaSol[5] = _selectedDesen.txtDesen;
-                    arkaSag[5] = _selectedDesen.txtDesen;
-                    digerSol[5] = _selectedDesen.txtDesen;
-                    digerSag[5] = _selectedDesen.txtDesen;
-                }
                 if (lngLastikYon == 3 && _selectedDesen != null)
                     arkaSag[5] = _selectedDesen.txtDesen;
                 if (lngLastikYon == 4 && _selectedDesen != null)
@@ -313,8 +269,8 @@ namespace Lastikoteli.ViewModels
 
             }
         }
-
         private int _selectedCapIndex;
+
         public int selectedCapIndex
         {
             get
@@ -465,48 +421,47 @@ namespace Lastikoteli.ViewModels
         {
             get
             {
-                //for (int i = 0; i < 6; i++)
-                //{
-                //    //Ön sol lastik seçili ise tüm lastik bilgileri aynı olacak şekilde ayarlanır
-                //    if (lngLastikYon == i + 1)
-                //    {
-                //        detayListe[i].bytUrunTip = _detay.bytUrunTip;
-                //        detayListe[i].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
-                //        detayListe[i].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
-                //        detayListe[i].LNGLASTIKDURUM = (_detay.ISOTL == 0) ? 1 : 3; //1 lastiğin saklamada olma durumu. 3 lastiğin ÖTL olma durumu
-                //        detayListe[i].LNGLASTIKTIP = i + 1;
-                //        detayListe[i].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                //        detayListe[i].LNGURUNTIP = _detay.LNGURUNTIP;
-                //        detayListe[i].TXTRAFKOLAYKOD = _detay.TXTRAFKOLAYKOD;
-                //        detayListe[i].TXTDOTFABRIKA = _detay.TXTDOTFABRIKA;
-                //        detayListe[i].TXTDOTHAFTA = _detay.TXTDOTHAFTA;
-                //        detayListe[i].TXTDOTURETIM = _detay.TXTDOTURETIM;
-                //        detayListe[i].BYTHAVUZDA = (string.IsNullOrEmpty(_detay.TXTRAFKOLAYKOD)) ? 1 : 0;
-                //        if (!_detay.bytUrunTip)
-                //            detayListe[i].TXTURUNKOD = _detay.TXTURUNKOD;
-                //        else
-                //        {
-                //            detayListe[i].TXTURUNKOD = null;
-                //            detayListe[i].kullaniciUrunBilgileri.TXTMARKA = _detay.kullaniciUrunBilgileri.TXTMARKA;
-                //            detayListe[i].kullaniciUrunBilgileri.TXTTABAN = _detay.kullaniciUrunBilgileri.TXTTABAN;
-                //            detayListe[i].kullaniciUrunBilgileri.TXTKESIT = _detay.kullaniciUrunBilgileri.TXTKESIT;
-                //            detayListe[i].kullaniciUrunBilgileri.TXTCAP = _detay.kullaniciUrunBilgileri.TXTCAP;
-                //            detayListe[i].kullaniciUrunBilgileri.TXTMEVSIM = _detay.kullaniciUrunBilgileri.TXTMEVSIM;
-                //            detayListe[i].kullaniciUrunBilgileri.TXTDESEN = _detay.kullaniciUrunBilgileri.TXTDESEN;
-                //            detayListe[i].kullaniciUrunBilgileri.LNGLASTIKTIP = lngLastikYon;
-                //            detayListe[i].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                //        }
-                //    }
+                for (int i = 0; i < 6; i++)
+                {
+                    //Ön sol lastik seçili ise tüm lastik bilgileri aynı olacak şekilde ayarlanır
+                    if (lngLastikYon == i + 1)
+                    {
+                        detayListe[i].bytUrunTip = _detay.bytUrunTip;
+                        detayListe[i].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
+                        detayListe[i].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
+                        detayListe[i].LNGLASTIKDURUM = (_detay.ISOTL == 0) ? 1 : 3; //1 lastiğin saklamada olma durumu. 3 lastiğin ÖTL olma durumu
+                        detayListe[i].LNGLASTIKTIP = i + 1;
+                        detayListe[i].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                        detayListe[i].LNGURUNTIP = (_detay.bytUrunTip) ? 2 : 1;
+                        detayListe[i].TXTRAFKOLAYKOD = _detay.TXTRAFKOLAYKOD;
+                        detayListe[i].TXTDOTFABRIKA = _detay.TXTDOTFABRIKA;
+                        detayListe[i].TXTDOTHAFTA = _detay.TXTDOTHAFTA;
+                        detayListe[i].TXTDOTURETIM = _detay.TXTDOTURETIM;
+                        detayListe[i].BYTHAVUZDA = (string.IsNullOrEmpty(_detay.TXTRAFKOLAYKOD)) ? 1 : 0;
+                        if (!_detay.bytUrunTip)
+                            detayListe[i].TXTURUNKOD = _detay.TXTURUNKOD;
+                        else
+                        {
+                            detayListe[i].kullaniciUrunBilgileri.TXTMARKA = _detay.kullaniciUrunBilgileri.TXTMARKA;
+                            detayListe[i].kullaniciUrunBilgileri.TXTTABAN = _detay.kullaniciUrunBilgileri.TXTTABAN;
+                            detayListe[i].kullaniciUrunBilgileri.TXTKESIT = _detay.kullaniciUrunBilgileri.TXTKESIT;
+                            detayListe[i].kullaniciUrunBilgileri.TXTCAP = _detay.kullaniciUrunBilgileri.TXTCAP;
+                            detayListe[i].kullaniciUrunBilgileri.TXTMEVSIM = _detay.kullaniciUrunBilgileri.TXTMEVSIM;
+                            detayListe[i].kullaniciUrunBilgileri.TXTDESEN = _detay.kullaniciUrunBilgileri.TXTDESEN;
+                            detayListe[i].kullaniciUrunBilgileri.LNGLASTIKTIP = lngLastikYon;
+                            detayListe[i].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                        }
+                    }
 
-                //    if (lngLastikYon == i + 1)
-                //    {
-                //        detayListe[i].ISOTL = _detay.ISOTL;
-                //        detayListe[i].BYTDURUM = _detay.BYTDURUM;
-                //        detayListe[i].TXTACIKLAMA = _detay.TXTACIKLAMA;
-                //        detayListe[i].kullaniciUrunBilgileri.BYTDURUM = _detay.BYTDURUM;
+                    if (lngLastikYon == i + 1)
+                    {
+                        detayListe[i].ISOTL = _detay.ISOTL;
+                        detayListe[i].BYTDURUM = _detay.BYTDURUM;
+                        detayListe[i].TXTACIKLAMA = _detay.TXTACIKLAMA;
+                        detayListe[i].kullaniciUrunBilgileri.BYTDURUM = _detay.BYTDURUM;
 
-                //    }
-                //}
+                    }
+                }
                 return _detay;
             }
             set
@@ -563,12 +518,12 @@ namespace Lastikoteli.ViewModels
             RafKolayKodKontrolCommand = new Command(async (x) => await RafKolayKodKontrolAsync(x));
             PlakaKontrolCommand = new Command(async (x) => await PlakaKontrolAsync(x));
             HaftaKontrolCommand = new Command((x) => HaftaKontrolAsync(x));
-            DevamButonuCommand = new Command(()=> DevamButonuAsync());
+            DevamButonuCommand = new Command(() => DevamButonuAsync());
 
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await SaklamaKayitGetir(request);
-                MarkaBilgiGetirCommand.Execute(true);
+                await MarkaBilgiGetirAsync();
             });
 
             MessagingCenter.Subscribe<MusteriAraPopUpViewModel, MusteriBilgileriResponse>(this, "yeniSaklamaSecilenMusteri", (s, e) =>
@@ -588,59 +543,17 @@ namespace Lastikoteli.ViewModels
 
         private void DevamButonuAsync()
         {
-            secilenLastik(2);
+            secilenLastik(0);
         }
 
         private void secilenLastik(object x)
         {
             tumunuEsitle = false;
+            var oncekiLastikYon = lngLastikYon;
             lngLastikYon = Convert.ToInt32(x);
-            detay = detayListe[lngLastikYon - 1];
-            if (lngLastikYon == 1)
-            {
-                if (!string.IsNullOrEmpty(onSol[0]))
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        tumunuEsitle = false;
 
-                        for (int i = 0; i < onSag.Length; i++)
-                        {
-                            markaBilgiReuqest.txtDesen = (i == 5) ? onSag[5] : "";
-                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSag[4] : "";
-                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSag[3] : "";
-                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSag[2] : "";
-                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[1] : "";
-                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[0] : "";
-                            IsBusy = false;
-                            await MarkaBilgiGetirAsync();
-
-                            if (i == 0)
-                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSag[i]));
-                            if (i == 1)
-                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSag[i]));
-                            if (i == 2)
-                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSag[i]));
-                            if (i == 3)
-                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSag[i]));
-                            if (i == 4)
-                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSag[i]));
-                            if (i == 5)
-                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSag[i]));
-                        }
-                        tumunuEsitle = true;
-                    });
-                else
-                {
-                    selectedMarkaIndex = -1;
-                    selectedTabanIndex = -1;
-                    selectedKesitIndex = -1;
-                    selectedCapIndex = -1;
-                    selectedMevsimIndex = -1;
-                    selectedDesenIndex = -1;
-                }
-            }
-
-            if (lngLastikYon == 2)
+            //devam butonu ile yada marka bilgiler güncelleme sayfası görünür olduğunda yön ürün kodu kontrolüne takılmaması için 0 gönderiliyor.0 olma durumu 2 olma durumu ile aynıdır
+            if (lngLastikYon == 0)
             {
                 if (!string.IsNullOrEmpty(onSol[0]))
                     Device.BeginInvokeOnMainThread(async () =>
@@ -673,7 +586,98 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
-                else
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+                {
+                    selectedMarkaIndex = -1;
+                    selectedTabanIndex = -1;
+                    selectedKesitIndex = -1;
+                    selectedCapIndex = -1;
+                    selectedMevsimIndex = -1;
+                    selectedDesenIndex = -1;
+                }
+
+                lngLastikYon = 2;
+            }
+            detay = detayListe[lngLastikYon - 1];
+
+            if (lngLastikYon == 1)
+            {
+                if (!string.IsNullOrEmpty(onSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        tumunuEsitle = false;
+
+                        for (int i = 0; i < onSag.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? onSag[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSag[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSag[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSag[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[0] : "";
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
+
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSag[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSag[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSag[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSag[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSag[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSag[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+                {
+                    selectedMarkaIndex = -1;
+                    selectedTabanIndex = -1;
+                    selectedKesitIndex = -1;
+                    selectedCapIndex = -1;
+                    selectedMevsimIndex = -1;
+                    selectedDesenIndex = -1;
+                }
+            }
+
+            if (lngLastikYon == 2)
+            {
+                if (!string.IsNullOrEmpty(onSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        tumunuEsitle = false;
+                        for (int i = 0; i < onSol.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? onSol[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSol[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSol[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSol[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[0] : "";
+
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
+
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -686,7 +690,7 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 3)
             {
-                if (!string.IsNullOrEmpty(arkaSag[0]))
+                if (!string.IsNullOrEmpty(arkaSag[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         tumunuEsitle = false;
@@ -717,7 +721,7 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
-                else
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -730,7 +734,7 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 4)
             {
-                if (!string.IsNullOrEmpty(arkaSol[0]))
+                if (!string.IsNullOrEmpty(arkaSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         tumunuEsitle = false;
@@ -761,7 +765,7 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
-                else
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -774,7 +778,7 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 5)
             {
-                if (!string.IsNullOrEmpty(digerSag[0]))
+                if (!string.IsNullOrEmpty(digerSag[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         tumunuEsitle = false;
@@ -805,7 +809,7 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
-                else
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -818,7 +822,7 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 6)
             {
-                if (!string.IsNullOrEmpty(digerSol[0]))
+                if (!string.IsNullOrEmpty(digerSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         tumunuEsitle = false;
@@ -849,7 +853,7 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
-                else
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -871,12 +875,35 @@ namespace Lastikoteli.ViewModels
                     return;
 
                 IsBusy = true;
-                saklamaBaslikRequest.Tblsaklamadetay = detayListe.ToList();
-                var result = saklamaBaslikRequest;
+                detayListe.ToList().ForEach(x =>
+                {
+                    if (x.LNGURUNTIP == 1)
+                        x.kullaniciUrunBilgileri = null;
+                    else
+                        x.TXTURUNKOD = null;
+                });
+
+                var validationresult = saklamayaAlValidator.Validate(saklamaBaslikRequest);
+                if (!validationresult.IsValid)
+                {
+
+                    await App.Current.MainPage.DisplayAlert("Uyarı", $"{String.Join("", validationresult.Errors.Select(x => "- " + x.ErrorMessage + Environment.NewLine).Distinct())}", "Tamam");
+                    return;
+                }
+                saklamaBaslikRequest.Tblsaklamadetay = detayListe.Where(x => (x.LNGKOD != null && x.BYTDURUM == 0) || x.BYTDURUM == 1).ToList();
+                var result = await SaklamaService.YeniSaklamaDuzenle(saklamaBaslikRequest);
+
+                if (result.StatusCode != 500 && result.Result != null)
+                {
+                    await App.Current.MainPage.DisplayAlert("Uyarı", "Kayıt güncelleme işlemi başarılı", "Tamam");
+                    await _navigation.PopAsync();
+                }
+                else
+                    await App.Current.MainPage.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Bir hata oluştu", "Tamam");
+
             }
             catch (Exception)
             {
-
                 await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
             }
             finally
@@ -949,285 +976,281 @@ namespace Lastikoteli.ViewModels
                         TXTVN = result.Result.txtVn
                     };
 
-
-                    result.Result.Tblsaklamadetay.ForEach(x =>
+                    foreach (var x in result.Result.Tblsaklamadetay)
                     {
-
-                        if (x.txtLastikYon == "Ön Sağ")
+                        switch (x.txtLastikYon)
                         {
-                            detayListe[0].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
-                            detayListe[0].BYTDURUM = x.bytDurum;
-                            detayListe[0].BYTHAVUZDA = x.bytHavuzda;
-                            detayListe[0].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[0].DBLDISDERINLIGI = x.dblDisDerinligi;
-                            detayListe[0].LNGLASTIKDURUM = x.lngLastikDurum;
-                            detayListe[0].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
-                            detayListe[0].LNGKOD = x.lngKod;
-                            detayListe[0].LNGLASTIKTIP = x.lngLastikTip;
-                            detayListe[0].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
-                            detayListe[0].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                            detayListe[0].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[0].TXTACIKLAMA = x.txtAciklama;
-                            detayListe[0].TXTDOTFABRIKA = x.txtDotFabrika;
-                            detayListe[0].TXTDOTHAFTA = x.txtDotHafta;
-                            detayListe[0].TXTDOTURETIM = x.txtDotUretim;
-                            detayListe[0].TXTRAFKOLAYKOD = x.txtRafKolayKod;
-                            if (x.lngUrunTip == 2)
-                            {
-                                detayListe[0].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[0].kullaniciUrunBilgileri.BYTDURUM = 1;
-                                detayListe[0].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[0].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
-                                detayListe[0].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                                detayListe[0].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
-                                detayListe[0].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
-                                detayListe[0].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
-                                detayListe[0].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
-                                detayListe[0].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
-                                detayListe[0].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
-                            }
-                            else
-                            {
-                                detayListe[0].TXTURUNKOD = x.txtUrunKod;
-                                onSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                onSag[1] = x.txtTaban;
-                                onSag[2] = x.txtKesit;
-                                onSag[3] = x.txtCap;
-                                onSag[4] = x.txtMevsim;
-                                onSag[5] = x.txtDesen;
-                            }
-
-
+                            case "Ön Sağ":
+                                detayListe[0].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
+                                detayListe[0].BYTDURUM = x.bytDurum;
+                                detayListe[0].BYTHAVUZDA = x.bytHavuzda;
+                                detayListe[0].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[0].txtDisDerinligi = x.dblDisDerinligi.ToString();
+                                detayListe[0].LNGLASTIKDURUM = x.lngLastikDurum;
+                                detayListe[0].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
+                                detayListe[0].LNGKOD = x.lngKod;
+                                detayListe[0].LNGLASTIKTIP = 1;
+                                detayListe[0].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
+                                detayListe[0].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                detayListe[0].TXTACIKLAMA = x.txtAciklama;
+                                detayListe[0].TXTDOTFABRIKA = x.txtDotFabrika;
+                                detayListe[0].TXTDOTHAFTA = x.txtDotHafta;
+                                detayListe[0].TXTDOTURETIM = x.txtDotUretim;
+                                detayListe[0].TXTRAFKOLAYKOD = x.txtRafKolayKod;
+                                if (x.lngUrunTip == 2)
+                                {
+                                    detayListe[0].ISOTL = (x.bytOtl) ? 1 : 0;
+                                    detayListe[0].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[0].kullaniciUrunBilgileri.BYTDURUM = 1;
+                                    detayListe[0].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[0].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
+                                    detayListe[0].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                    detayListe[0].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
+                                    detayListe[0].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
+                                    detayListe[0].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
+                                    detayListe[0].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
+                                    detayListe[0].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
+                                    detayListe[0].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
+                                }
+                                else
+                                {
+                                    detayListe[0].TXTURUNKOD = x.txtUrunKod;
+                                    onSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                    onSag[1] = x.txtTaban;
+                                    onSag[2] = x.txtKesit;
+                                    onSag[3] = x.txtCap;
+                                    onSag[4] = x.txtMevsim;
+                                    onSag[5] = x.txtDesen;
+                                }
+                                break;
+                            case "Ön Sol":
+                                detayListe[1].ISOTL = (x.bytOtl) ? 1 : 0;
+                                detayListe[1].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
+                                detayListe[1].BYTDURUM = x.bytDurum;
+                                detayListe[1].BYTHAVUZDA = x.bytHavuzda;
+                                detayListe[1].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[1].txtDisDerinligi = x.dblDisDerinligi.ToString();
+                                detayListe[1].LNGLASTIKDURUM = x.lngLastikDurum;
+                                detayListe[1].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
+                                detayListe[1].LNGKOD = x.lngKod;
+                                detayListe[1].LNGLASTIKTIP = 2;
+                                detayListe[1].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
+                                detayListe[1].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                detayListe[1].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[1].TXTACIKLAMA = x.txtAciklama;
+                                detayListe[1].TXTDOTFABRIKA = x.txtDotFabrika;
+                                detayListe[1].TXTDOTHAFTA = x.txtDotHafta;
+                                detayListe[1].TXTDOTURETIM = x.txtDotUretim;
+                                detayListe[1].TXTRAFKOLAYKOD = x.txtRafKolayKod;
+                                if (x.lngUrunTip == 2)
+                                {
+                                    detayListe[1].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[1].kullaniciUrunBilgileri.BYTDURUM = 1;
+                                    detayListe[1].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[1].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
+                                    detayListe[1].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                    detayListe[1].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
+                                    detayListe[1].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
+                                    detayListe[1].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
+                                    detayListe[1].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
+                                    detayListe[1].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
+                                    detayListe[1].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
+                                }
+                                else
+                                {
+                                    detayListe[1].TXTURUNKOD = x.txtUrunKod;
+                                    onSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                    onSol[1] = x.txtTaban;
+                                    onSol[2] = x.txtKesit;
+                                    onSol[3] = x.txtCap;
+                                    onSol[4] = x.txtMevsim;
+                                    onSol[5] = x.txtDesen;
+                                }
+                                break;
+                            case "Arka Sağ":
+                                detayListe[2].ISOTL = (x.bytOtl) ? 1 : 0;
+                                detayListe[2].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
+                                detayListe[2].BYTDURUM = x.bytDurum;
+                                detayListe[2].BYTHAVUZDA = x.bytHavuzda;
+                                detayListe[2].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[2].txtDisDerinligi = x.dblDisDerinligi.ToString();
+                                detayListe[2].LNGLASTIKDURUM = x.lngLastikDurum;
+                                detayListe[2].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
+                                detayListe[2].LNGKOD = x.lngKod;
+                                detayListe[2].LNGLASTIKTIP = 3;
+                                detayListe[2].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
+                                detayListe[2].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                detayListe[2].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[2].TXTACIKLAMA = x.txtAciklama;
+                                detayListe[2].TXTDOTFABRIKA = x.txtDotFabrika;
+                                detayListe[2].TXTDOTHAFTA = x.txtDotHafta;
+                                detayListe[2].TXTDOTURETIM = x.txtDotUretim;
+                                detayListe[2].TXTRAFKOLAYKOD = x.txtRafKolayKod;
+                                if (x.lngUrunTip == 2)
+                                {
+                                    detayListe[2].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[2].kullaniciUrunBilgileri.BYTDURUM = 1;
+                                    detayListe[2].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[2].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
+                                    detayListe[2].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                    detayListe[2].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
+                                    detayListe[2].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
+                                    detayListe[2].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
+                                    detayListe[2].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
+                                    detayListe[2].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
+                                    detayListe[2].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
+                                }
+                                else
+                                {
+                                    detayListe[2].TXTURUNKOD = x.txtUrunKod;
+                                    arkaSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                    arkaSag[1] = x.txtTaban;
+                                    arkaSag[2] = x.txtKesit;
+                                    arkaSag[3] = x.txtCap;
+                                    arkaSag[4] = x.txtMevsim;
+                                    arkaSag[5] = x.txtDesen;
+                                }
+                                break;
+                            case "Arka Sol":
+                                detayListe[3].ISOTL = (x.bytOtl) ? 1 : 0;
+                                detayListe[3].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
+                                detayListe[3].BYTDURUM = x.bytDurum;
+                                detayListe[3].BYTHAVUZDA = x.bytHavuzda;
+                                detayListe[3].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[3].txtDisDerinligi = x.dblDisDerinligi.ToString();
+                                detayListe[3].LNGLASTIKDURUM = x.lngLastikDurum;
+                                detayListe[3].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
+                                detayListe[3].LNGKOD = x.lngKod;
+                                detayListe[3].LNGLASTIKTIP = 4;
+                                detayListe[3].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
+                                detayListe[3].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                detayListe[3].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[3].TXTACIKLAMA = x.txtAciklama;
+                                detayListe[3].TXTDOTFABRIKA = x.txtDotFabrika;
+                                detayListe[3].TXTDOTHAFTA = x.txtDotHafta;
+                                detayListe[3].TXTDOTURETIM = x.txtDotUretim;
+                                detayListe[3].TXTRAFKOLAYKOD = x.txtRafKolayKod;
+                                if (x.lngUrunTip == 3)
+                                {
+                                    detayListe[3].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[3].kullaniciUrunBilgileri.BYTDURUM = 1;
+                                    detayListe[3].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[3].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
+                                    detayListe[3].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                    detayListe[3].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
+                                    detayListe[3].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
+                                    detayListe[3].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
+                                    detayListe[3].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
+                                    detayListe[3].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
+                                    detayListe[3].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
+                                }
+                                else
+                                {
+                                    detayListe[3].TXTURUNKOD = x.txtUrunKod;
+                                    arkaSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                    arkaSol[1] = x.txtTaban;
+                                    arkaSol[2] = x.txtKesit;
+                                    arkaSol[3] = x.txtCap;
+                                    arkaSol[4] = x.txtMevsim;
+                                    arkaSol[5] = x.txtDesen;
+                                }
+                                break;
+                            case "Diğer Sağ 1":
+                                detayListe[4].ISOTL = (x.bytOtl) ? 1 : 0;
+                                detayListe[4].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
+                                detayListe[4].BYTDURUM = x.bytDurum;
+                                detayListe[4].BYTHAVUZDA = x.bytHavuzda;
+                                detayListe[4].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[4].txtDisDerinligi = x.dblDisDerinligi.ToString();
+                                detayListe[4].LNGLASTIKDURUM = x.lngLastikDurum;
+                                detayListe[4].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
+                                detayListe[4].LNGKOD = x.lngKod;
+                                detayListe[4].LNGLASTIKTIP = 5;
+                                detayListe[4].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
+                                detayListe[4].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                detayListe[4].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[4].TXTACIKLAMA = x.txtAciklama;
+                                detayListe[4].TXTDOTFABRIKA = x.txtDotFabrika;
+                                detayListe[4].TXTDOTHAFTA = x.txtDotHafta;
+                                detayListe[4].TXTDOTURETIM = x.txtDotUretim;
+                                detayListe[4].TXTRAFKOLAYKOD = x.txtRafKolayKod;
+                                if (x.lngUrunTip == 2)
+                                {
+                                    detayListe[4].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[4].kullaniciUrunBilgileri.BYTDURUM = 1;
+                                    detayListe[4].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[4].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
+                                    detayListe[4].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                    detayListe[4].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
+                                    detayListe[4].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
+                                    detayListe[4].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
+                                    detayListe[4].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
+                                    detayListe[4].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
+                                    detayListe[4].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
+                                }
+                                else
+                                {
+                                    detayListe[4].TXTURUNKOD = x.txtUrunKod;
+                                    digerSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                    digerSag[1] = x.txtTaban;
+                                    digerSag[2] = x.txtKesit;
+                                    digerSag[3] = x.txtCap;
+                                    digerSag[4] = x.txtMevsim;
+                                    digerSag[5] = x.txtDesen;
+                                }
+                                break;
+                            case "Diğer Sol 1":
+                                detayListe[5].ISOTL = (x.bytOtl) ? 1 : 0;
+                                detayListe[5].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
+                                detayListe[5].BYTDURUM = x.bytDurum;
+                                detayListe[5].BYTHAVUZDA = x.bytHavuzda;
+                                detayListe[5].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[5].txtDisDerinligi = x.dblDisDerinligi.ToString();
+                                detayListe[5].LNGLASTIKDURUM = x.lngLastikDurum;
+                                detayListe[5].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
+                                detayListe[5].LNGKOD = x.lngKod;
+                                detayListe[5].LNGLASTIKTIP = 6;
+                                detayListe[5].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
+                                detayListe[5].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                detayListe[5].LNGURUNTIP = x.lngUrunTip;
+                                detayListe[5].TXTACIKLAMA = x.txtAciklama;
+                                detayListe[5].TXTDOTFABRIKA = x.txtDotFabrika;
+                                detayListe[5].TXTDOTHAFTA = x.txtDotHafta;
+                                detayListe[5].TXTDOTURETIM = x.txtDotUretim;
+                                detayListe[5].TXTRAFKOLAYKOD = x.txtRafKolayKod;
+                                if (x.lngUrunTip == 2)
+                                {
+                                    detayListe[5].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[5].kullaniciUrunBilgileri.BYTDURUM = 1;
+                                    detayListe[5].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
+                                    detayListe[5].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
+                                    detayListe[5].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
+                                    detayListe[5].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
+                                    detayListe[5].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
+                                    detayListe[5].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
+                                    detayListe[5].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
+                                    detayListe[5].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
+                                    detayListe[5].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
+                                }
+                                else
+                                {
+                                    detayListe[5].TXTURUNKOD = x.txtUrunKod;
+                                    digerSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                    digerSol[1] = x.txtTaban;
+                                    digerSol[2] = x.txtKesit;
+                                    digerSol[3] = x.txtCap;
+                                    digerSol[4] = x.txtMevsim;
+                                    digerSol[5] = x.txtDesen;
+                                }
+                                break;
                         }
+                    }
 
-                        if (x.txtLastikYon == "Ön Sol")
-                        {
-                            detayListe[1].bytUrunTip = (x.lngUrunTip==1)?false:true;
-                            detayListe[1].BYTDURUM = x.bytDurum;
-                            detayListe[1].BYTHAVUZDA = x.bytHavuzda;
-                            detayListe[1].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[1].DBLDISDERINLIGI = x.dblDisDerinligi;
-                            detayListe[1].LNGLASTIKDURUM = x.lngLastikDurum;
-                            detayListe[1].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
-                            detayListe[1].LNGKOD = x.lngKod;
-                            detayListe[1].LNGLASTIKTIP = x.lngLastikTip;
-                            detayListe[1].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
-                            detayListe[1].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                            detayListe[1].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[1].TXTACIKLAMA = x.txtAciklama;
-                            detayListe[1].TXTDOTFABRIKA = x.txtDotFabrika;
-                            detayListe[1].TXTDOTHAFTA = x.txtDotHafta;
-                            detayListe[1].TXTDOTURETIM = x.txtDotUretim;
-                            detayListe[1].TXTRAFKOLAYKOD = x.txtRafKolayKod;
-                            if (x.lngUrunTip == 2)
-                            {
-                                detayListe[1].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[1].kullaniciUrunBilgileri.BYTDURUM = 1;
-                                detayListe[1].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[1].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
-                                detayListe[1].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                                detayListe[1].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
-                                detayListe[1].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
-                                detayListe[1].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
-                                detayListe[1].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
-                                detayListe[1].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
-                                detayListe[1].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
-                            }
-                            else
-                            {
-                                detayListe[1].TXTURUNKOD = x.txtUrunKod;
-                                onSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                onSol[1] = x.txtTaban;
-                                onSol[2] = x.txtKesit;
-                                onSol[3] = x.txtCap;
-                                onSol[4] = x.txtMevsim;
-                                onSol[5] = x.txtDesen;
-                            }
-
-
-                        }
-
-                        if (x.txtLastikYon == "Arka Sağ")
-                        {
-                            detayListe[2].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
-                            detayListe[2].BYTDURUM = x.bytDurum;
-                            detayListe[2].BYTHAVUZDA = x.bytHavuzda;
-                            detayListe[2].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[2].DBLDISDERINLIGI = x.dblDisDerinligi;
-                            detayListe[2].LNGLASTIKDURUM = x.lngLastikDurum;
-                            detayListe[2].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
-                            detayListe[2].LNGKOD = x.lngKod;
-                            detayListe[2].LNGLASTIKTIP = x.lngLastikTip;
-                            detayListe[2].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
-                            detayListe[2].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                            detayListe[2].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[2].TXTACIKLAMA = x.txtAciklama;
-                            detayListe[2].TXTDOTFABRIKA = x.txtDotFabrika;
-                            detayListe[2].TXTDOTHAFTA = x.txtDotHafta;
-                            detayListe[2].TXTDOTURETIM = x.txtDotUretim;
-                            detayListe[2].TXTRAFKOLAYKOD = x.txtRafKolayKod;
-                            if (x.lngUrunTip == 2)
-                            {
-                                detayListe[2].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[2].kullaniciUrunBilgileri.BYTDURUM = 1;
-                                detayListe[2].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[2].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
-                                detayListe[2].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                                detayListe[2].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
-                                detayListe[2].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
-                                detayListe[2].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
-                                detayListe[2].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
-                                detayListe[2].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
-                                detayListe[2].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
-                            }
-                            else
-                            {
-                                detayListe[2].TXTURUNKOD = x.txtUrunKod;
-                                arkaSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                arkaSag[1] = x.txtTaban;
-                                arkaSag[2] = x.txtKesit;
-                                arkaSag[3] = x.txtCap;
-                                arkaSag[4] = x.txtMevsim;
-                                arkaSag[5] = x.txtDesen;
-                            }
-                        }
-
-                        if (x.txtLastikYon == "Arka Sol")
-                        {
-                            detayListe[3].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
-                            detayListe[3].BYTDURUM = x.bytDurum;
-                            detayListe[3].BYTHAVUZDA = x.bytHavuzda;
-                            detayListe[3].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[3].DBLDISDERINLIGI = x.dblDisDerinligi;
-                            detayListe[3].LNGLASTIKDURUM = x.lngLastikDurum;
-                            detayListe[3].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
-                            detayListe[3].LNGKOD = x.lngKod;
-                            detayListe[3].LNGLASTIKTIP = x.lngLastikTip;
-                            detayListe[3].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
-                            detayListe[3].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                            detayListe[3].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[3].TXTACIKLAMA = x.txtAciklama;
-                            detayListe[3].TXTDOTFABRIKA = x.txtDotFabrika;
-                            detayListe[3].TXTDOTHAFTA = x.txtDotHafta;
-                            detayListe[3].TXTDOTURETIM = x.txtDotUretim;
-                            detayListe[3].TXTRAFKOLAYKOD = x.txtRafKolayKod;
-                            if (x.lngUrunTip == 3)
-                            {
-                                detayListe[3].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[3].kullaniciUrunBilgileri.BYTDURUM = 1;
-                                detayListe[3].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[3].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
-                                detayListe[3].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                                detayListe[3].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
-                                detayListe[3].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
-                                detayListe[3].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
-                                detayListe[3].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
-                                detayListe[3].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
-                                detayListe[3].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
-                            }
-                            else
-                            {
-                                detayListe[3].TXTURUNKOD = x.txtUrunKod;
-                                arkaSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                arkaSol[1] = x.txtTaban;
-                                arkaSol[2] = x.txtKesit;
-                                arkaSol[3] = x.txtCap;
-                                arkaSol[4] = x.txtMevsim;
-                                arkaSol[5] = x.txtDesen;
-                            }
-                        }
-
-                        if (x.txtLastikYon == "Diğer Sağ 1")
-                        {
-                            detayListe[4].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
-                            detayListe[4].BYTDURUM = x.bytDurum;
-                            detayListe[4].BYTHAVUZDA = x.bytHavuzda;
-                            detayListe[4].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[4].DBLDISDERINLIGI = x.dblDisDerinligi;
-                            detayListe[4].LNGLASTIKDURUM = x.lngLastikDurum;
-                            detayListe[4].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
-                            detayListe[4].LNGKOD = x.lngKod;
-                            detayListe[4].LNGLASTIKTIP = x.lngLastikTip;
-                            detayListe[4].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
-                            detayListe[4].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                            detayListe[4].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[4].TXTACIKLAMA = x.txtAciklama;
-                            detayListe[4].TXTDOTFABRIKA = x.txtDotFabrika;
-                            detayListe[4].TXTDOTHAFTA = x.txtDotHafta;
-                            detayListe[4].TXTDOTURETIM = x.txtDotUretim;
-                            detayListe[4].TXTRAFKOLAYKOD = x.txtRafKolayKod;
-                            if (x.lngUrunTip == 2)
-                            {
-                                detayListe[4].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[4].kullaniciUrunBilgileri.BYTDURUM = 1;
-                                detayListe[4].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[4].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
-                                detayListe[4].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                                detayListe[4].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
-                                detayListe[4].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
-                                detayListe[4].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
-                                detayListe[4].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
-                                detayListe[4].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
-                                detayListe[4].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
-                            }
-                            else
-                            {
-                                detayListe[4].TXTURUNKOD = x.txtUrunKod;
-                                digerSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                digerSag[1] = x.txtTaban;
-                                digerSag[2] = x.txtKesit;
-                                digerSag[3] = x.txtCap;
-                                digerSag[4] = x.txtMevsim;
-                                digerSag[5] = x.txtDesen;
-                            }
-                        }
-
-                        if (x.txtLastikYon == "Diğer Sol 1")
-                        {
-                            detayListe[5].bytUrunTip = (x.lngUrunTip == 1) ? false : true;
-                            detayListe[5].BYTDURUM = x.bytDurum;
-                            detayListe[5].BYTHAVUZDA = x.bytHavuzda;
-                            detayListe[5].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[5].DBLDISDERINLIGI = x.dblDisDerinligi;
-                            detayListe[5].LNGLASTIKDURUM = x.lngLastikDurum;
-                            detayListe[5].LNGDEPOSIRAKOD = x.lngDepoSiraKod;
-                            detayListe[5].LNGKOD = x.lngKod;
-                            detayListe[5].LNGLASTIKTIP = x.lngLastikTip;
-                            detayListe[5].LNGSAKLAMABASLIKKOD = saklamaBaslikRequest.LNGKOD;
-                            detayListe[5].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                            detayListe[5].LNGURUNTIP = x.lngUrunTip;
-                            detayListe[5].TXTACIKLAMA = x.txtAciklama;
-                            detayListe[5].TXTDOTFABRIKA = x.txtDotFabrika;
-                            detayListe[5].TXTDOTHAFTA = x.txtDotHafta;
-                            detayListe[5].TXTDOTURETIM = x.txtDotUretim;
-                            detayListe[5].TXTRAFKOLAYKOD = x.txtRafKolayKod;
-                            if (x.lngUrunTip == 2)
-                            {
-                                detayListe[5].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[5].kullaniciUrunBilgileri.BYTDURUM = 1;
-                                detayListe[5].kullaniciUrunBilgileri.LNGKOD = x.kullaniciUrunResponse.lngKod;
-                                detayListe[5].kullaniciUrunBilgileri.LNGLASTIKTIP = x.lngLastikTip;
-                                detayListe[5].kullaniciUrunBilgileri.LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                                detayListe[5].kullaniciUrunBilgileri.TXTCAP = x.kullaniciUrunResponse.txtCap;
-                                detayListe[5].kullaniciUrunBilgileri.TXTDESEN = x.kullaniciUrunResponse.txtDesen;
-                                detayListe[5].kullaniciUrunBilgileri.TXTKESIT = x.kullaniciUrunResponse.txtKesit;
-                                detayListe[5].kullaniciUrunBilgileri.TXTMARKA = x.kullaniciUrunResponse.txtMarka;
-                                detayListe[5].kullaniciUrunBilgileri.TXTMEVSIM = x.kullaniciUrunResponse.txtMevsim;
-                                detayListe[5].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
-                            }
-                            else
-                            {
-                                detayListe[5].TXTURUNKOD = x.txtUrunKod;
-                                digerSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                digerSol[1] = x.txtTaban;
-                                digerSol[2] = x.txtKesit;
-                                digerSol[3] = x.txtCap;
-                                digerSol[4] = x.txtMevsim;
-                                digerSol[5] = x.txtDesen;
-                            }
-                        }
+                    detayListe.ToList().ForEach(x =>
+                    {
+                        if (x.LNGKOD == null)
+                            x.BYTDURUM = 0;
                     });
-
                 }
                 else
                 {

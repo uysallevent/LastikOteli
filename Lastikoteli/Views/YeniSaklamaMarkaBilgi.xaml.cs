@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using Xfx;
 
 namespace Lastikoteli.Views
 {
@@ -82,9 +83,9 @@ namespace Lastikoteli.Views
 
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            var sw = (Switch)sender;
-            sw.SetBinding(Switch.IsToggledProperty, "detay.bytUrunTip");
-            if (sw.IsToggled)
+            var swUrunTip = (Switch)sender;
+            (BindingContext as YeniSaklamaMarkaBilgileriViewModel).detay.LNGURUNTIP = (swUrunTip.IsToggled) ? 2 : 1;
+            if (swUrunTip.IsToggled)
             {
                 stackBrisa.IsVisible = false;
                 stackBrisa.IsEnabled = false;
@@ -105,6 +106,48 @@ namespace Lastikoteli.Views
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
             PopupNavigation.PushAsync(new DepoSecimPopUpPage());
+        }
+
+        private void isOtl_Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            var swOTL = (Switch)sender;
+            if (BindingContext != null)
+                (BindingContext as YeniSaklamaMarkaBilgileriViewModel).detay.ISOTL = (swOTL.IsToggled) ? 1 : 0;
+        }
+
+        private void bytDurum_Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            var swOTL = (Switch)sender;
+            if (BindingContext != null)
+                (BindingContext as YeniSaklamaMarkaBilgileriViewModel).detay.BYTDURUM = (swOTL.IsToggled) ? 1 : 0;
+        }
+
+        private void uretim_XfxEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var entryUretim = (XfxEntry)sender;
+            if (BindingContext != null)
+                (BindingContext as YeniSaklamaMarkaBilgileriViewModel).detay.TXTDOTURETIM = entryUretim.Text;
+        }
+
+        private void fabrika_XfxEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var entryFabrika = (XfxEntry)sender;
+            if (BindingContext != null)
+                (BindingContext as YeniSaklamaMarkaBilgileriViewModel).detay.TXTDOTFABRIKA = entryFabrika.Text;
+        }
+
+        private void hafta_XfxEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var entryHafta = (XfxEntry)sender;
+            if (BindingContext != null)
+                (BindingContext as YeniSaklamaMarkaBilgileriViewModel).detay.TXTDOTHAFTA = entryHafta.Text;
+        }
+
+        private void disDerinligi_XfxEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var entryDD = (XfxEntry)sender;
+            if (BindingContext != null)
+                (BindingContext as YeniSaklamaMarkaBilgileriViewModel).detay.txtDisDerinligi = entryDD.Text;
         }
     }
 }

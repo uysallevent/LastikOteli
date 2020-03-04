@@ -476,12 +476,12 @@ namespace Lastikoteli.ViewModels
                     if ((lngLastikYon == 2 && tumunuEsitle) || lngLastikYon == i + 1)
                     {
                         detayListe[i].bytUrunTip = _detay.bytUrunTip;
-                        detayListe[i].DBLDISDERINLIGI = _detay.DBLDISDERINLIGI;
+                        detayListe[i].txtDisDerinligi = _detay.txtDisDerinligi;//Model içerisinde string alınan alan dblDisDerinligi alanına parsa ediliyor
                         detayListe[i].LNGDEPOSIRAKOD = _detay.LNGDEPOSIRAKOD;
                         detayListe[i].LNGLASTIKDURUM = (_detay.ISOTL == 0) ? 1 : 3; //1 lastiğin saklamada olma durumu. 3 lastiğin ÖTL olma durumu
                         detayListe[i].LNGLASTIKTIP = i + 1;
                         detayListe[i].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                        detayListe[i].LNGURUNTIP = _detay.LNGURUNTIP;
+                        detayListe[i].LNGURUNTIP = (_detay.bytUrunTip) ? 2 : 1;
                         detayListe[i].TXTRAFKOLAYKOD = _detay.TXTRAFKOLAYKOD;
                         detayListe[i].TXTDOTFABRIKA = _detay.TXTDOTFABRIKA;
                         detayListe[i].TXTDOTHAFTA = _detay.TXTDOTHAFTA;
@@ -549,6 +549,7 @@ namespace Lastikoteli.ViewModels
         }
         #endregion
 
+
         #region SeciliMarkaIndexler
         public string[] onSol { get; set; }
         public string[] onSag { get; set; }
@@ -612,7 +613,6 @@ namespace Lastikoteli.ViewModels
             {
                 DependencyService.Get<IToastService>().ToastMessage($"Hafta bilgisi 4 karakter olmalıdır");
                 detay.TXTDOTHAFTA = null;
-                OnPropertyChanged("detay");
             }
         }
 
@@ -749,13 +749,6 @@ namespace Lastikoteli.ViewModels
                 });
                 saklamaBaslikRequest.Tblsaklamadetay = detayListe.Where(x => x.BYTDURUM == 1).ToList();
 
-                var validationresult = saklamayaAlValidator.Validate(saklamaBaslikRequest);
-                if (!validationresult.IsValid)
-                {
-
-                    await App.Current.MainPage.DisplayAlert("Uyarı", $"{String.Join("", validationresult.Errors.Select(x => "- " + x.ErrorMessage + Environment.NewLine).Distinct())}", "Tamam");
-                    return;
-                }
 
                 if (MuhtelifKayitKontrol(saklamaBaslikRequest))
                 {
@@ -769,6 +762,15 @@ namespace Lastikoteli.ViewModels
                     else
                         return;
                 }
+
+                var validationresult = saklamayaAlValidator.Validate(saklamaBaslikRequest);
+                if (!validationresult.IsValid)
+                {
+
+                    await App.Current.MainPage.DisplayAlert("Uyarı", $"{String.Join("", validationresult.Errors.Select(x => "- " + x.ErrorMessage + Environment.NewLine).Distinct())}", "Tamam");
+                    return;
+                }
+
 
 
                 if (IsBusy)
@@ -810,42 +812,91 @@ namespace Lastikoteli.ViewModels
         private void secilenLastik(object x)
         {
             tumunuEsitle = false;
+            var oncekiLastikYon = lngLastikYon;
             lngLastikYon = Convert.ToInt32(x);
-            detay = detayListe[lngLastikYon - 1];
-            if (lngLastikYon == 1)
+
+            //devam butonu ile yada marka bilgiler güncelleme sayfası görünür olduğunda yön ürün kodu kontrolüne takılmaması için 0 gönderiliyor.0 olma durumu 2 olma durumu ile aynıdır
+            if (lngLastikYon == 0)
             {
                 if (!string.IsNullOrEmpty(onSol[0]))
                     Device.BeginInvokeOnMainThread(async () =>
-                {
-                    tumunuEsitle = false;
-
-                    for (int i = 0; i < onSag.Length; i++)
                     {
-                        markaBilgiReuqest.txtDesen = (i == 5) ? onSag[5] : "";
-                        markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSag[4] : "";
-                        markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSag[3] : "";
-                        markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSag[2] : "";
-                        markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[1] : "";
-                        markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[0] : "";
-                        IsBusy = false;
-                        await MarkaBilgiGetirAsync();
+                        tumunuEsitle = false;
+                        for (int i = 0; i < onSol.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? onSol[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSol[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSol[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSol[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[0] : "";
 
-                        if (i == 0)
-                            selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSag[i]));
-                        if (i == 1)
-                            selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSag[i]));
-                        if (i == 2)
-                            selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSag[i]));
-                        if (i == 3)
-                            selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSag[i]));
-                        if (i == 4)
-                            selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSag[i]));
-                        if (i == 5)
-                            selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSag[i]));
-                    }
-                    tumunuEsitle = true;
-                });
-                else
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
+
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+                {
+                    selectedMarkaIndex = -1;
+                    selectedTabanIndex = -1;
+                    selectedKesitIndex = -1;
+                    selectedCapIndex = -1;
+                    selectedMevsimIndex = -1;
+                    selectedDesenIndex = -1;
+                }
+
+                lngLastikYon = 2;
+            }
+            detay = detayListe[lngLastikYon - 1];
+
+            if (lngLastikYon == 1)
+            {
+                if (!string.IsNullOrEmpty(onSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        tumunuEsitle = false;
+
+                        for (int i = 0; i < onSag.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? onSag[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSag[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSag[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSag[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSag[0] : "";
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
+
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSag[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSag[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSag[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSag[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSag[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSag[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -858,38 +909,38 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 2)
             {
-                if (!string.IsNullOrEmpty(onSol[0]))
+                if (!string.IsNullOrEmpty(onSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
-                {
-                    tumunuEsitle = false;
-                    for (int i = 0; i < onSol.Length; i++)
                     {
-                        markaBilgiReuqest.txtDesen = (i == 5) ? onSol[5] : "";
-                        markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSol[4] : "";
-                        markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSol[3] : "";
-                        markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSol[2] : "";
-                        markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[1] : "";
-                        markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[0] : "";
+                        tumunuEsitle = false;
+                        for (int i = 0; i < onSol.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? onSol[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSol[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSol[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSol[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[0] : "";
 
-                        IsBusy = false;
-                        await MarkaBilgiGetirAsync();
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
 
-                        if (i == 0)
-                            selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
-                        if (i == 1)
-                            selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
-                        if (i == 2)
-                            selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
-                        if (i == 3)
-                            selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
-                        if (i == 4)
-                            selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
-                        if (i == 5)
-                            selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
-                    }
-                    tumunuEsitle = true;
-                });
-                else
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -902,38 +953,38 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 3)
             {
-                if (!string.IsNullOrEmpty(arkaSag[0]))
+                if (!string.IsNullOrEmpty(arkaSag[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
-                {
-                    tumunuEsitle = false;
-                    for (int i = 0; i < arkaSag.Length; i++)
                     {
-                        markaBilgiReuqest.txtDesen = (i == 5) ? arkaSag[5] : "";
-                        markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? arkaSag[4] : "";
-                        markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? arkaSag[3] : "";
-                        markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? arkaSag[2] : "";
-                        markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSag[1] : "";
-                        markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSag[0] : "";
+                        tumunuEsitle = false;
+                        for (int i = 0; i < arkaSag.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? arkaSag[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? arkaSag[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? arkaSag[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? arkaSag[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSag[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSag[0] : "";
 
-                        IsBusy = false;
-                        await MarkaBilgiGetirAsync();
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
 
-                        if (i == 0)
-                            selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == arkaSag[i]));
-                        if (i == 1)
-                            selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == arkaSag[i]));
-                        if (i == 2)
-                            selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == arkaSag[i]));
-                        if (i == 3)
-                            selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == arkaSag[i]));
-                        if (i == 4)
-                            selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == arkaSag[i]));
-                        if (i == 5)
-                            selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == arkaSag[i]));
-                    }
-                    tumunuEsitle = true;
-                });
-                else
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == arkaSag[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == arkaSag[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == arkaSag[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == arkaSag[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == arkaSag[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == arkaSag[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -946,38 +997,38 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 4)
             {
-                if (!string.IsNullOrEmpty(arkaSol[0]))
+                if (!string.IsNullOrEmpty(arkaSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
-                {
-                    tumunuEsitle = false;
-                    for (int i = 0; i < arkaSol.Length; i++)
                     {
-                        markaBilgiReuqest.txtDesen = (i == 5) ? arkaSol[5] : "";
-                        markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? arkaSol[4] : "";
-                        markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? arkaSol[3] : "";
-                        markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? arkaSol[2] : "";
-                        markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSol[1] : "";
-                        markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSol[0] : "";
+                        tumunuEsitle = false;
+                        for (int i = 0; i < arkaSol.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? arkaSol[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? arkaSol[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? arkaSol[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? arkaSol[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSol[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? arkaSol[0] : "";
 
-                        IsBusy = false;
-                        await MarkaBilgiGetirAsync();
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
 
-                        if (i == 0)
-                            selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == arkaSol[i]));
-                        if (i == 1)
-                            selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == arkaSol[i]));
-                        if (i == 2)
-                            selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == arkaSol[i]));
-                        if (i == 3)
-                            selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == arkaSol[i]));
-                        if (i == 4)
-                            selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == arkaSol[i]));
-                        if (i == 5)
-                            selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == arkaSol[i]));
-                    }
-                    tumunuEsitle = true;
-                });
-                else
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == arkaSol[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == arkaSol[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == arkaSol[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == arkaSol[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == arkaSol[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == arkaSol[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -990,38 +1041,38 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 5)
             {
-                if (!string.IsNullOrEmpty(digerSag[0]))
+                if (!string.IsNullOrEmpty(digerSag[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
-                {
-                    tumunuEsitle = false;
-                    for (int i = 0; i < digerSag.Length; i++)
                     {
-                        markaBilgiReuqest.txtDesen = (i == 5) ? digerSag[5] : "";
-                        markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? digerSag[4] : "";
-                        markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? digerSag[3] : "";
-                        markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? digerSag[2] : "";
-                        markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? digerSag[1] : "";
-                        markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? digerSag[0] : "";
+                        tumunuEsitle = false;
+                        for (int i = 0; i < digerSag.Length; i++)
+                        {
+                            markaBilgiReuqest.txtDesen = (i == 5) ? digerSag[5] : "";
+                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? digerSag[4] : "";
+                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? digerSag[3] : "";
+                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? digerSag[2] : "";
+                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? digerSag[1] : "";
+                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? digerSag[0] : "";
 
-                        IsBusy = false;
-                        await MarkaBilgiGetirAsync();
+                            IsBusy = false;
+                            await MarkaBilgiGetirAsync();
 
-                        if (i == 0)
-                            selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == digerSag[i]));
-                        if (i == 1)
-                            selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == digerSag[i]));
-                        if (i == 2)
-                            selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == digerSag[i]));
-                        if (i == 3)
-                            selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == digerSag[i]));
-                        if (i == 4)
-                            selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == digerSag[i]));
-                        if (i == 5)
-                            selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == digerSag[i]));
-                    }
-                    tumunuEsitle = true;
-                });
-                else
+                            if (i == 0)
+                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == digerSag[i]));
+                            if (i == 1)
+                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == digerSag[i]));
+                            if (i == 2)
+                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == digerSag[i]));
+                            if (i == 3)
+                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == digerSag[i]));
+                            if (i == 4)
+                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == digerSag[i]));
+                            if (i == 5)
+                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == digerSag[i]));
+                        }
+                        tumunuEsitle = true;
+                    });
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
@@ -1034,7 +1085,7 @@ namespace Lastikoteli.ViewModels
 
             if (lngLastikYon == 6)
             {
-                if (!string.IsNullOrEmpty(digerSol[0]))
+                if (!string.IsNullOrEmpty(digerSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         tumunuEsitle = false;
@@ -1065,7 +1116,7 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
-                else
+                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
                     selectedTabanIndex = -1;
