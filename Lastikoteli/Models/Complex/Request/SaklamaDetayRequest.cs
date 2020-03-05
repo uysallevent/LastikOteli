@@ -45,12 +45,9 @@ namespace Lastikoteli.Models.Complex.Request
                 if (value != null)
                 {
                     decimal dblDisDer = 0;
-                    var kontrol = decimal.TryParse(_txtDisDerinligi.Replace(",", "."), out dblDisDer);
+                    var kontrol = decimal.TryParse(_txtDisDerinligi.Replace(".", ","), out dblDisDer);
                     if (kontrol)
-                    {
                         DBLDISDERINLIGI = dblDisDer;
-                        DBLDISDERINLIGI = dblDisDer;
-                    }
                     else
                         DBLDISDERINLIGI = 0;
                 }

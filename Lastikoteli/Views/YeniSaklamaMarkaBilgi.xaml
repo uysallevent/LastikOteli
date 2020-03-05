@@ -81,7 +81,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Text="Brisa" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
-                            <Switch Grid.Column="1"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent"  Toggled="Switch_Toggled" />
+                            <Switch Grid.Column="1"  OnColor="LightGray" ThumbColor="Black"  BackgroundColor="Transparent" IsToggled="{Binding detay.bytUrunTip,Mode=TwoWay}" Toggled="Switch_Toggled" />
                             <Label Grid.Column="2" Text="Diğer" TextColor="Black" VerticalTextAlignment="Center" FontFamily="{StaticResource NotoSansBold}" FontAttributes="Bold"/>
                         </Grid>
                     </Frame>

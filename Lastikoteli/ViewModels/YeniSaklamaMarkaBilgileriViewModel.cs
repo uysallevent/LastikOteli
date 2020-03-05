@@ -481,7 +481,7 @@ namespace Lastikoteli.ViewModels
                         detayListe[i].LNGLASTIKDURUM = (_detay.ISOTL == 0) ? 1 : 3; //1 lastiğin saklamada olma durumu. 3 lastiğin ÖTL olma durumu
                         detayListe[i].LNGLASTIKTIP = i + 1;
                         detayListe[i].LNGSONISLEMYAPANKULLANICI = App.sessionInfo.lngPanKulKod;
-                        detayListe[i].LNGURUNTIP = (_detay.bytUrunTip) ? 2 : 1;
+                        detayListe[i].LNGURUNTIP = _detay.LNGURUNTIP;
                         detayListe[i].TXTRAFKOLAYKOD = _detay.TXTRAFKOLAYKOD;
                         detayListe[i].TXTDOTFABRIKA = _detay.TXTDOTFABRIKA;
                         detayListe[i].TXTDOTHAFTA = _detay.TXTDOTHAFTA;
@@ -491,7 +491,6 @@ namespace Lastikoteli.ViewModels
                             detayListe[i].TXTURUNKOD = _detay.TXTURUNKOD;
                         else
                         {
-                            detayListe[i].TXTURUNKOD = null;
                             detayListe[i].kullaniciUrunBilgileri.TXTMARKA = _detay.kullaniciUrunBilgileri.TXTMARKA;
                             detayListe[i].kullaniciUrunBilgileri.TXTTABAN = _detay.kullaniciUrunBilgileri.TXTTABAN;
                             detayListe[i].kullaniciUrunBilgileri.TXTKESIT = _detay.kullaniciUrunBilgileri.TXTKESIT;
@@ -613,6 +612,7 @@ namespace Lastikoteli.ViewModels
             {
                 DependencyService.Get<IToastService>().ToastMessage($"Hafta bilgisi 4 karakter olmalıdır");
                 detay.TXTDOTHAFTA = null;
+                OnPropertyChanged("detay");
             }
         }
 
@@ -722,6 +722,7 @@ namespace Lastikoteli.ViewModels
                 {
                     detay.TXTRAFKOLAYKOD = null;
                     detay.LNGDEPOSIRAKOD = null;
+                    OnPropertyChanged("detay");
                     await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
                 }
 
@@ -741,14 +742,15 @@ namespace Lastikoteli.ViewModels
         {
             try
             {
-
                 detayListe.ToList().ForEach(x =>
                 {
                     if (x.LNGURUNTIP == 1)
                         x.kullaniciUrunBilgileri = null;
+                    else
+                        x.TXTURUNKOD = null;
+
                 });
                 saklamaBaslikRequest.Tblsaklamadetay = detayListe.Where(x => x.BYTDURUM == 1).ToList();
-
 
                 if (MuhtelifKayitKontrol(saklamaBaslikRequest))
                 {
@@ -766,12 +768,9 @@ namespace Lastikoteli.ViewModels
                 var validationresult = saklamayaAlValidator.Validate(saklamaBaslikRequest);
                 if (!validationresult.IsValid)
                 {
-
                     await App.Current.MainPage.DisplayAlert("Uyarı", $"{String.Join("", validationresult.Errors.Select(x => "- " + x.ErrorMessage + Environment.NewLine).Distinct())}", "Tamam");
                     return;
                 }
-
-
 
                 if (IsBusy)
                     return;
@@ -784,6 +783,7 @@ namespace Lastikoteli.ViewModels
                     await App.Current.MainPage.DisplayAlert("Uyarı", $"Lastikler {result.Result} saklama kodu ile kaydedilmiştir", "Tamam");
 
                     Initializer();
+                    IsBusy = false;
                     MarkaBilgiGetirCommand.Execute(true);
 
                     MessagingCenter.Send(this, "tabPageBack");
@@ -805,7 +805,6 @@ namespace Lastikoteli.ViewModels
             {
 
                 IsBusy = false;
-
             }
         }
 
@@ -1143,7 +1142,7 @@ namespace Lastikoteli.ViewModels
                 IsBusy = true;
 
                 decimal dblIstenenDisDer;
-                var bytDisDerinligi = decimal.TryParse(x.ToString(), out dblIstenenDisDer);
+                var bytDisDerinligi = decimal.TryParse(x.ToString().Replace(".",","), out dblIstenenDisDer);
                 if (dblDisDerinligi > 0)
                 {
                     if (bytDisDerinligi && (dblIstenenDisDer < dblDisDerinligi))
@@ -1327,13 +1326,13 @@ namespace Lastikoteli.ViewModels
 
             if (request.Tblsaklamadetay.Any(x => x.kullaniciUrunBilgileri != null))
             {
-                kullaniciUrunKontrol = request.Tblsaklamadetay.Any(x =>
-             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTMARKA) &&
-             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTTABAN) &&
-             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTKESIT) &&
-             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTCAP) &&
-             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTMEVSIM) &&
-             !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTDESEN)
+                kullaniciUrunKontrol = request.Tblsaklamadetay.Where(x => x.kullaniciUrunBilgileri != null).Any(x =>
+                 !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTMARKA) &&
+                 !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTTABAN) &&
+                 !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTKESIT) &&
+                 !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTCAP) &&
+                 !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTMEVSIM) &&
+                 !string.IsNullOrEmpty(x.kullaniciUrunBilgileri.TXTDESEN)
             );
             }
 

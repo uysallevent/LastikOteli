@@ -65,7 +65,7 @@
                 </Grid>
             </ScrollView>
             <!--<customControl:CustomButton Grid.Row="8" Text="LASTİKLERİ ÖNCEKİ SAKLAMADAN GETİR" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="DarkOrange" TextColor="Black" Command="{Binding Source={x:Reference PageYeniSaklamaPlakaBilgi}, Path=BindingContext.AracUzerindekilerCommand}" CommandParameter="{}"/>-->
-            <customControl:CustomButton Grid.Row="1" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked"/>
+            <customControl:CustomButton Grid.Row="1" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked"/>
         </Grid>
         <loadingView:LoadingView />
     </Grid>

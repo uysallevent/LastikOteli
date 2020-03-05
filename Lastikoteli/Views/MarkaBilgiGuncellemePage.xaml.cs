@@ -82,6 +82,7 @@ namespace Lastikoteli.Views
         private void urunTip_Switch_Toggled(object sender, ToggledEventArgs e)
         {
             var swUrunTip = (Switch)sender;
+            (BindingContext as SaklamaMarkaBilgiGuncelleme).detay.bytUrunTip = swUrunTip.IsToggled;
             (BindingContext as SaklamaMarkaBilgiGuncelleme).detay.LNGURUNTIP = (swUrunTip.IsToggled) ? 2 : 1;
 
             if (swUrunTip.IsToggled)

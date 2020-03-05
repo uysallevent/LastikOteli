@@ -11,8 +11,10 @@ namespace Lastikoteli.Models.Validator.FluentValidation
     {
         public TblsaklamaDetayRequestValidator()
         {
-            RuleFor(x => x.TXTURUNKOD).NotEmpty().WithMessage(Messages.urunNotEmpty);
-            RuleFor(x => x.TXTURUNKOD).NotNull().WithMessage(Messages.urunNotEmpty);
+            RuleFor(x => x.TXTURUNKOD).NotEmpty().When(x => x.kullaniciUrunBilgileri == null).WithMessage(Messages.urunNotEmpty);
+            RuleFor(x => x.TXTURUNKOD).NotNull().When(x => x.kullaniciUrunBilgileri == null).WithMessage(Messages.urunNotEmpty);
+
+            RuleFor(x => x.kullaniciUrunBilgileri).NotNull().When(x => string.IsNullOrEmpty(x.TXTURUNKOD)).WithMessage(Messages.urunNotEmpty);
 
             RuleFor(x => x.DBLDISDERINLIGI).NotEmpty().WithMessage(Messages.disDerinligiNotEmpty).Must(DisDerinligiKontrol).WithMessage(Messages.disDerinligiNotEmpty);
             RuleFor(x => x.DBLDISDERINLIGI).NotNull().WithMessage(Messages.disDerinligiNotEmpty).Must(DisDerinligiKontrol).WithMessage(Messages.disDerinligiNotEmpty);

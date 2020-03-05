@@ -56,6 +56,11 @@ namespace Lastikoteli.ViewModels
 
         private async Task GotoMainPage()
         {
+            if (string.IsNullOrEmpty(loginRequest.kullaniciAd) || string.IsNullOrEmpty(loginRequest.sifre))
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", "Kullanıcı adı ve şifre alanlarını doldurunuz", "Tamam");
+                return;
+            }
             if (IsBusy)
                 return;
 

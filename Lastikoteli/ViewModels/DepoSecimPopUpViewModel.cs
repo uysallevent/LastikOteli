@@ -44,7 +44,7 @@ namespace Lastikoteli.ViewModels
                     if (selectedDepoBilgi.lngDepoSira == 5)
                     {
                         MessagingCenter.Send(this, "selectedRaf", _selectedDepo);
-                        Device.BeginInvokeOnMainThread(async()=>await PopupNavigation.PopAsync(true));
+                        Device.BeginInvokeOnMainThread(async () => await PopupNavigation.PopAsync(true));
                         return;
                     }
 
@@ -83,63 +83,67 @@ namespace Lastikoteli.ViewModels
             depoSira.Add(0);
             depoSira.Add(0);
             selectedDepoBilgi = new DepoDizilimRequest() { lngDistKod = App.sessionInfo.lngDistkod, lngDepoSira = 1 };
-            DepoBilgileriGetirCommand = new Command(async () => await DepoBilgileriGetirAsync());
-            BackGestureCommand = new Command(async () => await BackGestureAsync());
+            DepoBilgileriGetirCommand = new Command(() => DepoBilgileriGetirAsync());
+            BackGestureCommand = new Command(() => BackGestureAsync());
             DepoBilgileriGetirCommand.Execute(true);
 
         }
 
-        private async Task BackGestureAsync()
+        private void BackGestureAsync()
         {
             if (selectedDepoBilgi.lngDepoSira > 1 && selectedDepoBilgi.lngDepoSira <= 5)
             {
                 selectedDepoBilgi.lngDepoSira -= 1;
                 if (selectedDepoBilgi.lngDepoSira > 1)
                     selectedDepoBilgi.lngKod = depoSira[selectedDepoBilgi.lngDepoSira - 2];
-                await DepoBilgileriGetirAsync();
+                DepoBilgileriGetirAsync();
             }
             else
                 DependencyService.Get<IToastService>().ToastMessage("Depo'dan daha geriye gidemezsiniz");
         }
 
-        private async Task DepoBilgileriGetirAsync()
+        private void DepoBilgileriGetirAsync()
         {
-            try
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                if (IsBusy)
-                    return;
-
-                IsBusy = true;
-
-
-                var result = await DepoService.DepoBilgiGetir(selectedDepoBilgi);
-                if (result.StatusCode != 500)
+                try
                 {
-                    depoBilgiList = new ObservableCollection<DepoDizilimResponse>(result.Result);
-                    if (selectedDepoBilgi.lngDepoSira == 2)
-                        depoSira[0] = selectedDepoBilgi.lngKod ?? 0;
-                    if (selectedDepoBilgi.lngDepoSira == 3)
-                        depoSira[1] = selectedDepoBilgi.lngKod ?? 0;
-                    if (selectedDepoBilgi.lngDepoSira == 4)
-                        depoSira[2] = selectedDepoBilgi.lngKod ?? 0;
-                    if (selectedDepoBilgi.lngDepoSira == 5)
-                        depoSira[3] = selectedDepoBilgi.lngKod ?? 0;
-                }
-                else
-                {
-                    depoBilgiList = new ObservableCollection<DepoDizilimResponse>();
-                    await this.Page.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
-                }
+                    if (IsBusy)
+                        return;
 
-            }
-            catch (Exception ex)
-            {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                    IsBusy = true;
+
+
+                    var result = await DepoService.DepoBilgiGetir(selectedDepoBilgi);
+                    if (result.StatusCode != 500)
+                    {
+                        depoBilgiList = new ObservableCollection<DepoDizilimResponse>(result.Result);
+                        if (selectedDepoBilgi.lngDepoSira == 2)
+                            depoSira[0] = selectedDepoBilgi.lngKod ?? 0;
+                        if (selectedDepoBilgi.lngDepoSira == 3)
+                            depoSira[1] = selectedDepoBilgi.lngKod ?? 0;
+                        if (selectedDepoBilgi.lngDepoSira == 4)
+                            depoSira[2] = selectedDepoBilgi.lngKod ?? 0;
+                        if (selectedDepoBilgi.lngDepoSira == 5)
+                            depoSira[3] = selectedDepoBilgi.lngKod ?? 0;
+                    }
+                    else
+                    {
+                        depoBilgiList = new ObservableCollection<DepoDizilimResponse>();
+                        await this.Page.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            });
+
         }
     }
 }
