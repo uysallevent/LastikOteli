@@ -543,7 +543,7 @@ namespace Lastikoteli.ViewModels
 
         private void DevamButonuAsync()
         {
-            secilenLastik(0);
+            secilenLastik(2);
         }
 
         private void secilenLastik(object x)
@@ -553,51 +553,51 @@ namespace Lastikoteli.ViewModels
             lngLastikYon = Convert.ToInt32(x);
 
             //devam butonu ile yada marka bilgiler güncelleme sayfası görünür olduğunda yön ürün kodu kontrolüne takılmaması için 0 gönderiliyor.0 olma durumu 2 olma durumu ile aynıdır
-            if (lngLastikYon == 0)
-            {
-                if (!string.IsNullOrEmpty(onSol[0]))
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        tumunuEsitle = false;
-                        for (int i = 0; i < onSol.Length; i++)
-                        {
-                            markaBilgiReuqest.txtDesen = (i == 5) ? onSol[5] : "";
-                            markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSol[4] : "";
-                            markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSol[3] : "";
-                            markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSol[2] : "";
-                            markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[1] : "";
-                            markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[0] : "";
+            //if (lngLastikYon == 0)
+            //{
+            //    if (!string.IsNullOrEmpty(onSol[0]) && detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+            //        Device.BeginInvokeOnMainThread(async () =>
+            //        {
+            //            tumunuEsitle = false;
+            //            for (int i = 0; i < onSol.Length; i++)
+            //            {
+            //                markaBilgiReuqest.txtDesen = (i == 5) ? onSol[5] : "";
+            //                markaBilgiReuqest.txtMevsim = (i == 4 || i == 5) ? onSol[4] : "";
+            //                markaBilgiReuqest.txtCap = (i == 3 || i == 4 || i == 5) ? onSol[3] : "";
+            //                markaBilgiReuqest.txtKesit = (i == 2 || i == 3 || i == 4 || i == 5) ? onSol[2] : "";
+            //                markaBilgiReuqest.txtTaban = (i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[1] : "";
+            //                markaBilgiReuqest.txtMarka = (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5) ? onSol[0] : "";
 
-                            IsBusy = false;
-                            await MarkaBilgiGetirAsync();
+            //                IsBusy = false;
+            //                await MarkaBilgiGetirAsync();
 
-                            if (i == 0)
-                                selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
-                            if (i == 1)
-                                selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
-                            if (i == 2)
-                                selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
-                            if (i == 3)
-                                selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
-                            if (i == 4)
-                                selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
-                            if (i == 5)
-                                selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
-                        }
-                        tumunuEsitle = true;
-                    });
-                else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
-                {
-                    selectedMarkaIndex = -1;
-                    selectedTabanIndex = -1;
-                    selectedKesitIndex = -1;
-                    selectedCapIndex = -1;
-                    selectedMevsimIndex = -1;
-                    selectedDesenIndex = -1;
-                }
+            //                if (i == 0)
+            //                    selectedMarkaIndex = lastikBilgileri.markaListe.IndexOf(lastikBilgileri.markaListe.FirstOrDefault(y => y.txtMarka == onSol[i]));
+            //                if (i == 1)
+            //                    selectedTabanIndex = lastikBilgileri.tabanListe.IndexOf(lastikBilgileri.tabanListe.FirstOrDefault(y => y.txtTaban == onSol[i]));
+            //                if (i == 2)
+            //                    selectedKesitIndex = lastikBilgileri.kesitListe.IndexOf(lastikBilgileri.kesitListe.FirstOrDefault(y => y.txtKesit == onSol[i]));
+            //                if (i == 3)
+            //                    selectedCapIndex = lastikBilgileri.capListe.IndexOf(lastikBilgileri.capListe.FirstOrDefault(y => y.txtCap == onSol[i]));
+            //                if (i == 4)
+            //                    selectedMevsimIndex = lastikBilgileri.mevsimListe.IndexOf(lastikBilgileri.mevsimListe.FirstOrDefault(y => y.txtMevsim == onSol[i]));
+            //                if (i == 5)
+            //                    selectedDesenIndex = lastikBilgileri.desenListe.IndexOf(lastikBilgileri.desenListe.FirstOrDefault(y => y.txtDesen == onSol[i]));
+            //            }
+            //            tumunuEsitle = true;
+            //        });
+            //    else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
+            //    {
+            //        selectedMarkaIndex = -1;
+            //        selectedTabanIndex = -1;
+            //        selectedKesitIndex = -1;
+            //        selectedCapIndex = -1;
+            //        selectedMevsimIndex = -1;
+            //        selectedDesenIndex = -1;
+            //    }
 
-                lngLastikYon = 2;
-            }
+            //    lngLastikYon = 2;
+            //}
             detay = detayListe[lngLastikYon - 1];
 
             if (lngLastikYon == 1)
@@ -896,6 +896,11 @@ namespace Lastikoteli.ViewModels
                 if (result.StatusCode != 500 && result.Result != null)
                 {
                     await App.Current.MainPage.DisplayAlert("Uyarı", "Kayıt güncelleme işlemi başarılı", "Tamam");
+
+                    var soru = await App.Current.MainPage.DisplayAlert("Uyarı", "Lastik etiketi yazdırmak istermisiniz ?", "Evet", "Hayır");
+                    if (soru)
+                        await YazdirAsync(saklamaBaslikRequest.LNGKOD ?? 0);
+
                     await _navigation.PopAsync();
                 }
                 else
@@ -914,7 +919,8 @@ namespace Lastikoteli.ViewModels
 
         private async Task gotoMusteriAraPopUpAsync()
         {
-            await PopupNavigation.PushAsync(new MusteriAraPopUpPage());
+            await _doubleClickControl.PopUpPushAsync(new MusteriAraPopUpPage());
+            //await PopupNavigation.PushAsync(new MusteriAraPopUpPage());
         }
 
         public void Initializer()
@@ -1013,15 +1019,15 @@ namespace Lastikoteli.ViewModels
                                     detayListe[0].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                                 }
                                 else
-                                {
                                     detayListe[0].TXTURUNKOD = x.txtUrunKod;
-                                    onSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                    onSag[1] = x.txtTaban;
-                                    onSag[2] = x.txtKesit;
-                                    onSag[3] = x.txtCap;
-                                    onSag[4] = x.txtMevsim;
-                                    onSag[5] = x.txtDesen;
-                                }
+
+                                onSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                onSag[1] = x.txtTaban;
+                                onSag[2] = x.txtKesit;
+                                onSag[3] = x.txtCap;
+                                onSag[4] = x.txtMevsim;
+                                onSag[5] = x.txtDesen;
+
                                 break;
                             case "Ön Sol":
                                 detayListe[1].ISOTL = (x.bytOtl) ? 1 : 0;
@@ -1057,15 +1063,14 @@ namespace Lastikoteli.ViewModels
                                     detayListe[1].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                                 }
                                 else
-                                {
                                     detayListe[1].TXTURUNKOD = x.txtUrunKod;
-                                    onSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                    onSol[1] = x.txtTaban;
-                                    onSol[2] = x.txtKesit;
-                                    onSol[3] = x.txtCap;
-                                    onSol[4] = x.txtMevsim;
-                                    onSol[5] = x.txtDesen;
-                                }
+
+                                onSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                onSol[1] = x.txtTaban;
+                                onSol[2] = x.txtKesit;
+                                onSol[3] = x.txtCap;
+                                onSol[4] = x.txtMevsim;
+                                onSol[5] = x.txtDesen;
                                 break;
                             case "Arka Sağ":
                                 detayListe[2].ISOTL = (x.bytOtl) ? 1 : 0;
@@ -1101,15 +1106,14 @@ namespace Lastikoteli.ViewModels
                                     detayListe[2].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                                 }
                                 else
-                                {
                                     detayListe[2].TXTURUNKOD = x.txtUrunKod;
-                                    arkaSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                    arkaSag[1] = x.txtTaban;
-                                    arkaSag[2] = x.txtKesit;
-                                    arkaSag[3] = x.txtCap;
-                                    arkaSag[4] = x.txtMevsim;
-                                    arkaSag[5] = x.txtDesen;
-                                }
+
+                                arkaSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                arkaSag[1] = x.txtTaban;
+                                arkaSag[2] = x.txtKesit;
+                                arkaSag[3] = x.txtCap;
+                                arkaSag[4] = x.txtMevsim;
+                                arkaSag[5] = x.txtDesen;
                                 break;
                             case "Arka Sol":
                                 detayListe[3].ISOTL = (x.bytOtl) ? 1 : 0;
@@ -1145,15 +1149,14 @@ namespace Lastikoteli.ViewModels
                                     detayListe[3].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                                 }
                                 else
-                                {
                                     detayListe[3].TXTURUNKOD = x.txtUrunKod;
-                                    arkaSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                    arkaSol[1] = x.txtTaban;
-                                    arkaSol[2] = x.txtKesit;
-                                    arkaSol[3] = x.txtCap;
-                                    arkaSol[4] = x.txtMevsim;
-                                    arkaSol[5] = x.txtDesen;
-                                }
+
+                                arkaSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                arkaSol[1] = x.txtTaban;
+                                arkaSol[2] = x.txtKesit;
+                                arkaSol[3] = x.txtCap;
+                                arkaSol[4] = x.txtMevsim;
+                                arkaSol[5] = x.txtDesen;
                                 break;
                             case "Diğer Sağ 1":
                                 detayListe[4].ISOTL = (x.bytOtl) ? 1 : 0;
@@ -1189,15 +1192,14 @@ namespace Lastikoteli.ViewModels
                                     detayListe[4].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                                 }
                                 else
-                                {
                                     detayListe[4].TXTURUNKOD = x.txtUrunKod;
-                                    digerSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                    digerSag[1] = x.txtTaban;
-                                    digerSag[2] = x.txtKesit;
-                                    digerSag[3] = x.txtCap;
-                                    digerSag[4] = x.txtMevsim;
-                                    digerSag[5] = x.txtDesen;
-                                }
+ 
+                                digerSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                digerSag[1] = x.txtTaban;
+                                digerSag[2] = x.txtKesit;
+                                digerSag[3] = x.txtCap;
+                                digerSag[4] = x.txtMevsim;
+                                digerSag[5] = x.txtDesen;
                                 break;
                             case "Diğer Sol 1":
                                 detayListe[5].ISOTL = (x.bytOtl) ? 1 : 0;
@@ -1233,15 +1235,13 @@ namespace Lastikoteli.ViewModels
                                     detayListe[5].kullaniciUrunBilgileri.TXTTABAN = x.kullaniciUrunResponse.txtTaban;
                                 }
                                 else
-                                {
                                     detayListe[5].TXTURUNKOD = x.txtUrunKod;
-                                    digerSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
-                                    digerSol[1] = x.txtTaban;
-                                    digerSol[2] = x.txtKesit;
-                                    digerSol[3] = x.txtCap;
-                                    digerSol[4] = x.txtMevsim;
-                                    digerSol[5] = x.txtDesen;
-                                }
+                                digerSol[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
+                                digerSol[1] = x.txtTaban;
+                                digerSol[2] = x.txtKesit;
+                                digerSol[3] = x.txtCap;
+                                digerSol[4] = x.txtMevsim;
+                                digerSol[5] = x.txtDesen;
                                 break;
                         }
                     }
@@ -1482,6 +1482,31 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+        private async Task YazdirAsync(int lngSaklamaKod)
+        {
+            try
+            {
+                var result = await ParametreService.DesenBilgileriGetir(new DesenRequest
+                {
+                    lngDistKod = App.sessionInfo.lngDistkod,
+                    lngSaklamaBaslik = lngSaklamaKod,
+                });
+
+                if (result.StatusCode != 500 && result.Result != null && result.Result.Count > 0)
+                    PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
+                    {
+                        lastikEtiketlerBilgi = result.Result.ToList(),
+                        siraKolayKodEtiketBilgileri = null
+                    }));
+                else
+                    await Page.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Sıra kolay kod desen bilgisi alınamadı", "Tamam");
+
+            }
+            catch (Exception)
+            {
+                await Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+            }
+        }
 
     }
 }

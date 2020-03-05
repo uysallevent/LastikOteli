@@ -573,6 +573,7 @@ namespace Lastikoteli.ViewModels
         {
             Initializer();
             _navigation = navigation;
+            _doubleClickControl = new DoubleClickControl(navigation);
             MarkaBilgiGetirCommand = new Command(async () => await MarkaBilgiGetirAsync());
             DisDerinligiKontrolCommand = new Command(async (x) => await DisDerinligiAsync(x));
             secilenLastikCommand = new Command((x) => secilenLastik(x));
@@ -1315,7 +1316,8 @@ namespace Lastikoteli.ViewModels
 
         private async Task GotoMusteriPopUpAsync()
         {
-            PopupNavigation.PushAsync(new MusteriAraPopUpPage());
+            await _doubleClickControl.PopUpPushAsync(new MusteriAraPopUpPage());
+            //PopupNavigation.PushAsync(new MusteriAraPopUpPage());
         }
 
         private bool MuhtelifKayitKontrol(SaklamaBaslikRequest request)

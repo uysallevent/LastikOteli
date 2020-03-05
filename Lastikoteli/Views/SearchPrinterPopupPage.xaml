@@ -9,7 +9,7 @@
              xmlns:customViews="clr-namespace:Lastikoteli.Helper"
              mc:Ignorable="d"
              x:Class="Lastikoteli.Views.SearchPrinterPopupPage"
-             BackgroundColor="Transparent" Padding="10">
+             BackgroundColor="Transparent" Padding="30">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
             PositionIn="Center"
@@ -36,6 +36,8 @@
                 <ListView 
                     Grid.Row="2"
                     IsRefreshing="{Binding IsBusy}"
+                    IsPullToRefreshEnabled="True"
+                    RefreshCommand="{Binding FindPrinterCommand}"
                     SelectedItem="{Binding discoveredPrinter}"
                     ItemsSource="{Binding printerList,Mode=TwoWay}"
                     BackgroundColor="White">
@@ -49,7 +51,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <customControl:CustomButton  Grid.Row="3" Text="Kapat" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" CommandParameter="{Binding .}" Command="{Binding LastikleriTakCommand}"/>
+                <!--<customControl:CustomButton  Grid.Row="3" Text="Kapat" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="10" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" CommandParameter="{Binding .}" Command="{Binding LastikleriTakCommand}"/>-->
             </Grid>
         </Frame>
         <customViews:LoadingView />

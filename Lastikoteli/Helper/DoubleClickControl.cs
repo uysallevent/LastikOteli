@@ -44,7 +44,7 @@ namespace Lastikoteli.Helper
             }
         }
 
-        public async Task PushAsync(PopupPage sayfa)
+        public async Task PopUpPushAsync(PopupPage sayfa)
         {
             if (Clickable)
             {

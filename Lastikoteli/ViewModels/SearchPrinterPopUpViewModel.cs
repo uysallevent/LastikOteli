@@ -78,6 +78,7 @@ namespace Lastikoteli.ViewModels
                     Device.BeginInvokeOnMainThread(() =>
                     {
 
+
                     });
                     return;
                 }
@@ -153,8 +154,14 @@ namespace Lastikoteli.ViewModels
         public SearchPrinterPopUpViewModel(PrintRequest request)
         {
             etiketYazdir = new EtiketYazdir();
+            FindPrinterCommand = new Command(() => StartPrinterDiscovery());
             StartPrinterDiscovery();
             lastikDesenListesi = request;
+
+            var test = new DiscoveryHandlerImplementation(this, ConnectionType.Network) { };
+
+            
+            printerList =new ObservableCollection<IDiscoveredPrinter>() { };  
         }
 
 

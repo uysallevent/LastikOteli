@@ -67,7 +67,7 @@
 
                 </Grid>
             </ScrollView>
-            <customControl:CustomButton Grid.Row="1" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" VerticalOptions="End" CornerRadius="10"  BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked" Command="{Binding Source={x:Reference PagePlakaBilgiGuncelleme}, Path=BindingContext.DevamButonuCommand}"/>
+            <customControl:CustomButton Grid.Row="1" Text="DEVAM" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" VerticalOptions="End" CornerRadius="10"  Margin="10"   BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Clicked="CustomButton_Clicked" Command="{Binding Source={x:Reference PagePlakaBilgiGuncelleme}, Path=BindingContext.DevamButonuCommand}"/>
         </Grid>
         <loadingView:LoadingView />
     </Grid>

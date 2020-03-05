@@ -28,7 +28,7 @@
                 </StackLayout>
             </Frame>
 
-            <Label Grid.Row="2" Text="Brisa Lastik Oteli Versiyon 1.0" HorizontalOptions="CenterAndExpand" TextColor="White" Margin="5" FontFamily="{StaticResource NotoSansRegular}"/>
+            <Label Grid.Row="2" Text="Brisa Lastik Oteli Versiyon 3.0" FontSize="8" HorizontalOptions="CenterAndExpand" TextColor="White" Margin="5" FontFamily="{StaticResource NotoSansRegular}"/>
         </Grid>
         <loadingView:LoadingView />
     </Grid>

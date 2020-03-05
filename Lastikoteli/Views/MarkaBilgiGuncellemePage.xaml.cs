@@ -1,4 +1,5 @@
-﻿using Lastikoteli.ViewModels;
+﻿using Lastikoteli.Helper;
+using Lastikoteli.ViewModels;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,12 @@ namespace Lastikoteli.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MarkaBilgiGuncellemePage : ContentPage
     {
+        private DoubleClickControl _doubleClickControl;
+
         public MarkaBilgiGuncellemePage()
         {
             InitializeComponent();
+            _doubleClickControl = new DoubleClickControl(this.Navigation);
 
         }
 
@@ -109,9 +113,10 @@ namespace Lastikoteli.Views
             (BindingContext as SaklamaMarkaBilgiGuncelleme).DevamButonuCommand.Execute(true);
         }
 
-        private void ImageButton_Clicked(object sender, EventArgs e)
+        private async void ImageButton_Clicked(object sender, EventArgs e)
         {
-            PopupNavigation.PushAsync(new DepoSecimPopUpPage());
+            await _doubleClickControl.PopUpPushAsync(new DepoSecimPopUpPage());
+            //PopupNavigation.PushAsync(new DepoSecimPopUpPage());
         }
 
         private void isOtl_Switch_Toggled(object sender, ToggledEventArgs e)

@@ -207,7 +207,7 @@ namespace Lastikoteli.ViewModels
                 if (IsBusy)
                     return;
 
-                if(siraList.Count(x=>x.bytSec==1)==0)
+                if (siraList.Count(x => x.bytSec == 1) == 0)
                 {
                     await Page.DisplayAlert("Uyarı", "Yazdırılacak sıra bilgisi seçilmedi", "Tamam");
                     return;
@@ -222,9 +222,10 @@ namespace Lastikoteli.ViewModels
                     {
                         siraKolayKodEtiketBilgileri = new SiraKolayKodBilgiRequest
                         {
-                            desenKodu = "",
+                            desenKodu = result.Result.yaziciDesenBilgi,
                             rafKolayKodListesi = siraList.Where(x => x.bytSec == 1).ToList()
-                        }
+                        },
+                        lastikEtiketlerBilgi = null
                     }));
                 else
                     await Page.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Sıra kolay kod desen bilgisi alınamadı", "Tamam");

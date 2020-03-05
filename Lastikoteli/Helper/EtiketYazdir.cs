@@ -64,19 +64,11 @@ namespace Lastikoteli.Helper
 
         public void SendZplReceipt(IConnection printerConnection, PrintRequest request)
         {
-            if (request.lastikEtiketBilgileri != null && request.lastikEtiketBilgileri.lastikListesi.Count > 0 && !string.IsNullOrEmpty(request.lastikEtiketBilgileri.desenKodu))
+            if (request.lastikEtiketlerBilgi != null && request.lastikEtiketlerBilgi.Count > 0)
             {
-                foreach (var item in request.lastikEtiketBilgileri.lastikListesi)
+                foreach (var item in request.lastikEtiketlerBilgi)
                 {
-                    var desenKodu = request.lastikEtiketBilgileri.desenKodu
-                        .Replace("[PLAKA]", item.txtPlaka)
-                        .Replace("[HIZMETVEREN]", item.txtDistAdi)
-                        .Replace("[MUSTERISTRING]", item.txtUnvan)
-                        .Replace("[MARKASTRING]", item.txtMarka)
-                        .Replace("[SAKLAMAKODU]", "--SK--" + item.lngSaklamaBaslik.ToString())
-                        .Replace("[TALEPEDENBAYII]", item.txtKullaniciAdiSoyad)
-                        .Replace("[ACIKLAMA]", item.txtAciklama);
-                    printerConnection.Write(GetBytes(desenKodu));
+                    printerConnection.Write(GetBytes(item.Value));
                 }
             }
             else if (request.siraKolayKodEtiketBilgileri != null && !string.IsNullOrEmpty(request.siraKolayKodEtiketBilgileri.desenKodu))

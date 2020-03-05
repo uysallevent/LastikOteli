@@ -1,4 +1,5 @@
-﻿using Lastikoteli.Helper.Abstract;
+﻿using Lastikoteli.Helper;
+using Lastikoteli.Helper.Abstract;
 using Lastikoteli.ViewModels;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -12,10 +13,13 @@ namespace Lastikoteli.Views
     public partial class YeniSaklamaMarkaBilgi : ContentPage
     {
         YeniSaklamaViewModel yeniSaklamaView;
+        private DoubleClickControl _doubleClickControl;
+
         public YeniSaklamaMarkaBilgi()
         {
             InitializeComponent();
             BindingContext = yeniSaklamaView = new YeniSaklamaViewModel(this.Navigation);
+            _doubleClickControl = new DoubleClickControl(this.Navigation);
 
             MessagingCenter.Subscribe<YeniSaklamaMarkaBilgileriViewModel>(this, "detayScrollUp", (s) =>
             {
@@ -104,9 +108,11 @@ namespace Lastikoteli.Views
             }
         }
 
-        private void ImageButton_Clicked(object sender, EventArgs e)
+        private async void ImageButton_Clicked(object sender, EventArgs e)
         {
-            PopupNavigation.PushAsync(new DepoSecimPopUpPage());
+            await _doubleClickControl.PopUpPushAsync(new DepoSecimPopUpPage());
+
+           // PopupNavigation.PushAsync(new DepoSecimPopUpPage());
         }
 
         private void isOtl_Switch_Toggled(object sender, ToggledEventArgs e)
