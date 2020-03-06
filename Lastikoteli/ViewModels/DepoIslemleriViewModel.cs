@@ -68,6 +68,7 @@ namespace Lastikoteli.ViewModels
 
         public ICommand saklamadaKayitAramaCommand { get; set; }
         public ICommand gotoRafEtiketiYazdirCommand { get; set; }
+        public ICommand gotoLastikEtiketiYazdirCommand { get; set; }
 
         public DepoIslemleriViewModel(INavigation navigation)
         {
@@ -76,11 +77,34 @@ namespace Lastikoteli.ViewModels
             saklamaBilgiRequest = new SaklamaBilgiRequest();
             saklamadaKayitAramaCommand = new Command(async () => await saklamadaKayitAramaAsync());
             gotoRafEtiketiYazdirCommand = new Command(async () => await gotoRafEtiketiYazdirAsync());
+            gotoLastikEtiketiYazdirCommand = new Command(async () => await gotoLastikEtiketiYazdirAsync());
             MessagingCenter.Subscribe<LastikRafIslemleriPopUpViewModel, int>(this, "guncellenenRafSaklama", (s, e) =>
             {
                 if (saklamaListe != null)
                     saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(saklamaListe.Where(x => x.lngSaklamaKodu != e).ToList());
             });
+        }
+
+        private async Task gotoLastikEtiketiYazdirAsync()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                await _doubleClickControl.PushAsync(new LastikEtiketYazdirPage());
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task saklamadaKayitAramaAsync()
@@ -101,7 +125,10 @@ namespace Lastikoteli.ViewModels
                     saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(saklamadakilerListesi.Select(x => new LastikSaklamaBilgiResponse { lngSaklamaKodu = x.lngKod, txtPlaka = x.txtPlaka, txtDurum = "Saklamada" }).ToList());
                 }
                 else
-                    await Page.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");
+                {
+                    saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>();
+                    await App.Current.MainPage.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");
+                }
 
             }
             catch (Exception)

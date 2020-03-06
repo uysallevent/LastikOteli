@@ -633,6 +633,16 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
+                else if (!string.IsNullOrEmpty(onSol[0]) && string.IsNullOrEmpty(detayListe[lngLastikYon - 1].TXTURUNKOD))
+                {
+                    detay.kullaniciUrunBilgileri.TXTMARKA = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMARKA;
+                    detay.kullaniciUrunBilgileri.TXTTABAN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTTABAN;
+                    detay.kullaniciUrunBilgileri.TXTKESIT = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTKESIT;
+                    detay.kullaniciUrunBilgileri.TXTCAP = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTCAP;
+                    detay.kullaniciUrunBilgileri.TXTMEVSIM = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMEVSIM;
+                    detay.kullaniciUrunBilgileri.TXTDESEN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTDESEN;
+
+                }
                 else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
@@ -677,6 +687,16 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
+                else if (!string.IsNullOrEmpty(onSol[0]) && string.IsNullOrEmpty(detayListe[lngLastikYon - 1].TXTURUNKOD))
+                {
+                    detay.kullaniciUrunBilgileri.TXTMARKA = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMARKA;
+                    detay.kullaniciUrunBilgileri.TXTTABAN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTTABAN;
+                    detay.kullaniciUrunBilgileri.TXTKESIT = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTKESIT;
+                    detay.kullaniciUrunBilgileri.TXTCAP = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTCAP;
+                    detay.kullaniciUrunBilgileri.TXTMEVSIM = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMEVSIM;
+                    detay.kullaniciUrunBilgileri.TXTDESEN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTDESEN;
+
+                }
                 else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
@@ -721,6 +741,16 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
+                else if (!string.IsNullOrEmpty(onSol[0]) && string.IsNullOrEmpty(detayListe[lngLastikYon - 1].TXTURUNKOD))
+                {
+                    detay.kullaniciUrunBilgileri.TXTMARKA = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMARKA;
+                    detay.kullaniciUrunBilgileri.TXTTABAN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTTABAN;
+                    detay.kullaniciUrunBilgileri.TXTKESIT = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTKESIT;
+                    detay.kullaniciUrunBilgileri.TXTCAP = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTCAP;
+                    detay.kullaniciUrunBilgileri.TXTMEVSIM = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMEVSIM;
+                    detay.kullaniciUrunBilgileri.TXTDESEN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTDESEN;
+
+                }
                 else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
@@ -765,6 +795,16 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
+                else if (!string.IsNullOrEmpty(onSol[0]) && string.IsNullOrEmpty(detayListe[lngLastikYon - 1].TXTURUNKOD))
+                {
+                    detay.kullaniciUrunBilgileri.TXTMARKA = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMARKA;
+                    detay.kullaniciUrunBilgileri.TXTTABAN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTTABAN;
+                    detay.kullaniciUrunBilgileri.TXTKESIT = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTKESIT;
+                    detay.kullaniciUrunBilgileri.TXTCAP = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTCAP;
+                    detay.kullaniciUrunBilgileri.TXTMEVSIM = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMEVSIM;
+                    detay.kullaniciUrunBilgileri.TXTDESEN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTDESEN;
+
+                }
                 else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
@@ -809,6 +849,16 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
+                else if (!string.IsNullOrEmpty(onSol[0]) && string.IsNullOrEmpty(detayListe[lngLastikYon - 1].TXTURUNKOD))
+                {
+                    detay.kullaniciUrunBilgileri.TXTMARKA = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMARKA;
+                    detay.kullaniciUrunBilgileri.TXTTABAN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTTABAN;
+                    detay.kullaniciUrunBilgileri.TXTKESIT = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTKESIT;
+                    detay.kullaniciUrunBilgileri.TXTCAP = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTCAP;
+                    detay.kullaniciUrunBilgileri.TXTMEVSIM = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMEVSIM;
+                    detay.kullaniciUrunBilgileri.TXTDESEN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTDESEN;
+
+                }
                 else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
@@ -853,6 +903,16 @@ namespace Lastikoteli.ViewModels
                         }
                         tumunuEsitle = true;
                     });
+                else if (!string.IsNullOrEmpty(onSol[0]) && string.IsNullOrEmpty(detayListe[lngLastikYon - 1].TXTURUNKOD))
+                {
+                    detay.kullaniciUrunBilgileri.TXTMARKA = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMARKA;
+                    detay.kullaniciUrunBilgileri.TXTTABAN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTTABAN;
+                    detay.kullaniciUrunBilgileri.TXTKESIT = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTKESIT;
+                    detay.kullaniciUrunBilgileri.TXTCAP = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTCAP;
+                    detay.kullaniciUrunBilgileri.TXTMEVSIM = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTMEVSIM;
+                    detay.kullaniciUrunBilgileri.TXTDESEN = detayListe[lngLastikYon - 1].kullaniciUrunBilgileri.TXTDESEN;
+
+                }
                 else if (detayListe[lngLastikYon - 1].TXTURUNKOD != detayListe[oncekiLastikYon - 1].TXTURUNKOD)
                 {
                     selectedMarkaIndex = -1;
@@ -897,7 +957,7 @@ namespace Lastikoteli.ViewModels
                 {
                     await App.Current.MainPage.DisplayAlert("Uyarı", "Kayıt güncelleme işlemi başarılı", "Tamam");
 
-                    var soru = await App.Current.MainPage.DisplayAlert("Uyarı", "Lastik etiketi yazdırmak istermisiniz ?", "Evet", "Hayır");
+                    var soru = await App.Current.MainPage.DisplayAlert("Uyarı", "Lastik etiketi yazdırmak istermisiniz?", "Evet", "Hayır");
                     if (soru)
                         await YazdirAsync(saklamaBaslikRequest.LNGKOD ?? 0);
 
@@ -1193,7 +1253,7 @@ namespace Lastikoteli.ViewModels
                                 }
                                 else
                                     detayListe[4].TXTURUNKOD = x.txtUrunKod;
- 
+
                                 digerSag[0] = !string.IsNullOrEmpty(x.txtMarka) ? x.txtMarka : "";
                                 digerSag[1] = x.txtTaban;
                                 digerSag[2] = x.txtKesit;

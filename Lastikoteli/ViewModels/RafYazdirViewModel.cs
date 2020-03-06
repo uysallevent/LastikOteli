@@ -164,6 +164,13 @@ namespace Lastikoteli.ViewModels
             set { SetProperty(ref _siraList, value); }
         }
 
+        private IList<DepoDizilimResponse> _filteredList;
+        public IList<DepoDizilimResponse> filterList
+        {
+            get { return _filteredList; }
+            set { SetProperty(ref _filteredList, value); }
+        }
+
 
         private bool _hepsiniSec;
 
@@ -187,6 +194,23 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+        private string _arananSiraKolayKod;
+        public string arananSiraKolayKod
+        {
+            get { return _arananSiraKolayKod; }
+            set
+            {
+                SetProperty(ref _arananSiraKolayKod, value);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    if (_arananSiraKolayKod.Length > 2)
+                        siraList = new ObservableCollection<DepoDizilimResponse>(filterList.Where(x => x.txtAd.ToLower().Contains(_arananSiraKolayKod)));
+                    else
+                        siraList = new ObservableCollection<DepoDizilimResponse>(filterList);
+
+                }
+            }
+        }
 
 
         public ICommand YazdirCommand { get; set; }
@@ -269,6 +293,7 @@ namespace Lastikoteli.ViewModels
                     {
                         result.Result.ToList().ForEach(x => x.bytSec = 0);
                         siraList = new ObservableCollection<DepoDizilimResponse>(result.Result);
+                        filterList = siraList;
                     }
                 }
                 else

@@ -9,6 +9,7 @@
              mc:Ignorable="d"
              x:Class="Lastikoteli.Views.DepoIslemleriPage" BackgroundColor="Black" Title="Depo İşlemleri">
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Lastik Etiketi Yazdır" Order="Secondary" Priority="1" IconImageSource="icon_saklama" Command="{Binding gotoLastikEtiketiYazdirCommand}"/>
         <ToolbarItem Text="Raf Etiketi Yazdır" Order="Secondary" Priority="1" IconImageSource="icon_saklama" Command="{Binding gotoRafEtiketiYazdirCommand}"/>
     </ContentPage.ToolbarItems>
     <Grid>

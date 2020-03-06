@@ -94,7 +94,7 @@ namespace Lastikoteli.ViewModels
                 }
                 else
                 {
-                    saklamadakilerListesi = new ObservableCollection<SaklamaBilgileriResponse>();
+                    saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>();
                     await Page.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");
                 }
 

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:customViews="clr-namespace:Lastikoteli.Helper"
+             xmlns:customControl="clr-namespace:Lastikoteli.CustomControl"
+             xmlns:viewModel="clr-namespace:Lastikoteli.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Lastikoteli.Views.LastikEtiketYazdirPage" BackgroundColor="Black">
+    <ContentPage.BindingContext>
+        <viewModel:LastikEtiketYazdirViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <customViews:SaklamaNoView Grid.Row="0" SaklamaNoEntryText="{Binding saklamaKodu,Mode=TwoWay}"/>
+        <customControl:CustomButton Grid.Row="1" Text="Ara" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" CornerRadius="10" Margin="20" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding lastikEtiketBilgiAraCommand}"/>
+        <Frame Grid.Row="2" CornerRadius="10">
+            <ListView IsPullToRefreshEnabled="False" 
+                      ItemsSource="{Binding lastikDesenListe}"
+                      SelectedItem="{Binding secilmisSaklama}"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding lastikYonBilgisi}"  FontFamily="{StaticResource NotoSansBold}" FontSize="17" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Frame>
+        <customControl:CustomButton Grid.Row="3" Text="Yazdır" FontFamily="{StaticResource NotoSansBold}"  HorizontalOptions="FillAndExpand" VerticalOptions="End" CornerRadius="10" Margin="20" BorderColor="White" BorderWidth="3" BackgroundColor="Black" TextColor="White" Command="{Binding lastikEtiketBilgiYazdirCommand}"/>
+        <customViews:LoadingView />
+    </Grid>
+</ContentPage>

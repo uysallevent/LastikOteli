@@ -5,6 +5,7 @@ using Lastikoteli.Models.Enums;
 using Lastikoteli.Views;
 using LinkOS.Plugin;
 using LinkOS.Plugin.Abstractions;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -84,17 +85,19 @@ namespace Lastikoteli.ViewModels
                 }
 
                 etiketYazdir.SendZplReceipt(connection, lastikDesenListesi);
-
-                Page.DisplayAlert("Uyarı", "Yazdırma işlemi başarılı", "Tamam");
+                App.Current.MainPage.DisplayAlert("Uyarı", "Yazdırma işlemi başarılı", "Tamam");
             }
             catch (Exception ex)
             {
-                Page.DisplayAlert("Uyarı", "Yazdırma işlemi sırasında bir hata oluştu", "Tamam");
+                App.Current.MainPage.DisplayAlert("Uyarı", "Yazdırma işlemi sırasında bir hata oluştu", "Tamam");
             }
             finally
             {
                 if ((connection != null) && (connection.IsConnected))
                     connection.Close();
+
+                PopupNavigation.PopAsync(true);
+
             }
         }
 
@@ -160,8 +163,8 @@ namespace Lastikoteli.ViewModels
 
             var test = new DiscoveryHandlerImplementation(this, ConnectionType.Network) { };
 
-            
-            printerList =new ObservableCollection<IDiscoveredPrinter>() { };  
+
+            printerList = new ObservableCollection<IDiscoveredPrinter>() { };
         }
 
 
