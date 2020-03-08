@@ -15,7 +15,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<ObservableCollection<MarkaBilgiResponse>>> MarkaBilgiGetir(MarkaBilgiRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + "/api/Parametre/MarkaBilgileriGetir" + MarkaBilgiRequestModelOlustur(request));
+            var response = await Client.GetAsync(apiUrl + "/api/Parametre/MarkaBilgileriGetir" + MarkaBilgiRequestModelOlustur(request));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<MarkaBilgiResponse>>(responseContent));
         }
@@ -23,7 +23,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<ObservableCollection<KeyValuePair<string, string>>>> DesenBilgileriGetir(DesenRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + $"/api/Parametre/EtiketBilgiGetir?lngDistKod={request.lngDistKod}&lngSaklamaBaslik={request.lngSaklamaBaslik}");
+            var response = await Client.GetAsync(apiUrl + $"/api/Parametre/EtiketBilgiGetir?lngDistKod={request.lngDistKod}&lngSaklamaBaslik={request.lngSaklamaBaslik}");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<KeyValuePair<string, string>>>(responseContent));
         }
@@ -31,7 +31,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<SiraKolayKodDesenBilgiResponse>> SiraKolayKodDesenBilgiGetir()
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + "/api/Parametre/SiraKolayKodDesenBilgiGetir");
+            var response = await Client.GetAsync(apiUrl + "/api/Parametre/SiraKolayKodDesenBilgiGetir");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<SiraKolayKodDesenBilgiResponse>(responseContent));
         }

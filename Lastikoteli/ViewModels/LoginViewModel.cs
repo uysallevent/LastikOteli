@@ -53,21 +53,20 @@ namespace Lastikoteli.ViewModels
             _doubleClickControl = new DoubleClickControl(_navigation);
             gotoMainPageCommand = new Command(async () => await GotoMainPage());
         }
-
         private async Task GotoMainPage()
         {
-            if (string.IsNullOrEmpty(loginRequest.kullaniciAd) || string.IsNullOrEmpty(loginRequest.sifre))
-            {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Kullanıcı adı ve şifre alanlarını doldurunuz", "Tamam");
-                return;
-            }
-            if (IsBusy)
-                return;
 
-            IsBusy = true;
 
             try
             {
+                if (string.IsNullOrEmpty(loginRequest.kullaniciAd) || string.IsNullOrEmpty(loginRequest.sifre))
+                    throw new Exception("Kullanıcı adı ve şifre alanlarını doldurunuz");
+
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+
                 var result = await AuthService.Login(loginRequest);
                 if (result.StatusCode != 500)
                 {
@@ -79,12 +78,12 @@ namespace Lastikoteli.ViewModels
                     await _doubleClickControl.PushModalAsync(new NavigationPage(new MainPage()));
                 }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
 
             }
             catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

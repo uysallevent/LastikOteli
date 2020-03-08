@@ -18,7 +18,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<SaklamaBilgileriResponse>> SaklamaBilgiGetir(SaklamaBilgiRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetStringAsync(APIUrl + $"/api/Saklama/SaklamaKayitGetir?lngDistKod={request.lngDistKod}&lngSaklamaBaslik={request.lngSaklamaBaslik}");
+            var response = await Client.GetStringAsync(apiUrl + $"/api/Saklama/SaklamaKayitGetir?lngDistKod={request.lngDistKod}&lngSaklamaBaslik={request.lngSaklamaBaslik}");
             return await Task.FromResult(ApiResultCheck.ResultCheck<SaklamaBilgileriResponse>(response));
         }
 
@@ -29,7 +29,7 @@ namespace Lastikoteli.Services.Concrete
                 $"/api/Saklama/SaklamadaKayitArama?lngDistKod={request.lngDistKod}&txtPlaka={request.txtPlaka.ToLower()}" :
                 $"/api/Saklama/SaklamadaKayitArama?lngDistKod={request.lngDistKod}&lngSaklamaBaslik={request.lngSaklamaBaslik}";
 
-            var response = await Client.GetAsync(APIUrl + path);
+            var response = await Client.GetAsync(apiUrl + path);
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<List<SaklamaBilgileriResponse>>(responseContent));
         }
@@ -37,7 +37,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<bool>> LastikTeslimEt(LastikTeslimRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/Saklama/ElTerminaliLastikTeslimEtme", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/Saklama/ElTerminaliLastikTeslimEtme", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<bool>(responseContent));
         }
@@ -45,7 +45,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<PagingResponse<MusteriBilgileriResponse>>> MusteriListesi(SaklamaMusteriRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/Saklama/MusterilerListesi", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/Saklama/MusterilerListesi", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<PagingResponse<MusteriBilgileriResponse>>(responseContent));
         }
@@ -53,7 +53,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponse> YasalDisDerinligiGetir()
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + "/api/Saklama/YasalDisDeriniligiGetir");
+            var response = await Client.GetAsync(apiUrl + "/api/Saklama/YasalDisDeriniligiGetir");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck(responseContent));
         }
@@ -61,7 +61,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<PlakaSorguResponse>> PlakaSorgula(SaklamaPlakaSorgulaRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/SaklamaPlakaSorgula?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
+            var response = await Client.GetAsync(apiUrl + $"/api/Saklama/SaklamaPlakaSorgula?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<PlakaSorguResponse>(responseContent));
         }
@@ -69,7 +69,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<List<AracUzerindekilerResponse>>> AracUzerindekileriGetir(SaklamaPlakaSorgulaRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + $"/api/Saklama/AracUzerindekileriGetir?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
+            var response = await Client.GetAsync(apiUrl + $"/api/Saklama/AracUzerindekileriGetir?lngDistkod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<List<AracUzerindekilerResponse>>(responseContent));
         }
@@ -77,7 +77,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<int>> YeniSaklamaEkle(SaklamaBaslikRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/Saklama/YeniSaklamaEkle", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/Saklama/YeniSaklamaEkle", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<int>(responseContent));
         }
@@ -85,7 +85,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<SaklamaBaslikResponse>> YeniSaklamaDuzenle(SaklamaBaslikRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/Saklama/YeniSaklamaDuzenle", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/Saklama/YeniSaklamaDuzenle", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<SaklamaBaslikResponse>(responseContent));
         }
@@ -93,7 +93,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<bool>> ElTerminaliLastikRafGuncelle(LastikRafGuncelleRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/Saklama/ElTerminaliLastikRafGuncelle", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/Saklama/ElTerminaliLastikRafGuncelle", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<bool>(responseContent));
         }

@@ -164,9 +164,10 @@
                             </Frame>
                         </StackLayout>
                         <Frame Grid.Row="3" CornerRadius="10" Padding="0">
-                            <xfx:XfxEntry Grid.Row="10" Placeholder="Mevsim" PlaceholderColor="DarkGray" TextColor="Black" FontFamily="{StaticResource NotoSansRegular}" 
+                            <!--<xfx:XfxEntry Grid.Row="10" Placeholder="Mevsim" PlaceholderColor="DarkGray" TextColor="Black" FontFamily="{StaticResource NotoSansRegular}" 
                                       ErrorDisplay="None" 
-                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.kullaniciUrunBilgileri.TXTMEVSIM}"/>
+                                      Text="{Binding Source={x:Reference PageYeniSaklamaMarkaBilgi},Path=BindingContext.detay.kullaniciUrunBilgileri.TXTMEVSIM}"/>-->
+                            <Picker Title="Mevsim" ItemsSource="{Binding mevsimListe}" ItemDisplayBinding="{Binding .}" SelectedItem="{Binding secilenMevsim}"/>
                         </Frame>
                         <Frame Grid.Row="4" CornerRadius="10" Padding="0">
                             <xfx:XfxEntry Grid.Row="10" Placeholder="Desen" PlaceholderColor="DarkGray" TextColor="Black" 

@@ -40,7 +40,7 @@ namespace Lastikoteli.ViewModels
                 if (_secilenSaklama != null)
                 {
                     var secilenKayit = saklamadakilerListesi.FirstOrDefault(x => x.lngKod == _secilenSaklama.lngSaklamaKodu);
-                    Device.BeginInvokeOnMainThread(async()=>await _doubleClickControl.PushAsync(new KayitGuncellemeTabbedPage(new KayitGuncelleRequest { lngDistKod = App.sessionInfo.lngDistkod, lngSaklamaKod = secilenKayit.lngKod })));
+                    Device.BeginInvokeOnMainThread(async () => await _doubleClickControl.PushAsync(new KayitGuncellemeTabbedPage(new KayitGuncelleRequest { lngDistKod = App.sessionInfo.lngDistkod, lngSaklamaKod = secilenKayit.lngKod })));
                 }
                 _secilenSaklama = null;
                 OnPropertyChanged("secilenSaklama");
@@ -95,13 +95,13 @@ namespace Lastikoteli.ViewModels
                 else
                 {
                     saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>();
-                    await Page.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");
+                    throw new Exception((!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı");
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

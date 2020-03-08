@@ -130,13 +130,13 @@ namespace Lastikoteli.ViewModels
                     else
                     {
                         depoBilgiList = new ObservableCollection<DepoDizilimResponse>();
-                        await this.Page.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                        throw new Exception(result.ErrorMessage);
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                    await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
                 }
                 finally
                 {

@@ -16,7 +16,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<ObservableCollection<DepoDizilimResponse>>> DepoBilgiGetir(DepoDizilimRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + "/api/Raf/DepoBilgileriGetir" + DepoBilgiQuery(request));
+            var response = await Client.GetAsync(apiUrl + "/api/Raf/DepoBilgileriGetir" + DepoBilgiQuery(request));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<DepoDizilimResponse>>(responseContent));
         }
@@ -24,7 +24,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<int>>KolayKodKontrol(RafKolayKodKontrolRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + $"/api/Raf/KolayKodKontrol?lngDistKod={request.lngDistKod}&txtRafKolayKod={request.txtRafKolayKod}");
+            var response = await Client.GetAsync(apiUrl + $"/api/Raf/KolayKodKontrol?lngDistKod={request.lngDistKod}&txtRafKolayKod={request.txtRafKolayKod}");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<int>(responseContent));
         }

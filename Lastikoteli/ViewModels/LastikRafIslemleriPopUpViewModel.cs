@@ -88,6 +88,7 @@ namespace Lastikoteli.ViewModels
 
         }
 
+        [Obsolete]
         private async Task RafGuncelleAsync()
         {
             try
@@ -111,14 +112,13 @@ namespace Lastikoteli.ViewModels
                     await PopupNavigation.PopAsync(true);
                 }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -126,6 +126,7 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+        [Obsolete]
         private async Task RafSecAsync()
         {
             detayListeResponse = null;
@@ -158,12 +159,12 @@ namespace Lastikoteli.ViewModels
 
                 }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

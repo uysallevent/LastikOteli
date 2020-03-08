@@ -17,7 +17,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<SessionInfo>> Login(LoginRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/Kullanici/ElTermimnaliGirisi", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/Kullanici/ElTermimnaliGirisi", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<SessionInfo>(responseContent));
         }

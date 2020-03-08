@@ -964,12 +964,11 @@ namespace Lastikoteli.ViewModels
                     await _navigation.PopAsync();
                 }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Bir hata oluştu", "Tamam");
-
+                    throw new Exception(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Bir hata oluştu");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -1194,7 +1193,7 @@ namespace Lastikoteli.ViewModels
                                 detayListe[3].TXTDOTHAFTA = x.txtDotHafta;
                                 detayListe[3].TXTDOTURETIM = x.txtDotUretim;
                                 detayListe[3].TXTRAFKOLAYKOD = x.txtRafKolayKod;
-                                if (x.lngUrunTip == 3)
+                                if (x.lngUrunTip == 2)
                                 {
                                     detayListe[3].LNGKULLANICIURUNKOD = x.kullaniciUrunResponse.lngKod;
                                     detayListe[3].kullaniciUrunBilgileri.BYTDURUM = 1;
@@ -1318,9 +1317,9 @@ namespace Lastikoteli.ViewModels
                     await _navigation.PopAsync();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
 
             }
             finally
@@ -1392,14 +1391,11 @@ namespace Lastikoteli.ViewModels
                     }
                 }
                 else
-
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
-
-
+                    throw new Exception(result.ErrorMessage);
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -1441,12 +1437,11 @@ namespace Lastikoteli.ViewModels
 
                 }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
-
+                    throw new Exception(result.ErrorMessage);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -1477,14 +1472,14 @@ namespace Lastikoteli.ViewModels
                 {
                     detay.TXTRAFKOLAYKOD = null;
                     detay.LNGDEPOSIRAKOD = null;
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
                 }
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -1518,13 +1513,11 @@ namespace Lastikoteli.ViewModels
                     OnPropertyChanged("saklamaBaslikRequest");
                 }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
-
+                    throw new Exception(result.ErrorMessage);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
-
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -1542,6 +1535,7 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+        [Obsolete]
         private async Task YazdirAsync(int lngSaklamaKod)
         {
             try
@@ -1553,18 +1547,18 @@ namespace Lastikoteli.ViewModels
                 });
 
                 if (result.StatusCode != 500 && result.Result != null && result.Result.Count > 0)
-                    PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
+                    await PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
                     {
                         lastikEtiketlerBilgi = result.Result.ToList(),
                         siraKolayKodEtiketBilgileri = null
                     }));
                 else
-                    await Page.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Sıra kolay kod desen bilgisi alınamadı", "Tamam");
+                    throw new Exception(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Sıra kolay kod desen bilgisi alınamadı");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
         }
 

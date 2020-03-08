@@ -91,13 +91,11 @@ namespace Lastikoteli.ViewModels
                     saklamaListe = new ObservableCollection<LastikSaklamaBilgiResponse>(havuzdakilerListesi.Select(x => new LastikSaklamaBilgiResponse { lngSaklamaKodu = x.lngKod, txtPlaka = x.txtPlaka, txtDurum = "Havuzda" }).ToList());
                 }
                 else
-                    await Page.DisplayAlert("Uyarı", (!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı", "Tamam");
-
+                    throw new Exception((!string.IsNullOrEmpty(result.ErrorMessage)) ? result.ErrorMessage : "Kayıt bulunamadı");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-
+                await Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

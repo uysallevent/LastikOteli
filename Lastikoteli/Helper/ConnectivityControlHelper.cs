@@ -8,26 +8,29 @@ namespace Lastikoteli.Helper
 {
     public static class ConnectivityControlHelper
     {
-        public async static Task<bool> ConnectionCheck()
+        public async static Task<bool> ConnectionCheck(string rootUrl, int port)
         {
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            try
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Internet bağlantınızı kontrol ediniz", "Tamam");
+                if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+                    throw new Exception("İnternet bağlantınızı kontrol edin");
+
+
+                var current = Plugin.Connectivity.CrossConnectivity.Current;
+                if (current.IsConnected)
+                {
+                    var IsServiceOn = await current.IsRemoteReachable(rootUrl, port);
+                    if (!IsServiceOn)
+                        throw new Exception("Servise erişilemiyor");
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
                 return false;
             }
-
-            var current = Plugin.Connectivity.CrossConnectivity.Current;
-            if (current.IsConnected)
-            {
-                var IsServiceOn = await current.IsRemoteReachable("http://52.233.133.105", 8087);
-                if (!IsServiceOn)
-                {
-                    await App.Current.MainPage.DisplayAlert("Uyarı", "Servise erişilemiyor", "Tamam");
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 }

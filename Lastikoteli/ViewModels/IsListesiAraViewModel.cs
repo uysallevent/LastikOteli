@@ -70,11 +70,11 @@ namespace Lastikoteli.ViewModels
                 if (result.Result.Data != null && result.Result.Data.Count > 0)
                     await _doubleClickControl.PushAsync(new IsListesiTabbedPage(result.Result.Data));
                 else
-                    await this.Page.DisplayAlert("Uyarı", "İş emri bulunamadı", "Tamam");
+                    throw new Exception("İş emri bulunamadı");
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

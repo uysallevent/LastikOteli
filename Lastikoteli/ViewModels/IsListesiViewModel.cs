@@ -165,11 +165,11 @@ namespace Lastikoteli.ViewModels
                     isListesi = new ObservableCollection<Randevu>(result.Result.Data);
                 }
                 else
-                    await this.Page.DisplayAlert("Uyarı", "İş emri bulunamadı", "Tamam");
+                    throw new Exception("İş emri bulunamadı");
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", $"Bir hata oluştu {ex.Message}", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

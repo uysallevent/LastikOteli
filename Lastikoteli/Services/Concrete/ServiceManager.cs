@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Lastikoteli.Helper;
+using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -8,26 +10,27 @@ namespace Lastikoteli.Services.Concrete
     public class ServiceManager
     {
 
-        public readonly string APIUrl = "http://52.233.133.106:8087";
-        //public readonly string APIUrl = "http://192.168.1.105:45455";
-        //public readonly string APIUrl = "http://192.168.0.23:45455";
+        //private static readonly string rootUrl = "http://104.45.22.252";
+        //private static readonly int port = 8089;
+        private static readonly string rootUrl = "http://52.233.133.106";
+        private static readonly int port = 8087;
+        public string apiUrl = $"{rootUrl}:{port}";
+
         protected HttpClient Client;
         protected static object lockObj = new object();
 
         public async Task<HttpClient> GetClient()
         {
-            //if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            //    await App.Current.MainPage.DisplayAlert("Uyarı", "Internet bağlantınızı kontrol ediniz", "Tamam");
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+                throw new Exception("İnternet bağlantınızı kontrol edin");
 
-            //var current = Plugin.Connectivity.CrossConnectivity.Current;
-            //if (current.IsConnected)
-            //{
-            //    var IsServiceOn = await current.IsRemoteReachable("http://52.233.133.105", 8087);
-            //    if (!IsServiceOn)
-            //    {
-            //        await App.Current.MainPage.DisplayAlert("Uyarı", "Servise erişilemiyor", "Tamam");
-            //    }
-            //}
+            var current = Plugin.Connectivity.CrossConnectivity.Current;
+            if (current.IsConnected)
+            {
+                var IsServiceOn = await current.IsRemoteReachable(rootUrl, port);
+                if (!IsServiceOn)
+                    throw new Exception("Servise erişilemiyor");
+            }
 
             lock (lockObj)
             {
@@ -37,11 +40,14 @@ namespace Lastikoteli.Services.Concrete
 
                     Client = new HttpClient();
                     Client.Timeout = TimeSpan.FromSeconds(20);
+                    if (App.sessionInfo != null && !string.IsNullOrEmpty(App.sessionInfo.txtAccessToken))
+                        Client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.sessionInfo.txtAccessToken);
                     Client.DefaultRequestHeaders.Add("accept", "Applciation/json");
                 }
             }
 
             return await Task.FromResult(Client);
+
         }
     }
 }

@@ -177,7 +177,7 @@ namespace Lastikoteli.ViewModels
             }
             catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -220,12 +220,12 @@ namespace Lastikoteli.ViewModels
                 else
                 {
                     saklamaBilgileriResponseList = new ObservableCollection<SaklamaBilgileriResponse>();
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
                 }
             }
             catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -264,11 +264,11 @@ namespace Lastikoteli.ViewModels
 
                 }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
             }
             catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

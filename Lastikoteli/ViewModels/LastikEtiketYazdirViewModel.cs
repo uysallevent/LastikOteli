@@ -54,6 +54,7 @@ namespace Lastikoteli.ViewModels
             lastikEtiketBilgiYazdirCommand = new Command(async () => await lastikEtiketBilgiYazdirAsync());
         }
 
+        [Obsolete]
         private async Task lastikEtiketBilgiYazdirAsync()
         {
 
@@ -64,11 +65,8 @@ namespace Lastikoteli.ViewModels
 
                 IsBusy = true;
 
-                if(lastikDesenListe.Count==null&& lastikDesenListe.Count==0)
-                {
-                    await App.Current.MainPage.DisplayAlert("Uyarı", "Lastik etiket bilgisi bulunamadı", "Tamam");
-                    return;
-                }
+                if (lastikDesenListe == null && lastikDesenListe.Count == 0)
+                    throw new Exception("Lastik etiket bilgisi bulunamadı");
 
                 var result = await ParametreService.DesenBilgileriGetir(new DesenRequest
                 {
@@ -77,18 +75,18 @@ namespace Lastikoteli.ViewModels
                 });
 
                 if (result.StatusCode != 500 && result.Result != null && result.Result.Count > 0)
-                    PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
+                    await PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
                     {
                         lastikEtiketlerBilgi = result.Result.ToList(),
                         siraKolayKodEtiketBilgileri = null
                     }));
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Lastik etiket bilgisi bulunamadı", "Tamam");
+                    throw new Exception(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Lastik etiket bilgisi bulunamadı");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -96,6 +94,7 @@ namespace Lastikoteli.ViewModels
             }
         }
 
+        [Obsolete]
         private async Task LastikEtiketBilgiAraAsync()
         {
             try
@@ -112,13 +111,25 @@ namespace Lastikoteli.ViewModels
                 });
 
                 if (result.StatusCode != 500 && result.Result.Count > 0)
+                {
+                    var soru = await App.Current.MainPage.DisplayAlert("Uyarı", $"{result.Result.Count} adet lastik bulundu. Etiket yazdırmak istiyormusunuz?", "Evet", "hayır");
+                    if (soru)
+                    {
+                        await PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
+                        {
+                            lastikEtiketlerBilgi = result.Result.ToList(),
+                            siraKolayKodEtiketBilgileri = null
+                        }));
+                    }
+
                     lastikDesenListe = new ObservableCollection<LastikEtikEtiResponse>(result.Result.Select(x => new LastikEtikEtiResponse { lngSaklamaKod = saklamaKodu, lngLastikAdet = result.Result.Count, lastikYonBilgisi = x.Key }).Distinct());
+                }
                 else
-                    await App.Current.MainPage.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Saklama etiket bilgisi bulunamadı", "Tamam");
+                    throw new Exception(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Saklama etiket bilgisi bulunamadı");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await App.Current.MainPage.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

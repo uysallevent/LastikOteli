@@ -224,6 +224,7 @@ namespace Lastikoteli.ViewModels
             Device.BeginInvokeOnMainThread(async () => await DepoBilgileriGetirAsync());
         }
 
+        [Obsolete]
         private async Task YazdirAsync()
         {
             try
@@ -232,17 +233,14 @@ namespace Lastikoteli.ViewModels
                     return;
 
                 if (siraList.Count(x => x.bytSec == 1) == 0)
-                {
-                    await Page.DisplayAlert("Uyarı", "Yazdırılacak sıra bilgisi seçilmedi", "Tamam");
-                    return;
-                }
+                    throw new Exception("Yazdırılacak sıra bilgisi seçilmedi");
 
                 IsBusy = true;
 
                 var result = await ParametreService.SiraKolayKodDesenBilgiGetir();
 
                 if (result.StatusCode != 500 && !string.IsNullOrEmpty(result.Result.yaziciDesenBilgi))
-                    PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
+                    await PopupNavigation.PushAsync(new SearchPrinterPopupPage(new PrintRequest
                     {
                         siraKolayKodEtiketBilgileri = new SiraKolayKodBilgiRequest
                         {
@@ -252,12 +250,12 @@ namespace Lastikoteli.ViewModels
                         lastikEtiketlerBilgi = null
                     }));
                 else
-                    await Page.DisplayAlert("Uyarı", !string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Sıra kolay kod desen bilgisi alınamadı", "Tamam");
+                    throw new Exception(!string.IsNullOrEmpty(result.ErrorMessage) ? result.ErrorMessage : "Sıra kolay kod desen bilgisi alınamadı");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {
@@ -299,13 +297,13 @@ namespace Lastikoteli.ViewModels
                 else
                 {
                     depoList = new ObservableCollection<DepoDizilimResponse>();
-                    await this.Page.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
                 }
 
             }
             catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

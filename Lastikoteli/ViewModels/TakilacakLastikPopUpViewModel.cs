@@ -59,6 +59,7 @@ namespace Lastikoteli.ViewModels
             _doubleClickControl = new DoubleClickControl(_navigation);
         }
 
+        [Obsolete]
         private async Task LastikleriTakAsync()
         {
             try
@@ -88,22 +89,21 @@ namespace Lastikoteli.ViewModels
                             lngTip = 1,
                             lngKod = TakilacakLastikListe.FirstOrDefault().lngIsEmriKod
                         });
-
                         await App.Current.MainPage.DisplayAlert("Uyarı", $"{TakilacakLastikListe.FirstOrDefault().lngSaklamaKod} saklama kodlu lastikler için teslim etme işlemi başarılı", "Tamam");
                     }
                     else
-                        await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                        throw new Exception(result.ErrorMessage);
 
                     await PopupNavigation.PopAsync(true);
                     MessagingCenter.Send(this, "popAsync");
 
                 }
                 else
-                    await Page.DisplayAlert("Uyarı", "Devam edebilmek için lütfen takılacak lastik/lastikleri seçin", "Tamam");
+                    throw new Exception("Devam edebilmek için lütfen takılacak lastik/lastikleri seçin");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

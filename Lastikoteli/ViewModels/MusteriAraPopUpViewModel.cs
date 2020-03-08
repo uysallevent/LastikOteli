@@ -66,6 +66,7 @@ namespace Lastikoteli.ViewModels
 
         private MusteriBilgileriResponse _secilenMusteri;
 
+        [Obsolete]
         public MusteriBilgileriResponse secilenMusteri
         {
             get { return _secilenMusteri; }
@@ -113,13 +114,13 @@ namespace Lastikoteli.ViewModels
                 else
                 {
                     musteriBilgiList = new ObservableCollection<MusteriBilgileriResponse>();
-                    await App.Current.MainPage.DisplayAlert("Uyarı", result.ErrorMessage, "Tamam");
+                    throw new Exception(result.ErrorMessage);
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await this.Page.DisplayAlert("Uyarı", "Bir hata oluştu", "Tamam");
+                await this.Page.DisplayAlert("Uyarı", ex.Message, "Tamam");
             }
             finally
             {

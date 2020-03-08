@@ -19,7 +19,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<PagingResponse<Randevu>>> IsEmriListesi(IsEmriListeRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/IsEmri/IsEmriListesi", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/IsEmri/IsEmriListesi", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<PagingResponse<Randevu>>(responseContent));
         }
@@ -27,7 +27,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<ObservableCollection<IsEmriResponse>>> PlakayaGoreIsEmriListesiGetir(SaklamaPlakaSorgulaRequest request)
         {
             var Client = await GetClient();
-            var response = await Client.GetAsync(APIUrl + $"/api/IsEmri/PlakayaGoreIsEmriListesiGetir?lngDistKod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
+            var response = await Client.GetAsync(apiUrl + $"/api/IsEmri/PlakayaGoreIsEmriListesiGetir?lngDistKod={request.lngDistKod}&txtPlaka={request.txtPlaka}");
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<ObservableCollection<IsEmriResponse>>(responseContent));
         }
@@ -35,7 +35,7 @@ namespace Lastikoteli.Services.Concrete
         public async Task<ApiResponseGeneric<bool>> IsEmriDurumuTamamla(IsEmriDurumGuncelleRequest request)
         {
             var client = await GetClient();
-            var response = await client.PostAsync(APIUrl + "/api/IsEmri/IsEmriDurumTamamla", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(apiUrl + "/api/IsEmri/IsEmriDurumTamamla", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
             return await Task.FromResult(ApiResultCheck.ResultCheck<bool>(responseContent));
         }
