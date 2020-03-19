@@ -26,6 +26,7 @@ namespace Lastikoteli.Droid
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            App.Version = $"Brisa Lastik Oteli Versiyon {Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionName}";
             LoadApplication(new App());
         }
 

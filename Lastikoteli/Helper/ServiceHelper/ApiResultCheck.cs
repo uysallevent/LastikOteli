@@ -1,4 +1,5 @@
 ﻿using Lastikoteli.Models;
+using Lastikoteli.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Lastikoteli.Helper.ServiceHelper
     {
         //Servisten dönen model içeriğinde Result Status 500 durumunda ilgili model yerine hata mesajını barındırdığı için 
         //JsonConvert aşamasında hata vermemesi için kontrol burada sağlanmaktadır
-        public static ApiResponseGeneric<T> ResultCheck<T>(string responseContent) where T :  new()
+        public static ApiResponseGeneric<T> ResultCheck<T>(string responseContent) where T : new()
         {
             var responseResult = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
             if (responseResult.StatusCode == 500)
@@ -25,6 +26,12 @@ namespace Lastikoteli.Helper.ServiceHelper
 
             if (responseResult.StatusCode == 200)
                 return JsonConvert.DeserializeObject<ApiResponseGeneric<T>>(responseContent);
+
+            if (responseResult.StatusCode == 401)
+            {
+                App.Current.MainPage = new LoginPage();
+                throw new Exception("Yetki bilgileriniz bulunamadı. Lütfen tekrar giriş yapınız");
+            }
 
             return JsonConvert.DeserializeObject<ApiResponseGeneric<T>>("");
         }
@@ -44,6 +51,13 @@ namespace Lastikoteli.Helper.ServiceHelper
 
             if (responseResult.StatusCode == 200)
                 return JsonConvert.DeserializeObject<ApiResponse>(responseContent);
+
+
+            if (responseResult.StatusCode == 401)
+            {
+                App.Current.MainPage = new LoginPage();
+                throw new Exception("Yetki bilgileriniz bulunamadı. Lütfen tekrar giriş yapınız");
+            }
 
             return JsonConvert.DeserializeObject<ApiResponse>("");
         }

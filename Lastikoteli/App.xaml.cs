@@ -14,6 +14,7 @@ namespace Lastikoteli
 {
     public partial class App : Application
     {
+        public static  string Version;
 
         public App()
         {

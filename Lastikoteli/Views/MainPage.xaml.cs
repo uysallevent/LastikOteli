@@ -13,7 +13,17 @@ namespace Lastikoteli.Views
         {
             InitializeComponent();
             BindingContext = mainViewModel = new MainViewModel(this.Navigation);
+        }
 
+        protected override bool OnBackButtonPressed()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                var result = await DisplayAlert("Uyarı", "Giriş ekranına dönmek istediğinize eminmisiniz ?", "Evet", "Hayır");
+                if (result)
+                    App.Current.MainPage = new LoginPage();
+            });
+            return true;
         }
 
     }

@@ -11,6 +11,7 @@ namespace Lastikoteli.Views
         public LoginPage()
         {
             InitializeComponent();
+            lblFooter.Text = App.Version;
             BindingContext = loginViewModel = new LoginViewModel(this.Navigation);
             (BindingContext as LoginViewModel).Page = this;
             //entryUserName.Text = "test";

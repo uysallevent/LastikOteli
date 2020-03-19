@@ -9,11 +9,11 @@ namespace Lastikoteli.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private DoubleClickControl _doubleClickControl;
+
         public Command gotoIsListesiPageCommand { get; set; }
         public Command gotoHavuzIslemleriPageCommand { get; set; }
         public Command gotoDepoIslemleriPageCommand { get; set; }
         public Command gotoKayitGuncellemePageCommand { get; set; }
-
 
         public MainViewModel(INavigation navigation)
         {
